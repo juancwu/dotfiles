@@ -3,7 +3,6 @@
 	email = 46619361+juancwu@users.noreply.github.com
   signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPgpMo8j6HrZf3Xoe6ppX3BOZ7a7Xj4e8QzEnR7x5dm9
 
-
 [init]
 	defaultBranch = main
 
