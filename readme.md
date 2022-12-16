@@ -4,6 +4,48 @@ These are my configuration files for my development environment using Fish (shel
 
 There are different branches for each OS.
 
+The configurations in this repository are highly inspired by and referenced from [craftzdog](https://github.com/craftzdog/dotfiles-public).
+
+# Terminal Colourscheme
+
+## Basic Colours
+
+- Foreground: #839496
+- Background: #001f27
+- Bold: #93a1a1
+- Links: #005bbb
+- Selection: #073642
+- Selected text: #93a1a1
+
+## ANSI Colours
+
+### Normal
+
+- Black: #073642
+- Red: #dc322f
+- Green: #859900
+- Yellow: #b58900
+- Blue: #268bd2
+- Magenta: #d33682
+- Cyan: #2aa198
+- White: #eee8d5
+
+### Bright
+
+- Black: #002b36
+- Red: #cb4b16
+- Green: #586e75
+- Yellow: #657b83
+- Blue: #839496
+- Magenta: #6c71c4
+- Cyan: #93a1a1
+- White: #fdf6e3
+
+## Cursor Colours
+
+- Cursor: #839496
+- Cursor text: #073642
+
 # Instructions
 
 - [Linux](docs/linux.md)
