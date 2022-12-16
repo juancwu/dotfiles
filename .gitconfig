@@ -1,7 +1,7 @@
 [user]
   name = juancwu
   email = 46619361+juancwu@users.noreply.github.com
-  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPgpMo8j6HrZf3Xoe6ppX3BOZ7a7Xj4e8QzEnR7x5dm9
+  signingkey = /home/jc/.ssh/id_ed25519.pub
 
 [init]
 	defaultBranch = main
@@ -11,9 +11,6 @@
 
 [gpg]
   format = ssh
-
-[gpg "ssh"]
-  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 
 [commit]
   gpgsign = true
