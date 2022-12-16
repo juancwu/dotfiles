@@ -1,6 +1,4 @@
 [user]
-	name = Jc 
-	email = jcwuchen00@gmail.com 
   signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPgpMo8j6HrZf3Xoe6ppX3BOZ7a7Xj4e8QzEnR7x5dm9
 
 [init]
