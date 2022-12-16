@@ -4,11 +4,10 @@ status is-interactive && eval /home/jc/miniconda3/bin/conda "shell.fish" "hook" 
 # <<< conda initialize <<<
 
 # Go
-set -g GOPATH $HOME/go
-set -g GOBIN $GOPATH/bin
+set -g GOPATH $HOME/go 
 
 # Add gobin to path
-fish_add_path $GOBIN
+fish_add_path $GOPATH/bin
 
 #x-server
 set -g DISPLAY $(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
