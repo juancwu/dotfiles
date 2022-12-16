@@ -53,6 +53,7 @@ Follow the steps below to configure the dotfiles on Ubuntu.
 Visit [https://fishshell.com/](https://fishshell.com/) and follow the instructions to install fish on Ubuntu.
 
 Alternatively, follow these instructions for installing in Ubuntu.
+
 ```bash
 sudo add-apt-repository ppa:fish-shell/release-3
 sudo apt update
@@ -60,6 +61,7 @@ sudo apt install fish
 ```
 
 Verify fish has been installed.
+
 ```bash
 which fish
 ```
@@ -75,6 +77,7 @@ chsh -s $(which fish)
 Minimalist browser
 
 Use the below command if running on Ubuntu:
+
 ```fish
 sudo dpkg -i /path/to/download
 ```
@@ -155,5 +158,3 @@ This section defines a list of plugins used to customize fish.
 - [Peco](https://github.com/peco/peco) - Filterting tool.
 - [Llama](https://github.com/antonmedv/llama) - Terminal file manager.
 - [ghq](https://github.com/x-motemen/ghq) - Manage remote repository clones.
-
-testing sign commits
