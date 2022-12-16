@@ -44,26 +44,25 @@ The configurations in this repository are highly inspired by and referenced from
 
 # Setup
 
-Follow the steps below to configure the dotfiles on macOS.
+Follow the steps below to configure the dotfiles on Ubuntu.
 
 ## Requirements
 
-### 1. Install Homebrew
+### 1. Install Fish
 
-- [Homebrew](https://brew.sh/) - Package manager for macOS.
+Visit [https://fishshell.com/](https://fishshell.com/) and follow the instructions to install fish on Ubuntu.
 
-After installing Homebrew, make sure to save its path somewhere using `which brew`. We are going to need it later to add it to path for `fish`.
-
-### 2. Install Fish
-
+Alternatively, follow these instructions for installing in Ubuntu.
 ```bash
-brew install fish
-which fish
+sudo add-apt-repository ppa:fish-shell/release-3
+sudo apt update
+sudo apt install fish
 ```
 
-For more info:
-
-- [Fish](https://fishshell.com/) - fish is a smart and user-friendly command line shell for Linux, macOS, and the rest of the family.
+Verify fish has been installed.
+```bash
+which fish
+```
 
 #### Make fish the default shell
 
@@ -71,44 +70,23 @@ For more info:
 chsh -s $(which fish)
 ```
 
-### 3. Install iTerm2
-
-```fish
-brew install iTerm2 --cask
-```
-
-Setup iTerm2 from json file. [Download](./files/iterm-profile.json)
-
-### 4. Install Numi
-
-Calculator and conversion application.
-
-```fish
-brew install numi --cask
-```
-
-### 5. Install Min browser
+### 2. Install Min browser
 
 Minimalist browser
 
+Use the below command if running on Ubuntu:
 ```fish
-brew install min --cask
+sudo dpkg -i /path/to/download
 ```
 
-### 6. Install Karabiner-Elements
+If not, visit [https://minbrowser.org/](https://minbrowser.org/).
 
-Keybinding at system wide level for macOS. We want this for the sweet `ctrl+[` -> `esc` and `ctrl+h/j/k/l` -> `arrow keys`.
-
-```fish
-brew install karabiner-elements --cask
-```
-
-### 7. Install Neovim
+### 3. Install Neovim
 
 Neovim is an extension of vim that supports Lua scripting for configurations and plugins.
 
 ```fish
-brew install neovim
+sudo apt install neovim
 ```
 
 After installing neovim, we want to install all the language servers needed and formatters before installing plugins to avoid any problems.
