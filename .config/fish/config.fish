@@ -30,6 +30,18 @@ if type -q exa
   alias lla "ll -a"
 end
 
+alias cc clear
+
+if type -q git
+    alias g git
+    alias gb "git branch"
+    alias gc "git commit"
+    alias gs "git status"
+    alias gp "git push"
+    alias ga "git add"
+    alias gx "git stash"
+end
+
 # allow local config overwrite
 set LOCAL_CONFIG (dirname (status --current-file))/config-local.fish
 if test -f $LOCAL_CONFIG
