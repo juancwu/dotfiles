@@ -1,16 +1,17 @@
-local status, telescope = pcall(require, 'telescope')
+local status, telescope = pcall(require, "telescope")
+
 if not status then return end
 
-local actions = require('telescope.actions')
-local builtin = require('telescope.builtin')
+local actions = require("telescope.actions")
+local builtin = require("telescope.builtin")
 
-function telescope_buffer_dir()
-    return vim.fn.expand('%:p:h')
+local fb_actions = require "telescope".extensions.file_browser.actions
+
+local function telescope_buffer_dir()
+    return vim.fn.expand("%:p:h")
 end
 
-local fb_actions = require 'telescope'.extensions.file_browser.actions
-
-telescope.setup {
+telescope.setup({
     defaults = {
         mappings = {
             n = {
@@ -21,71 +22,41 @@ telescope.setup {
     extensions = {
         file_browser = {
             theme = "dropdown",
-            -- disable netrw and use telescope-file-browser
             hijack_netrw = true,
             mappings = {
                 ['i'] = {
-                    ['<C-w>'] = function()
-                        vim.cmd('normal vbd')
-                    end
+                    ['<C-w>'] = function() vim.cmd("normal vbd") end
                 },
                 ['n'] = {
                     ['N'] = fb_actions.create,
                     ['h'] = fb_actions.goto_parent_dir,
-                    ['/'] = function()
-                        vim.cmd('startinsert')
-                    end
+                    ['/'] = function() vim.cmd("startinsert") end,
+                    ['D'] = fb_actions.remove
                 }
             }
         }
     }
-}
+})
 
 telescope.load_extension("file_browser")
 
-vim.keymap.set('n', ';f',
-    function()
-        builtin.find_files({
-            no_ignore = false,
-            hidden = true
-        })
-    end)
 
-vim.keymap.set('n', ';r',
-    function()
-        builtin.live_grep()
-    end)
-
-vim.keymap.set('n', '\\\\',
-    function()
-        builtin.buffers()
-    end)
-
-vim.keymap.set('n', ';t',
-    function()
-        builtin.help_tags()
-    end)
-
-vim.keymap.set('n', ';;',
-    function()
-        builtin.resume()
-    end)
-
-vim.keymap.set('n', ';e',
-    function()
-        builtin.diagnostics()
-    end)
-
-vim.keymap.set('n', 'sf',
+-- Set up keymaps specific to telescope
+vim.keymap.set("n", ";f", function()
+    builtin.find_files({ no_ignore = false, hidden = true })
+end)
+vim.keymap.set("n", ";g", builtin.git_files)
+vim.keymap.set("n", "sf", 
     function()
         telescope.extensions.file_browser.file_browser({
-            path = '%:p:h',
+            path = "%:p:h",
             cwd = telescope_buffer_dir(),
-            respect_gitignore = false,
+            respect_gitignore = true,
             hidden = true,
             grouped = true,
-            previwer = false,
-            initial_mode = 'normal',
+            previewer = false,
+            initial_mode = "normal",
             layout_config = { height = 40 }
         })
     end)
+vim.keymap.set("n", ";h", builtin.help_tags)
