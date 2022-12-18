@@ -1,10 +1,10 @@
 # Overview
 
-These are my configuration files for my development environment using Fish (shell) and NeoVim.
+One place to keep all my general configurations to setup my development environment on the terminal.
 
-There are different branches for each OS.
-
-The configurations in this repository are highly inspired by and referenced from [craftzdog](https://github.com/craftzdog/dotfiles-public).
+The configurations in this repository are highly inspired by and referenced from: 
+- [craftzdog](https://github.com/craftzdog/dotfiles-public)
+- [ThePrimeagen](https://github.com/ThePrimeagen/init.lua)
 
 # Terminal Colourscheme
 
@@ -46,20 +46,24 @@ The configurations in this repository are highly inspired by and referenced from
 - Cursor: #839496
 - Cursor text: #073642
 
-# Instructions
+# Instructions Based on OS
+
+These are set of instructions to setup the terminal (fish and neovim).
 
 - [Linux](docs/linux.md)
 - [Mac](docs/macos.md)
 
-# 1Password Configuration SSH-Agent
+# Other Setups
+
+## 1Password Configuration SSH-Agent
 
 Use 1Password SSH-Agent for SSH authentication and commit signing.
 
-## Windows & WSL2
+### Windows & WSL2
 
 We need to create a bridge with named pipes between Windows and WSL2 so that WSL2 can use 1Password SSH-Agent.
 
-### Steps
+#### Steps
 
 1. Enable Windows Hello in Settings
 2. Install [npiperelay.exe](https://1password.community/home/leaving?allowTrusted=1&target=https%3A%2F%2Fgithub.com%2Fjstarks%2Fnpiperelay)
@@ -98,18 +102,18 @@ end
 5. Restart terminal.
 6. Test with `ssh-add -l`. This should output the 1Password SSH keys.
 
-## MacOS
+### MacOS
 
 MacOS setup is pretty straight forward.
 
-### Steps
+#### Steps
 
 1. Open the settings page of 1Password.
 2. Go to the `Developer`.
 3. Turn on `Use the SSH agent` option.
 4. Configure singed commits
 
-## Configure Signed Commits
+### Configure Signed Commits
 
 This will make each commit show as `verified` on GitHub.
 
