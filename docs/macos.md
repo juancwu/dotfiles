@@ -22,7 +22,7 @@ For more info:
 - [Fish](https://fishshell.com/) - fish is a smart and user-friendly command line shell for Linux, macOS, and the rest of the family.
 
 
-Here is a list of [Fish customizations](/fish.md).
+Here is a list of [Fish customizations](/docs/fish.md).
 
 #### Make fish the default shell
 
@@ -85,4 +85,4 @@ If the version is not `>= 0.9.0`, follow these steps to install a compatible ver
 Let's create a symlink to the binary file:
 `sudo ln -s /path/where/it/is/located/bin/nvim /usr/local/bin/nvim`. This will allow us to run `nvim` without moving the binary to `usr/local/bin`.
 
-Now it is time to [setup Neovim](/nvim.md).
+Now it is time to [setup Neovim](/docs/nvim.md).

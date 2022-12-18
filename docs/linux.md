@@ -22,7 +22,7 @@ Verify fish has been installed.
 which fish
 ```
 
-Here is the list of [Fish customizations](/fish.md).
+Here is the list of [Fish customizations](/docs/fish.md).
 
 #### Make fish the default shell
 
@@ -69,4 +69,4 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 ```
 
-Now it is time to [setup Neovim](/nvim.md).
+Now it is time to [setup Neovim](/docs/nvim.md).
