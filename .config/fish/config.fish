@@ -38,8 +38,8 @@ if type -q git
     alias gc "git commit"
     alias gs "git status"
     alias gp "git push"
+    alias gP "git pull --rebase"
     alias ga "git add"
-    alias gx "git stash"
 end
 
 # allow local config overwrite

@@ -16,9 +16,11 @@ end
 function peco_change_directory
   begin
     echo $HOME/.config
-    ghq list -p
+    # ghq list -p # gh cli replaced this, so it is no longer needed
+    # list local repositories 
+    find $HOME/ghq -mindepth 2 -maxdepth 2 -type d 
     # home directory
-    ls -ad $HOME/* | grep -v \.git
+    ls -ad $HOME/*/ | grep -v \.git
     # current directory
     ls -ad */ | perl -pe "s#^#$PWD/#" | grep -v \.git
   end | sed -e 's/\/$//' | awk '!a[$0]++' | _peco_change_directory $argv
