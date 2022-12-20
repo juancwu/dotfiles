@@ -35,7 +35,8 @@ alias cc clear
 if type -q git
     alias g git
     alias gb "git branch"
-    alias gc "git commit"
+    alias gm "git commit"
+    alias gc "git checkout"
     alias gs "git status"
     alias gp "git push"
     alias gP "git pull --rebase"
