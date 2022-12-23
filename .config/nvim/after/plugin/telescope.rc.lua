@@ -23,6 +23,7 @@ telescope.setup({
         file_browser = {
             theme = "dropdown",
             hijack_netrw = true,
+            hidden = true,
             mappings = {
                 ['i'] = {
                     ['<C-w>'] = function() vim.cmd("normal vbd") end
