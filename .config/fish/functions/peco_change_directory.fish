@@ -19,6 +19,8 @@ function peco_change_directory
     # ghq list -p # gh cli replaced this, so it is no longer needed
     # list local repositories 
     find $HOME/ghq -mindepth 2 -maxdepth 2 -type d 
+    # list unity projects
+    find $HOME/unity-projects -mindepth 1 -maxdepth 1 -type d
     # home directory
     ls -ad $HOME/*/ | grep -v \.git
     # current directory
