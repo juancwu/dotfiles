@@ -37,7 +37,7 @@ if type -q git
     alias gb "git branch"
     alias gm "git commit"
     alias gc "git checkout"
-    alias gs "git status"
+    alias gs "git status -sb"
     alias gp "git push"
     alias gP "git pull --rebase"
     alias ga "git add"
