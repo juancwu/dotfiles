@@ -76,4 +76,7 @@ return require('packer').startup(function(use)
 
     -- zen mode, mmmmmm
     use "folke/zen-mode.nvim"
+
+    -- auto closing tags
+    use "windwp/nvim-ts-autotag"
 end)
