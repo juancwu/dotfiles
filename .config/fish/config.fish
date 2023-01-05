@@ -43,6 +43,12 @@ if type -q git
     alias ga "git add"
 end
 
+if type -q tmux
+    alias tma "tmux attach"
+    alias tmls "tmux list-session"
+    alias tmks "tmux kill-session"
+end
+
 # allow local config overwrite
 set LOCAL_CONFIG (dirname (status --current-file))/config-local.fish
 if test -f $LOCAL_CONFIG
