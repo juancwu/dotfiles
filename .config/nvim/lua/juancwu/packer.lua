@@ -18,7 +18,8 @@ return require('packer').startup(function(use)
 
     -- colorscheme
     use "tjdevries/colorbuddy.nvim"
-    use "svrana/neosolarized.nvim"
+--    use "svrana/neosolarized.nvim"
+    use "navarasu/onedark.nvim"
 
     -- treesitter baby
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
