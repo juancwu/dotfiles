@@ -10,58 +10,80 @@ Set-PSReadLineOption -EditMode Emacs
 Set-PSReadLineOption -BellStyle None
 Set-PSReadLineKeyHandler -Chord 'Ctrl+d' -Function DeleteChar
 Set-PSReadLineOption -PredictionSource History
-Set-PSReadLineOption -PredictionViewStyle ListView
+# Set-PSReadLineOption -PredictionViewStyle ListView
 
 # Fzf
 Import-Module PSFzf
 
 # Simulate the peco change directory functionality from mac/linux setups
-function Fuzzy-Find {
-    param(
-        [boolean]$file = $false,
-        [boolean]$a  = $false, # shows only current working directory
-        [int]$depth   = 2
-        )
+# function Fuzzy-Find {
+#     param(
+#         [boolean]$file = $false,
+#         [boolean]$a    = $false, # shows only current working directory
+#         [int]$depth    = 1
+#         )
+# 
+#     $ghq = "$env:USERPROFILE\ghq"
+#     $app_data = "$env:USERPROFILE\AppData\Local"
+#     $cwd = (Get-Location).Path
+# 
+#     if ($file) {
+#         if (!$a) {
+#             $items = Get-ChildItem $cwd -Recurse -Attributes !Directory -Depth $depth
+#         } else {
+#             $f1 = Get-ChildItem $cwd, $app_data -Recurse -Attributes !Directory -Depth $depth
+#             $f2 = Get-ChildItem $ghq -Recurse -Attributes !Directory -Depth 3
+#             $items = @($f1 ; $f2)
+#         }
+#     } else {
+#         if (!$a) {
+#             $items = Get-ChildItem $cwd -Recurse -Attributes Directory -Depth $depth
+#         } else {
+#             $dir1 = Get-ChildItem $cwd, $app_data -Recurse -Attributes Directory -Depth $depth
+#             $dir2 = Get-ChildItem $ghq -Recurse -Attributes Directory -Depth 3
+#             $items = @($dir1 ; $dir2)
+#         }
+#     }
+# 
+#     $selected = $items | Invoke-Fzf
+#     if ($selected -ne $null) {
+#         if ($file) {
+#             vim $selected
+#         } else {
+#             Set-Location $selected
+#         } 
+#     }
+# }
 
-    $ghq = "$env:USERPROFILE\ghq"
-    $app_data = "$env:USERPROFILE\AppData\Local"
-    $cwd_ = (Get-Location).Path
-
-
-    if ($file) {
-        if (!$a) {
-            $items = Get-ChildItem $cwd_ -Recurse -Attributes !Directory -Depth $depth
-        } else {
-            $f1 = Get-ChildItem $cwd_, $app_data -Recurse -Attributes !Directory -Depth $depth
-            $f2 = Get-ChildItem $ghq -Recurse -Attributes !Directory -Depth 3
-            $items = @($f1 ; $f2)
-        }
-    } else {
-        if (!$a) {
-            $items = Get-ChildItem $cwd_ -Recurse -Attributes Directory -Depth $depth
-        } else {
-            $dir1 = Get-ChildItem $cwd_, $app_data -Recurse -Attributes Directory -Depth $depth
-            $dir2 = Get-ChildItem $ghq -Recurse -Attributes Directory -Depth 3
-            $items = @($dir1 ; $dir2)
-        }
-    }
-
+# search file in current directory
+function sf([int]$d=0) {
+    # Fuzzy-Find -file $true -a $a -depth $d
+    # This function should act like telescope inside nvim
+    # Include files and directoies at the surface level (include hidden)
+    $items = Get-ChildItem (Get-Location).Path -Attributes Directory,!Directory,Hidden -Depth $d
     $selected = $items | Invoke-Fzf
     if ($selected -ne $null) {
-        if ($file) {
+        if (Test-Path $selected -PathType Leaf) {
+            # file so we open for edit
             vim $selected
         } else {
+            # directory so we navigate to it
             Set-Location $selected
-        } 
+        }
     }
 }
 
-# Alias to run the peco-like function
-function sf([switch]$a, [int]$d=2) {
-    Fuzzy-Find -file $true -a $a -depth $d
-}
-function sd([switch]$a, [int]$d=2) {
-    Fuzzy-Find -file $false -a $a -depth $d
+# Opens the directories that I often go to
+# Fast Forward
+function ff() {
+    $ghq = Get-ChildItem $env:USERPROFILE\ghq -Attributes Directory -Depth 1
+    $app_data = Get-ChildItem $env:USERPROFILE\AppData -Attributes Directory
+    $unity_projects = Get-ChildItem "E:\Unity Projects" -Attributes Directory
+    $directories = @($ghq ; $app_data ; $unity_projects)
+    $selected = $directories | Invoke-Fzf
+    if ($selected -ne $null) {
+        Set-Location $selected
+    }
 }
 
 
