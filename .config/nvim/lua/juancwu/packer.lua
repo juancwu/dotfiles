@@ -54,6 +54,14 @@ return require('packer').startup(function(use)
       }
     }
 
+    -- Formatter configuration using null-ls
+    use {
+        'jose-elias-alvarez/null-ls.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim'
+        }
+    }
+
     -- status line
     use {
       'nvim-lualine/lualine.nvim',
@@ -80,4 +88,7 @@ return require('packer').startup(function(use)
 
     -- auto closing tags
     use "windwp/nvim-ts-autotag"
+
+    -- python indentation
+    use "Vimjas/vim-python-pep8-indent"
 end)
