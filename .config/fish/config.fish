@@ -49,6 +49,17 @@ if type -q tmux
     alias tmks "tmux kill-session"
 end
 
+if type -q nvm
+    nvm use >/dev/null
+end
+
+function fish_greeting
+    echo "Welcome Back Juan!"
+    if type -q nvm
+        echo "Current Node:$(nvm current)"
+    end
+end
+
 # allow local config overwrite
 set LOCAL_CONFIG (dirname (status --current-file))/config-local.fish
 if test -f $LOCAL_CONFIG
