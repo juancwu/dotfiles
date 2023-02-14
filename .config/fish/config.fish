@@ -65,3 +65,8 @@ set LOCAL_CONFIG (dirname (status --current-file))/config-local.fish
 if test -f $LOCAL_CONFIG
   source $LOCAL_CONFIG
 end
+
+# pnpm
+set -gx PNPM_HOME "/home/jc/.local/share/pnpm"
+set -gx PATH "$PNPM_HOME" $PATH
+# pnpm end
