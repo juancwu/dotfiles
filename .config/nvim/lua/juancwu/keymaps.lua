@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 
 -- open the explorer
-vim.keymap.set("n", "<leader>pv", "<cmd>Ex<CR>") 
+vim.keymap.set("n", "<leader>e", "<cmd>Ex<CR>") 
 
 -- move highlighted lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -18,9 +18,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
--- paste without losing clipboard
-vim.keymap.set("x", "<leader>p", "\"_dP")
-
 -- do not copy with x, for god sake, WHY copy something that is being deleted??
 vim.keymap.set("n", "x", "\"_x")
 
@@ -36,8 +33,7 @@ vim.keymap.set("n", "<leader>dd", "dd") -- cut line, under my control
 
 -- copy/paste to/from system clipboard
 vim.keymap.set({"n", "v"}, "<leader>y", "\"+y")
-vim.keymap.set("n", "<leader>Y", "\"+Y")
-vim.keymap.set({"n", "v"}, "<leader>P", "\"+p")
+vim.keymap.set({"n", "v"}, "<leader>p", "\"+p")
 
 -- increment/decrement a count, helpful for changing indeces
 vim.keymap.set("n", "+", "<C-a>")
