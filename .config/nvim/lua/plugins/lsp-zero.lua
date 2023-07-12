@@ -25,6 +25,8 @@ return {
         lspzero.on_attach(function(client, bufnr)
             lspzero.default_keymaps({ buffer = bufnr })
 
+            local current_dir = vim.fn.expand("%:p:h")
+
             -- format with space + f
             vim.keymap.set("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>")
         end)

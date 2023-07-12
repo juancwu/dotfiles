@@ -52,7 +52,8 @@ return {
             builtin.find_files({ no_ignore = false, hidden = true })
         end)
         vim.keymap.set("n", ";g", builtin.git_files)
-        vim.keymap.set("n", "sf",
+        vim.keymap.set("n", ";h", builtin.help_tags)
+        vim.keymap.set("n", ";d",
             function()
                 telescope.extensions.file_browser.file_browser({
                     path = "%:p:h",
@@ -65,6 +66,18 @@ return {
                     layout_config = { height = 40 }
                 })
             end)
-        vim.keymap.set("n", ";h", builtin.help_tags)
+
+        local status, wk = pcall(require, "which-key");
+        if status then
+            wk.register({
+                [";"] = {
+                    name = "Telescope",
+                    f = { desc = "Search files in project" },
+                    d = { desc = "Open directory viewer" },
+                    g = { desc = "Search git files" },
+                    h = { desc = "Search help tags" },
+                }
+            })
+        end
     end
 }

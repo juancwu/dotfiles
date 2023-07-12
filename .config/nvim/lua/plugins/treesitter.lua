@@ -1,6 +1,10 @@
 return {
     'nvim-treesitter/nvim-treesitter',
     build = ":TSUpdate",
+    event = {
+        "BufReadPost",
+        "BufNewFile"
+    },
     config = function()
         local treesitter = require("nvim-treesitter.configs")
 
@@ -22,6 +26,16 @@ return {
             context_commentstring = {
                 enable = true,
             },
+
+            incremental_selection = {
+                enable = true,
+                keymaps = {
+                    init_selection = '<leader>c',
+                    node_incremental = "<C-p>",
+                    scope_incremental = "<C-s>",
+                    node_decremental = "<M-p>"
+                }
+            }
         }
     end
 }

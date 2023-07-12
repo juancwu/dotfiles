@@ -16,4 +16,12 @@ require("keymaps")
 require("clipboard")
 require("options")
 
-require("lazy").setup("plugins")
+require("lazy").setup({
+    import = "plugins",
+    install = {
+        colorscheme = { "rose-pine" },
+    }
+})
+
+-- set theme
+vim.cmd.colorscheme("rose-pine")
