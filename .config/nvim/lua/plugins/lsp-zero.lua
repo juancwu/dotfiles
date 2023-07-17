@@ -20,15 +20,38 @@ return {
     config = function()
         local lspzero = require("lsp-zero")
 
-        lspzero.preset("recommended")
+        lspzero.preset({})
 
         lspzero.on_attach(function(client, bufnr)
-            lspzero.default_keymaps({ buffer = bufnr })
+            lspzero.default_keymaps({
+                buffer = bufnr,
+                omit = {
+                    'gr'
+                },
+            })
+
+            function nmap(key, action, desc)
+                vim.keymap.set(
+                    "n",
+                    key,
+                    action,
+                    {
+                        desc = "LSP: " .. desc,
+                    }
+                )
+            end
+
+            nmap("[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", "Goto Prev Diagnostic");
+            nmap("]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", "Goto Next Diagnostic")
 
             local current_dir = vim.fn.expand("%:p:h")
 
+            -- vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', { buffer = true })
+
             -- format with space + f
-            vim.keymap.set("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>")
+            -- vim.keymap.set("n", "<leader>fb", "<cmd>lua vim.lsp.buf.format()<CR>",
+            --     { desc = "[F]ormat [B]uffer" })
+            nmap("<leader>fb", "<cmd>lua vim.lsp.buf.format()<CR>", "[F]ormat [B]uffer")
         end)
 
         lspzero.ensure_installed({

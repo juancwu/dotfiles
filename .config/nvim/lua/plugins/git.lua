@@ -1,9 +1,8 @@
 return {
     'dinhhuy258/git.nvim',
     keys = {
-        { "<leader>gb", "<cmd>GitBlame<CR>",   desc = "Open Git Blame" },
-        { "<leader>gd", "<cmd>GitDiff<CR>",    desc = "Open Git Diff" },
-        { "<leader>gs", "<cmd>Git status<CR>", desc = "Open Git Status" }
+        { "<leader>gbl", "<cmd>GitBlame<CR>", desc = "Open [G]it [Bl]ame" },
+        { "<leader>gd",  "<cmd>GitDiff<CR>",  desc = "Open [G]it [D]iff" },
     },
     cmd = {
         "Git",
@@ -16,9 +15,7 @@ return {
         git.setup({
             default_keymaps = true,
             keymaps = {
-                blame = "<leader>gb",
                 quit_blame = "q",
-                diff = "<leader>gd",
                 diff_close = "q",
             },
             target_branch = "main",

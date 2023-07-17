@@ -5,9 +5,6 @@ return {
         "nvim-tree/nvim-web-devicons",
         { "junegunn/fzf", build = "./install --bin" }
     },
-    config = function()
-        -- calling `setup` is optional for customization
-        require("fzf-lua").setup({})
-    end,
+    config = {},
     enabled = true,
 }

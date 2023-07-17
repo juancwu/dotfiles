@@ -6,11 +6,11 @@ return {
         local telescope = require("telescope")
         local actions = require("telescope.actions")
         local builtin = require("telescope.builtin")
-        local fb_actions = require "telescope".extensions.file_browser.actions
-
-        local function telescope_buffer_dir()
-            return vim.fn.expand("%:p:h")
-        end
+        -- local fb_actions = require "telescope".extensions.file_browser.actions
+        --
+        -- local function telescope_buffer_dir()
+        --     return vim.fn.expand("%:p:h")
+        -- end
 
         telescope.setup({
             defaults = {
@@ -20,64 +20,73 @@ return {
                     }
                 }
             },
-            extensions = {
-                file_browser = {
-                    theme = "dropdown",
-                    hijack_netrw = true,
-                    hidden = true,
-                    mappings = {
-                        ['i'] = {
-                            ['<C-w>'] = function() vim.cmd("normal vbd") end,
-                            ['<C-j>'] = function(bufnr) actions.move_selection_next(bufnr) end,
-                            ['<C-k>'] = function(bufnr) actions.move_selection_previous(bufnr) end,
-                            ['<C-s>'] = function(bufnr) actions.select_vertical(bufnr) end,
-                        },
-                        ['n'] = {
-                            ['N'] = fb_actions.create,
-                            ['h'] = fb_actions.goto_parent_dir,
-                            ['/'] = function() vim.cmd("startinsert") end,
-                            ['D'] = fb_actions.remove,
-                            ['<C-s>'] = function(bufnr) actions.select_vertical(bufnr) end,
-                            ['<C-a>'] = function(bufnr) actions.toggle_all(bufnr) end,
-                        }
-                    }
-                },
-            }
+            -- extensions = {
+            --     file_browser = {
+            --         theme = "dropdown",
+            --         hijack_netrw = true,
+            --         hidden = true,
+            --         mappings = {
+            --             ['i'] = {
+            --                 ['<C-w>'] = function() vim.cmd("normal vbd") end,
+            --                 ['<C-j>'] = function(bufnr) actions.move_selection_next(bufnr) end,
+            --                 ['<C-k>'] = function(bufnr) actions.move_selection_previous(bufnr) end,
+            --                 ['<C-s>'] = function(bufnr) actions.select_vertical(bufnr) end,
+            --             },
+            --             ['n'] = {
+            --                 ['N'] = fb_actions.create,
+            --                 ['h'] = fb_actions.goto_parent_dir,
+            --                 ['/'] = function() vim.cmd("startinsert") end,
+            --                 ['D'] = fb_actions.remove,
+            --                 ['<C-s>'] = function(bufnr) actions.select_vertical(bufnr) end,
+            --                 ['<C-a>'] = function(bufnr) actions.toggle_all(bufnr) end,
+            --             }
+            --         }
+            --     },
+            -- }
         })
 
-        telescope.load_extension("file_browser")
+        -- pcall(telescope.load_extension, "file_browser")
+        pcall(telescope.load_extension, "fzf")
+        pcall(telescope.load_extension, "dap")
 
-        -- Set up keymaps specific to telescope
-        vim.keymap.set("n", ";f", function()
+        -- Builtin pickers
+        vim.keymap.set("n", "<leader>sf", function()
             builtin.find_files({ no_ignore = false, hidden = true })
-        end)
-        vim.keymap.set("n", ";g", builtin.git_files)
-        vim.keymap.set("n", ";h", builtin.help_tags)
-        vim.keymap.set("n", ";d",
-            function()
-                telescope.extensions.file_browser.file_browser({
-                    path = "%:p:h",
-                    cwd = telescope_buffer_dir(),
-                    respect_gitignore = true,
-                    hidden = true,
-                    grouped = true,
-                    previewer = false,
-                    initial_mode = "normal",
-                    layout_config = { height = 40 }
-                })
-            end)
+        end, { desc = "[S]earch [F]iles" })
+        vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp Tags" })
+        vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[S]earch [B]uffers" })
+        vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch [W]ord" })
+        vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+        vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
+        vim.keymap.set("n", "gr", builtin.lsp_references, { desc = "[G]o to [R]eferences", noremap = true })
 
-        local status, wk = pcall(require, "which-key");
-        if status then
-            wk.register({
-                [";"] = {
-                    name = "Telescope",
-                    f = { desc = "Search files in project" },
-                    d = { desc = "Open directory viewer" },
-                    g = { desc = "Search git files" },
-                    h = { desc = "Search help tags" },
-                }
-            })
-        end
+        -- Git pickers
+        vim.keymap.set("n", "<leader>gf", builtin.git_files, { desc = "Search [G]it [F]iles" })
+        vim.keymap.set("n", "<leader>gs", builtin.git_status, { desc = "List [G]it [S]tatus" })
+        vim.keymap.set("n", "<leader>gh", builtin.git_stash, { desc = "List [G]it [S]tash" })
+        vim.keymap.set("n", "<leader>gbb", builtin.git_branches, { desc = "List [G]it [B]ranches" })
+        vim.keymap.set("n", "<leader>gc", builtin.git_bcommits, { desc = "List Buffer [G]it [C]ommits" })
+
+        -- File Browser Ext
+        -- vim.keymap.set("n", "<leader>od",
+        --     function()
+        --         telescope.extensions.file_browser.file_browser({
+        --             path = "%:p:h",
+        --             cwd = telescope_buffer_dir(),
+        --             respect_gitignore = true,
+        --             hidden = true,
+        --             grouped = true,
+        --             previewer = false,
+        --             initial_mode = "normal",
+        --             layout_config = { height = 40 }
+        --         })
+        --     end, { desc = "[O]pen [D]irectory" })
+
+        vim.keymap.set('n', '<leader>/', function()
+            builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
+                winblend = 10,
+                previewer = false,
+            }))
+        end, { desc = '[/] Fuzzily serach in current buffer' })
     end
 }

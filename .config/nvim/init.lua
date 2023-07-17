@@ -22,6 +22,3 @@ require("lazy").setup({
         colorscheme = { "rose-pine" },
     }
 })
-
--- set theme
-vim.cmd.colorscheme("rose-pine")
