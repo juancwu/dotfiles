@@ -42,3 +42,19 @@ vim.opt.termguicolors = true -- good shit, just take it
 
 -- activate persistent undo
 vim.opt.undofile = true
+
+
+-- [[ highlight on yank ]]
+local highligh_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    group = highligh_group,
+    pattern = '*',
+})
+
+
+vim.opt.completeopt = 'menuone,noselect'
+
+vim.opt.breakindent = true
