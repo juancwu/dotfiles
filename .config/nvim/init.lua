@@ -11,14 +11,25 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local has = vim.fn.has
+local is_mac = has "macunix"
+local is_win = has "win32"
+local is_unix = has "unix"
+
 -- custom modules:
 require("keymaps")
-require("clipboard")
 require("options")
 
-require("lazy").setup({
-    import = "plugins",
-    install = {
-        colorscheme = { "rose-pine" },
-    }
-})
+if is_win then
+	require("clipboard-windows")
+end
+
+if is_mac then
+	require("clipboard-macos")
+end
+
+if is_unix then
+	require("clipboard-unix")
+end
+
+require("lazy").setup("plugins")

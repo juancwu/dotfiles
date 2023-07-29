@@ -6,6 +6,11 @@ vim.keymap.set("i", "<C-[>", "<Esc>", { noremap = true, silent = true })
 vim.keymap.set("v", "<C-[>", "<Esc>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-[>", "<Esc>", { noremap = true, silent = true })
 
+-- easy escape
+vim.keymap.set("i", "<C-[>", "<Esc>", { noremap = true, silent = true })
+vim.keymap.set("v", "<C-[>", "<Esc>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-[>", "<Esc>", { noremap = true, silent = true })
+
 -- open the explorer
 vim.keymap.set("n", "<leader>e", "<cmd>Ex<CR>")
 
@@ -87,3 +92,6 @@ vim.keymap.set("t", "<C-x>", "<cmd>bd!<CR>", { noremap = true })   -- terminate 
 vim.keymap.set("n", "<C-t>", "<cmd>term<CR>i", { noremap = true }) -- create new terminal session
 
 vim.keymap.set({ 'n', 'v' }, "<Space>", "<Nop>", { silent = true })
+
+-- lazygit on floaterm
+vim.keymap.set("n", "<leader>g", "<cmd>FloatermNew lazygit<CR>", { noremap = true })
