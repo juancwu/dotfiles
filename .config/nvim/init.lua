@@ -13,22 +13,22 @@ vim.opt.rtp:prepend(lazypath)
 
 local has = vim.fn.has
 local is_mac = has "macunix"
-local is_win = has "win32"
+local is_wsl = has "wsl"
 local is_unix = has "unix"
 
 -- custom modules:
 require("keymaps")
 require("options")
 
-if is_win then
-	require("clipboard-windows")
+if is_wsl == 1 then
+	require("clipboard-wsl")
 end
 
-if is_mac then
+if is_mac == 1 then
 	require("clipboard-macos")
 end
 
-if is_unix then
+if is_unix == 1 then
 	require("clipboard-unix")
 end
 
