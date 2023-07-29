@@ -18,8 +18,12 @@ return {
             sync_install = false,
             -- Automatically install missing parsers when entering buffer
             auto_install = true,
+            indent = {
+                enable = false,
+            },
             highlight = {
                 enable = true,
+                additional_vim_regex_highlighting = true,
             },
             context_commentstring = {
                 enable = true,
