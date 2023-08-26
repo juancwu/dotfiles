@@ -39,6 +39,8 @@ return {
               ['d'] = fb_actions.remove,
               ['<C-s>'] = function(bufnr) actions.select_vertical(bufnr) end,
               ['<C-a>'] = function(bufnr) actions.toggle_all(bufnr) end,
+              ['<C-d>'] = function(bufnr) actions.move_selection_next(bufnr) end,
+              ['<C-u>'] = function(bufnr) actions.move_selection_previous(bufnr) end,
             }
           }
         },
