@@ -53,6 +53,10 @@ if type -q nvm
     nvm use >/dev/null
 end
 
+if type -q lazygit
+    alias lg "lazygit"
+end
+
 function fish_greeting
     echo "Welcome Back Juan!"
     if type -q nvm
