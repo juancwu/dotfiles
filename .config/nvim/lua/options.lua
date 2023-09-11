@@ -47,14 +47,16 @@ vim.opt.undofile = true
 -- [[ highlight on yank ]]
 local highligh_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-    group = highligh_group,
-    pattern = '*',
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highligh_group,
+  pattern = '*',
 })
 
 
 vim.opt.completeopt = 'menuone,noselect'
 
 vim.opt.breakindent = true
+
+vim.opt.cursorline = true
