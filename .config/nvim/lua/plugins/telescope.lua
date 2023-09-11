@@ -37,6 +37,7 @@ return {
               ['h'] = fb_actions.goto_parent_dir,
               ['/'] = function() vim.cmd("startinsert") end,
               ['d'] = fb_actions.remove,
+              ['e'] = fb_actions.change_cwd,
               ['<C-s>'] = function(bufnr) actions.select_vertical(bufnr) end,
               ['<C-a>'] = function(bufnr) actions.toggle_all(bufnr) end,
               ['<C-d>'] = function(bufnr) actions.move_selection_next(bufnr) end,
