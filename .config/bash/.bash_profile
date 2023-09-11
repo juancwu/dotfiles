@@ -78,6 +78,12 @@ parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
+# delete local branches that don't exists in remote repository
+git-prune() {
+    git fetch --prune
+    git branch -vv | grep '\[origin/.*: gone\]' | awk '{print $1}' | xargs git branch -d
+}
+
 # Set prompt
 color_prompt=yes
 
