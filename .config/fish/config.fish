@@ -49,21 +49,6 @@ if type -q tmux
     alias tmks "tmux kill-session"
 end
 
-if type -q nvm
-    nvm use >/dev/null
-end
-
-if type -q lazygit
-    alias lg "lazygit"
-end
-
-function fish_greeting
-    echo "Welcome Back Juan!"
-    if type -q nvm
-        echo "Current Node:$(nvm current)"
-    end
-end
-
 # allow local config overwrite
 set LOCAL_CONFIG (dirname (status --current-file))/config-local.fish
 if test -f $LOCAL_CONFIG
@@ -71,10 +56,8 @@ if test -f $LOCAL_CONFIG
 end
 
 # pnpm
-set -gx PNPM_HOME "/home/jc/.local/share/pnpm"
-set -gx PATH "$PNPM_HOME" $PATH
+set -gx PNPM_HOME "/Users/jc/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
 # pnpm end
-
-# bun
-set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
