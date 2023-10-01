@@ -35,7 +35,8 @@ vim.keymap.set("n", "x", "\"_x")
 -- smile :)
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "q", "<nop>", { noremap = true })
-vim.keymap.set("n", "<leader>q", "q", { noremap = true })
+-- keymap below needs a better combo, need this to enable macros
+-- vim.keymap.set("n", "<leader>q", "q", { noremap = true })
 
 -- select and replace
 vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
