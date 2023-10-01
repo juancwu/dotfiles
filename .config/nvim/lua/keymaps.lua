@@ -47,7 +47,9 @@ vim.keymap.set("n", "<leader>dd", "dd") -- cut line, under my control
 
 -- copy/paste to/from system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", "\"+y")
-vim.keymap.set({ "n", "v" }, "<leader>p", "\"+p")
+-- pasting a selected/higlighted block of text should not replaced the content of the clipboard with it
+vim.keymap.set({ "n", "v" }, "<leader>p", "_\"+p")
+vim.keymap.set({ "n", "v" }, "p", "_p")
 
 -- increment/decrement a count, helpful for changing indeces
 vim.keymap.set("n", "+", "<C-a>")
@@ -58,7 +60,6 @@ vim.keymap.set("n", "dw", "\"_dw")
 vim.keymap.set("n", "de", "\"_de")
 vim.keymap.set("n", "<leader>dw", "dw")
 vim.keymap.set("n", "<leader>de", "de")
-
 vim.keymap.set("n", "db", "vb\"_d") -- delete in backwards
 vim.keymap.set("n", "<leader>db", "vbd")
 
