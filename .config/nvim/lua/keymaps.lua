@@ -48,9 +48,10 @@ vim.keymap.set("x", "d", "\"_d")
 
 -- copy/paste to/from system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", "\"+y")
--- pasting a selected/higlighted block of text should not replaced the content of the clipboard with it
-vim.keymap.set({ "n", "v" }, "<leader>p", "_\"+p")
-vim.keymap.set({ "n", "v" }, "p", "_p")
+vim.keymap.set("n", "<leader>p", "\"+p")
+-- yank/put to/from register 'a'
+vim.keymap.set("x", "ay", '"ay', { noremap = true })
+vim.keymap.set("x", "ap", '"ap', { noremap = true })
 
 -- increment/decrement a count, helpful for changing indeces
 vim.keymap.set("n", "+", "<C-a>")
