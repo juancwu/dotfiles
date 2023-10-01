@@ -159,3 +159,5 @@ if [ $? -ne 0 ]; then
 fi
 
 export PATH=$PATH:/usr/local/go/bin:/home/jc/go/bin
+
+export PRETTIERD_DEFAULT_CONFIG="$HOME/.prettierrc.json"
