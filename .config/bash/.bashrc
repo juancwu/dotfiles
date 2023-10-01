@@ -16,12 +16,15 @@ alias la="ls -A"
 # -F appends a character to each entry in the listing to indicate the file type (e.g '/' for directories and '*' for executables)
 alias l="ls -CF"
 
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=normal -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
 # Nice line headers for logs
 ERROR=$'\033[39;41mERROR:\033[0m'
 SUCCESS=$'\033[39;42mSUCCESS:\033[0m'
 WARNING=$'\033[39;43mWARNING:\033[0m'
 INFO=$'\033[39;44mINFO:\033[0m'
-
 
 # --------------  Functions
 # list directory and cd into it
@@ -198,4 +201,9 @@ fi
 command -v bun > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo -e "$WARNING bun is not installed"
+fi
+
+command -v notify-send > /dev/null 2>%1
+if [ $? -ne 0 ]; then
+    echo -e "$WARNING notify-send is not installed. Will affect the alias: \033[34;49;1malert\033[0m"
 fi
