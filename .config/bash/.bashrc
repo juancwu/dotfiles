@@ -199,7 +199,3 @@ command -v bun > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo -e "$WARNING bun is not installed"
 fi
-
-export PATH=$PATH:/usr/local/go/bin:/home/jc/go/bin
-
-export PRETTIERD_DEFAULT_CONFIG="$HOME/.prettierrc.json"
