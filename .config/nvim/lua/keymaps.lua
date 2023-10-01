@@ -44,6 +44,7 @@ vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left>
 -- no copy, delete line, for god sake...
 vim.keymap.set("n", "dd", "\"_dd")
 vim.keymap.set("n", "<leader>dd", "dd") -- cut line, under my control
+vim.keymap.set("x", "d", "\"_d")
 
 -- copy/paste to/from system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", "\"+y")
