@@ -12,7 +12,7 @@ vim.keymap.set("v", "<C-[>", "<Esc>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-[>", "<Esc>", { noremap = true, silent = true })
 
 -- open the explorer
-vim.keymap.set("n", "<leader>e", "<cmd>Ex<CR>")
+vim.keymap.set("n", "<leader>x", "<cmd>Ex<CR>")
 
 -- move highlighted lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
