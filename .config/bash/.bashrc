@@ -135,62 +135,21 @@ type -p curl >/dev/null || echo -e "$WARNING curl is not installed"
 command -v nvm > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo -e "$WARNING nvm is not installed"
- #  echo "NVM is not installed. Installing now..."
- #  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
- #  echo "NVM is now installed. Installing node..."
-	# export NVM_DIR="$HOME/.nvm"
-	# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-	# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
- #  nvm install lts && nvm use lts
- #  echo "Node is now installed."
 fi
 
 command -v pnpm > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo -e "$WARNING pnpm is not installed"
- #  echo "PNPM is not installed. Installing now..."
- #  export SHELL=/bin/bash
- #  curl -fsSL https://get.pnpm.io/install.sh | sh -
-	# # pnpm
-	# export PNPM_HOME="/root/.local/share/pnpm"
-	# case ":$PATH:" in
-	#   *":$PNPM_HOME:"*) ;;
-	#   *) export PATH="$PNPM_HOME:$PATH" ;;
-	# esac
-	# # pnpm end
- #  echo "PNPM is now installed."
 fi
 
 command -v gh > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo -e "$WARNING gh cli is not installed"
-  # echo "GitHub CLI is not installed. Installing now..."
-  # curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-  # && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-  # && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-  # && sudo apt update \
-  # && sudo apt install gh -y
-  # 
-  # echo "GitHub CLI is now installed."
 fi
 
 command -v nvim > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo -e "$ERROR neovim is not installed"
-  # echo "NeoVim is not installed. Installing now..."
-  # mkdir -p ~/opt
-  # curl -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz -o ~/opt/nvim-linux64.tar.gz
-  # tar xzf ~/opt/nvim-linux64.tar.gz -C ~/opt
-  #
-  # # create symlink
-  # ln -s ~/opt/nvim-linux64/bin/nvim /usr/local/bin/nvim
-  # # create symlink as vim if vim is not installed
-  # type -p vim >/dev/null || ln -s ~/opt/nvim-linux64/bin/nvim /usr/local/bin/vim
-  #
-  # # remove tar file
-  # rm ~/opt/nvim-linux64.tar.gz
-  #
-  # echo "NeoVim is now installed."
 fi
 
 command -v yarn > /dev/null 2>&1
