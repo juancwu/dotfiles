@@ -217,3 +217,8 @@ if [ $? -ne 0 ]; then
 else
     alias lg="lazygit"
 fi
+
+command -v rustc > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo -e "$WARNING rust is not installed"
+fi
