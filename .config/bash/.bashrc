@@ -206,7 +206,7 @@ if [ $? -ne 0 ]; then
     echo -e "$WARNING bun is not installed"
 fi
 
-command -v notify-send > /dev/null 2>%1
+command -v notify-send > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo -e "$WARNING notify-send is not installed. Will affect the alias: \033[34;49;1malert\033[0m"
 fi
