@@ -210,3 +210,10 @@ command -v notify-send > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo -e "$WARNING notify-send is not installed. Will affect the alias: \033[34;49;1malert\033[0m"
 fi
+
+command -v lazygit > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo -e "$WARNING lazygit is not installed"
+else
+    alias lg="lazygit"
+fi
