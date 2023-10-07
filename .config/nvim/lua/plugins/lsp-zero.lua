@@ -5,7 +5,7 @@ return {
         -- LSP Support
         { 'neovim/nvim-lspconfig' }, -- Required
         {
-                                     -- Optional
+            -- Optional
             'williamboman/mason.nvim',
             build = function()
                 pcall(vim.cmd, 'MasonUpdate')
@@ -83,6 +83,7 @@ return {
             lspconfig.tsserver.setup({})
             lspconfig.tailwindcss.setup({})
             lspconfig.zls.setup({})
+            lspconfig.rust_analyzer.setup({})
         end
 
         lspzero.setup()
