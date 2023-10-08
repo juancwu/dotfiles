@@ -1,6 +1,12 @@
 return {
-  "lukas-reineke/indent-blankline.nvim",
-  config = {
-    show_end_of_line = true,
-  },
+    "lukas-reineke/indent-blankline.nvim",
+    opts = {
+        indent = {
+            smart_indent_cap = true,
+        },
+        scope = {
+            show_end = true,
+        },
+    },
+    main = "ibl"
 }
