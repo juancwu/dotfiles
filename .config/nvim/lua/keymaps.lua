@@ -48,7 +48,7 @@ vim.keymap.set("x", "d", "\"_d")
 
 -- copy/paste to/from system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", "\"+y")
-vim.keymap.set("n", "<leader>p", "\"+p")
+vim.keymap.set({ "n", "v" }, "<leader>p", "\"+p")
 -- yank/put to/from register 'a'
 vim.keymap.set("x", "ay", '"ay', { noremap = true })
 vim.keymap.set("x", "ap", '"ap', { noremap = true })
