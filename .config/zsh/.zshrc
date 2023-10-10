@@ -169,3 +169,5 @@ if [ $? -ne 0 ]; then
 else
     alias lg="lazygit"
 fi
+
+# confirm git sign
