@@ -84,6 +84,7 @@ return {
             lspconfig.tailwindcss.setup({})
             lspconfig.zls.setup({})
             lspconfig.rust_analyzer.setup({})
+            lspconfig.gopls.setup({})
         end
 
         lspzero.setup()
