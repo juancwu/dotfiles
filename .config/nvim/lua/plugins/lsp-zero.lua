@@ -73,6 +73,8 @@ return {
                     "typescript",
                     "javascriptreact",
                     "typescriptreact",
+                    "html",
+                    "css",
                 },
             },
         })
@@ -85,6 +87,7 @@ return {
             lspconfig.zls.setup({})
             lspconfig.rust_analyzer.setup({})
             lspconfig.gopls.setup({})
+            lspconfig.html.setup({})
         end
 
         lspzero.setup()
