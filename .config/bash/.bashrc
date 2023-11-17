@@ -166,6 +166,28 @@ git-prune() {
     git branch -vv | grep '\[origin/.*: gone\]' | awk '{print $1}' | xargs git branch -d
 }
 
+# fuzzy find branches and switch to selected branch
+gco() {
+    local selected_branch=$(git branch | fzf | sed 's/^[ \*]*//')
+
+    if [ -n "$selected_branch" ]; then
+        git checkout "$selected_branch"
+    else
+        echo "No branch selected"
+    fi
+}
+
+# fuzzy find remote branches and switch to selected branch
+gcr() {
+    local selected_branch=$(git branch -r | fzf | sed 's/^([ \*]*origin\/[\ *]*)*//')
+
+    if [ -n "$selected_branch" ]; then
+        git checkout "$selected_branch"
+    else
+        echo "No branch selected"
+    fi
+}
+
 # Set prompt
 if [ "$color_prompt" = yes ]; then
     PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]\$(parse-git-branch)\[\033[00m\] \$ "
