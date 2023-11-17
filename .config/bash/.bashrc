@@ -167,7 +167,7 @@ git-prune() {
 }
 
 # fuzzy find branches and switch to selected branch
-gco() {
+gc() {
     local selected_branch=$(git branch | fzf | sed 's/^[ \*]*//')
 
     if [ -n "$selected_branch" ]; then
