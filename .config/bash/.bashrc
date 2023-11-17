@@ -130,7 +130,7 @@ fcd() {
 }
 
 # clone repository
-gc() {
+clone() {
     local url=$1
     local ghq_dir="$HOME/ghq"
 
