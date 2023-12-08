@@ -1,7 +1,7 @@
 return {
     "folke/neodev.nvim",
     enabled = false,
-    config = {
+    opts = {
         library = {
             plugins = true,
             types = true,

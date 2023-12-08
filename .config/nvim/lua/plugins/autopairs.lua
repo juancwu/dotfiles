@@ -1,7 +1,7 @@
 return {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
-    config = {
+    opts = {
         disable_filetype = { "TelescopePrompt", "vim" }
     },
 }

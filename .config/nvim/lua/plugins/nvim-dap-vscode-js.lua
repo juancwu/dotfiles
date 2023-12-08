@@ -5,9 +5,11 @@ return {
         "microsoft/vscode-js-debug",
         lazy = true,
         build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+        enabled = false,
     },
     {
         'mxsdev/nvim-dap-vscode-js',
+        enabled = false,
         dependencies = {
             "mfussenegger/nvim-dap",
         },

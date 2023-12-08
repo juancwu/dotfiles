@@ -83,11 +83,35 @@ return {
 
         if status then
             lspconfig.tsserver.setup({})
-            lspconfig.tailwindcss.setup({})
+            lspconfig.tailwindcss.setup({
+                filetypes = {
+                    'templ',
+                    'html',
+                    'javascript',
+                    'typescript',
+                    'javascriptreact',
+                    'typescriptreact',
+                },
+                init_options = {
+                    userLanguages = {
+                        templ = "html"
+                    }
+                }
+            })
             lspconfig.zls.setup({})
             lspconfig.rust_analyzer.setup({})
             lspconfig.gopls.setup({})
             lspconfig.html.setup({})
+            vim.filetype.add({
+                extension = {
+                    templ = "templ"
+                },
+            })
+            lspconfig.templ.setup({
+                filetypes = {
+                    "templ",
+                },
+            })
         end
 
         lspzero.setup()

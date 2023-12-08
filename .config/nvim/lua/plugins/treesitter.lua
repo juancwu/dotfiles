@@ -35,9 +35,6 @@ return {
                 enable = true,
                 additional_vim_regex_highlighting = true,
             },
-            context_commentstring = {
-                enable = true,
-            },
             incremental_selection = {
                 enable = true,
                 keymaps = {

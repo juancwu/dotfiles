@@ -5,6 +5,6 @@ return {
         "nvim-tree/nvim-web-devicons",
         { "junegunn/fzf", build = "./install --bin" }
     },
-    config = {},
+    opts = {},
     enabled = true,
 }
