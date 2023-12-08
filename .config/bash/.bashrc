@@ -179,7 +179,8 @@ gc() {
 
 # fuzzy find remote branches and switch to selected branch
 gcr() {
-    local selected_branch=$(git branch -r | fzf | sed 's/^([ \*]*origin\/[\ *]*)*//')
+    git fetch
+    local selected_branch=$(git branch -r | fzf | sed -E 's/^([ \*]*origin\/[\ *]*)*//')
 
     if [ -n "$selected_branch" ]; then
         git checkout "$selected_branch"
