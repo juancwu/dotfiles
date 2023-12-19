@@ -1,4 +1,4 @@
----@class Config
+---@class Config: ConfigOptions
 local M = {}
 
 ---@class ConfigOptions
@@ -34,16 +34,30 @@ function M.setup(opts)
 
     -- try to load colorscheme
     xpcall(function()
-        if type(options.colorscheme) == "function" then
-            options.colorscheme()
+        if type(M.colorscheme) == "function" then
+            M.colorscheme()
         else
-            vim.cmd.colorscheme(options.colorscheme)
+            vim.cmd.colorscheme(M.colorscheme)
         end
     end, function(err)
-        local msg = "Failed to load colorscheme " .. options.colorscheme .. "\n\n" .. err
-        print(msg)
+        if type(M.colorscheme) == "string" then
+            local msg = "Failed to load colorscheme " .. M.colorscheme .. "\n\n" .. err
+            print(msg)
+        else
+            print("Failed to load colorscheme\n\n" .. err)
+        end
         vim.cmd.colorscheme("rose-pine")
     end)
 end
+
+setmetatable(M, {
+    __index = function(_, k)
+        if options == nil then
+            return vim.deepcopy(defaultOpts)[k]
+        end
+
+        return options[k]
+    end
+})
 
 return M

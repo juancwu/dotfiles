@@ -12,5 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("juancwu.config").setup({
-    colorscheme = "tokyonight",
+    colorscheme = function()
+        require("tokyonight").load()
+    end,
 })
