@@ -54,7 +54,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 
-vim.opt.completeopt = 'menuone,noselect'
+vim.opt.completeopt = 'menu,menuone,noselect'
 
 vim.opt.breakindent = true
 
