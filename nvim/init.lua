@@ -12,5 +12,5 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("juancwu.config").setup({
-    colorscheme = "solarized-osaka",
+    colorscheme = "tokyonight",
 })
