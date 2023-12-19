@@ -1,11 +1,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.scriptencoding = "utf-8"
-vim.opt.encoding = "utf-8"
-vim.opt.fileencoding = "utf-8"
-
-vim.wo.number = true          -- show line number
+vim.opt.number = true         -- show line number
 vim.opt.relativenumber = true -- juicy relativity
 
 vim.opt.autoindent = true
@@ -47,7 +43,7 @@ vim.opt.termguicolors = true -- good shit, just take it
 vim.opt.undofile = true
 
 
--- [[ highlight on yank ]]
+-- highlight on yank
 local highligh_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
     callback = function()
