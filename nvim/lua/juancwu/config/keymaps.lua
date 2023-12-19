@@ -1,6 +1,3 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 -- easy escape
 vim.keymap.set("i", "<C-[>", "<Esc>", { noremap = true, silent = true })
 vim.keymap.set("v", "<C-[>", "<Esc>", { noremap = true, silent = true })

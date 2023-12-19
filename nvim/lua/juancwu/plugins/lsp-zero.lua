@@ -17,8 +17,17 @@ return {
         { 'hrsh7th/nvim-cmp' },     -- Required
         { 'hrsh7th/cmp-nvim-lsp' }, -- Required
         { 'L3MON4D3/LuaSnip' },     -- Required
+
+        -- Neovim Plugin Development Completions
+        {
+            'folke/neodev.nvim',
+            opts = {},
+        },
     },
     config = function()
+        -- required to setup neodev before lspconfig
+        require('neodev').setup({})
+
         local lspzero = require("lsp-zero")
 
         lspzero.preset({})
