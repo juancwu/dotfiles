@@ -52,7 +52,7 @@ return {
 
 			lspzero.preset({})
 
-			lspzero.on_attach(function(client, bufnr)
+			lspzero.on_attach(function(_, bufnr)
 				lspzero.default_keymaps({
 					buffer = bufnr,
 					omit = {
@@ -60,26 +60,30 @@ return {
 					},
 				})
 
-				function nmap(key, action, desc)
+				local function nmap(key, action, desc)
 					vim.keymap.set("n", key, action, {
 						desc = "LSP: " .. desc,
 					})
 				end
 
+				local function format()
+					require("conform").format({ bufnr = bufnr })
+				end
+
 				nmap("[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", "Goto Prev Diagnostic")
 				nmap("]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", "Goto Next Diagnostic")
 
-				local current_dir = vim.fn.expand("%:p:h")
+				-- local current_dir = vim.fn.expand("%:p:h")
 
 				-- vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', { buffer = true })
 
 				-- format with space + f
 				-- vim.keymap.set("n", "<leader>fb", "<cmd>lua vim.lsp.buf.format()<CR>",
 				--     { desc = "[F]ormat [B]uffer" })
-				nmap("<leader>fb", "<cmd>lua vim.lsp.buf.format()<CR>", "[F]ormat [B]uffer")
+				nmap("<leader>fb", format, "[F]ormat [B]uffer")
 
 				vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-					require("conform").format({ bufnr = bufnr })
+					format()
 				end, { desc = "Format current buffer with LSP" })
 			end)
 
