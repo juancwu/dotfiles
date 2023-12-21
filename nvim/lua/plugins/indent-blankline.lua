@@ -8,5 +8,6 @@ return {
             show_end = true,
         },
     },
-    main = "ibl"
+    main = "ibl",
+    enabled = false,
 }
