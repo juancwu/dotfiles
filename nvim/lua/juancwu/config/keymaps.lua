@@ -1,18 +1,10 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
--- easy escape
-vim.keymap.set("i", "<C-[>", "<Esc>", { noremap = true, silent = true })
-vim.keymap.set("v", "<C-[>", "<Esc>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-[>", "<Esc>", { noremap = true, silent = true })
-
 -- easy escape
 vim.keymap.set("i", "<C-[>", "<Esc>", { noremap = true, silent = true })
 vim.keymap.set("v", "<C-[>", "<Esc>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-[>", "<Esc>", { noremap = true, silent = true })
 
 -- open the explorer
-vim.keymap.set("n", "<leader>x", "<cmd>Ex<CR>")
+vim.keymap.set("n", "<leader>ex", "<cmd>Ex<CR>")
 
 -- move highlighted lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -29,10 +21,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
--- do not copy with x, for god sake, WHY copy something that is being deleted??
-vim.keymap.set("n", "x", "\"_x")
-
--- smile :)
+-- gotta learn how to use macros...
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "q", "<nop>", { noremap = true })
 -- keymap below needs a better combo, need this to enable macros
@@ -41,17 +30,17 @@ vim.keymap.set("n", "q", "<nop>", { noremap = true })
 -- select and replace
 vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
+-- do not copy with x, for god sake, WHY copy something that is being deleted??
+vim.keymap.set("n", "x", "\"_x")
+
 -- no copy, delete line, for god sake...
 vim.keymap.set("n", "dd", "\"_dd")
-vim.keymap.set("n", "<leader>dd", "dd") -- cut line, under my control
-vim.keymap.set("x", "d", "\"_d")
+vim.keymap.set("n", "dx", "dd") -- cut line, under my control
+vim.keymap.set("v", "d", "\"_d")
 
 -- copy/paste to/from system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", "\"+y")
 vim.keymap.set({ "n", "v" }, "<leader>p", "\"+p")
--- yank/put to/from register 'a'
-vim.keymap.set("x", "ay", '"ay', { noremap = true })
-vim.keymap.set("x", "ap", '"ap', { noremap = true })
 
 -- increment/decrement a count, helpful for changing indeces
 vim.keymap.set("n", "+", "<C-a>")
@@ -59,14 +48,9 @@ vim.keymap.set("n", "-", "<C-x>")
 
 -- do not copy when deleting word
 vim.keymap.set("n", "dw", "\"_dw")
-vim.keymap.set("n", "de", "\"_de")
-vim.keymap.set("n", "<leader>dw", "dw")
-vim.keymap.set("n", "<leader>de", "de")
-vim.keymap.set("n", "db", "vb\"_d") -- delete in backwards
-vim.keymap.set("n", "<leader>db", "vbd")
+vim.keymap.set("n", "db", "vb\"_d")                                   -- delete in backwards
 
-vim.keymap.set("n", "<C-a>", "gg<S-v>G") -- select all
-
+vim.keymap.set("n", "<C-a>", "gg<S-v>G")                              -- select all
 -- split pane
 vim.keymap.set("n", "ss", ":split<Return><C-w>w", { silent = true })  -- horizontal
 vim.keymap.set("n", "sv", ":vsplit<Return><C-w>w", { silent = true }) -- vertical
@@ -94,8 +78,6 @@ vim.keymap.set("i", "<C-l>", "<Right>", { noremap = true })
 vim.keymap.set("t", "<C-t>", "<C-\\><C-n>", { noremap = true })    -- exit insert mode in terminal
 vim.keymap.set("t", "<C-x>", "<cmd>bd!<CR>", { noremap = true })   -- terminate terminal session
 vim.keymap.set("n", "<C-t>", "<cmd>term<CR>i", { noremap = true }) -- create new terminal session
-
-vim.keymap.set({ 'n', 'v' }, "<Space>", "<Nop>", { silent = true })
 
 -- lazygit on floaterm
 vim.keymap.set("n", "<leader>g", "<cmd>FloatermNew lazygit<CR>", { noremap = true })
