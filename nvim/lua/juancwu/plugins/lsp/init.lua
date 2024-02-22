@@ -37,6 +37,7 @@ return {
 						javascriptreact = { "prettierd" },
 						typescriptreact = { "prettierd" },
 						go = { "gofumpt" },
+						python = { "autopep8" },
 					},
 					format_on_save = function(bufnr)
 						if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
