@@ -147,11 +147,8 @@ git-prune() {
 autoload -U colors && colors
 
 # Set prompt
-if [[ "$color_prompt" == "yes" ]]; then
-    PS1="%{$fg_bold[green]%}%n@%m%{$reset_color%}:%{$fg_bold[blue]%}%~%{$fg_bold[red]%}$(parse-git-branch)%{$reset_color%} $ "
-else
-    PS1="%n@%m:%~$(parse-git-branch)$ "
-fi
+PS1="%n@%m:%~ $ "
+
 unset color_prompt
 
 type -p curl >/dev/null || echo -e "$WARNING curl is not installed"
