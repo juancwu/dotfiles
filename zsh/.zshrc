@@ -83,7 +83,7 @@ fcd() {
 
 # clone repository
 # setopt EXTENDED_GLOB
-gc() {
+cl() {
     local url=$1
     local ghq_dir="$HOME/ghq"
 
@@ -107,6 +107,29 @@ gc() {
     fi
 
     git clone $url $project_dir
+}
+
+# fuzzy find branches and switch to selected branch
+gc() {
+    local selected_branch=$(git branch | fzf | sed 's/^[ \*]*//')
+
+    if [ -n "$selected_branch" ]; then
+        git checkout "$selected_branch"
+    else
+        echo "No branch selected"
+    fi
+}
+
+# fuzzy find remote branches and switch to selected branch
+gcr() {
+    git fetch
+    local selected_branch=$(git branch -r | fzf | sed -E 's/^([ \*]*origin\/[\ *]*)*//')
+
+    if [ -n "$selected_branch" ]; then
+        git checkout "$selected_branch"
+    else
+        echo "No branch selected"
+    fi
 }
 
 # get branch if available
