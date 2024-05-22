@@ -143,6 +143,11 @@ git-prune() {
     git branch -vv | grep '\[origin/.*: gone\]' | awk '{print $1}' | xargs git branch -d
 }
 
+# makes it easier to spin up ngrok with static domain, pass in the port ngrok needs to listen
+sngrok() {
+    ngrok http --domain=hyena-merry-literally.ngrok-free.app $1
+}
+
 # Load colors if possible
 autoload -U colors && colors
 
