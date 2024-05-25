@@ -29,23 +29,37 @@ return {
 			-- formatting
 			{
 				"stevearc/conform.nvim",
-				opts = {
-					formatters_by_ft = {
-						lua = { "stylua" },
-						javascript = { "prettierd" },
-						typescript = { "prettierd" },
-						javascriptreact = { "prettierd" },
-						typescriptreact = { "prettierd" },
-						go = { "gofumpt" },
-						python = { "autopep8" },
-					},
-					format_on_save = function(bufnr)
-						if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-							return
-						end
-						return { timeout_ms = 500, lsp_fallback = true }
-					end,
-				},
+				config = function()
+					require("conform").setup({
+                        formatters_by_ft = {
+                            lua = { "stylua" },
+                            javascript = { "prettierd" },
+                            typescript = { "prettierd" },
+                            javascriptreact = { "prettierd" },
+                            typescriptreact = { "prettierd" },
+                            go = { "gofumpt" },
+                            python = { "autopep8" },
+                        },
+                        format_on_save = function(bufnr)
+                            if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+                                return
+                            end
+                            return { timeout_ms = 500, lsp_fallback = true }
+                        end,
+                    })
+
+					vim.api.nvim_create_user_command("FormatDisable", function()
+						vim.g.disable_autoformat = true
+					end, {
+						desc = "Disable autoformat on save",
+					})
+
+					vim.api.nvim_create_user_command("FormatEnable", function()
+						vim.g.disable_autoformat = false
+					end, {
+						desc = "Enable autoformat on save",
+					})
+				end,
 			},
 		},
 		config = function()

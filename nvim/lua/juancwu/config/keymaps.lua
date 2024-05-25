@@ -31,28 +31,28 @@ vim.keymap.set("n", "q", "<nop>", { noremap = true })
 vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- do not copy with x, for god sake, WHY copy something that is being deleted??
-vim.keymap.set("n", "x", "\"_x")
+vim.keymap.set("n", "x", '"_x')
 
 -- no copy, delete line, for god sake...
-vim.keymap.set("n", "dd", "\"_dd")
+vim.keymap.set("n", "dd", '"_dd')
 vim.keymap.set("n", "dx", "dd") -- cut line, under my control
-vim.keymap.set("v", "d", "\"_d")
+vim.keymap.set("v", "d", '"_d')
 
 -- copy/paste to/from system clipboard
-vim.keymap.set({ "n", "v" }, "<leader>y", "\"+y")
-vim.keymap.set({ "n", "v" }, "<leader>p", "\"+p")
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
+vim.keymap.set({ "n", "v" }, "<leader>p", '"+p')
 
 -- increment/decrement a count, helpful for changing indeces
 vim.keymap.set("n", "+", "<C-a>")
 vim.keymap.set("n", "-", "<C-x>")
 
 -- do not copy when deleting word
-vim.keymap.set("n", "dw", "\"_dw")
-vim.keymap.set("n", "db", "vb\"_d")                                   -- delete in backwards
+vim.keymap.set("n", "dw", '"_dw')
+vim.keymap.set("n", "db", 'vb"_d') -- delete in backwards
 
-vim.keymap.set("n", "<C-a>", "gg<S-v>G")                              -- select all
+vim.keymap.set("n", "<C-a>", "gg<S-v>G") -- select all
 -- split pane
-vim.keymap.set("n", "ss", ":split<Return><C-w>w", { silent = true })  -- horizontal
+vim.keymap.set("n", "ss", ":split<Return><C-w>w", { silent = true }) -- horizontal
 vim.keymap.set("n", "sv", ":vsplit<Return><C-w>w", { silent = true }) -- vertical
 
 -- pane movement
@@ -75,9 +75,12 @@ vim.keymap.set("i", "<C-k>", "<Up>", { noremap = true })
 vim.keymap.set("i", "<C-l>", "<Right>", { noremap = true })
 
 -- terminal keymaps
-vim.keymap.set("t", "<C-t>", "<C-\\><C-n>", { noremap = true })    -- exit insert mode in terminal
-vim.keymap.set("t", "<C-x>", "<cmd>bd!<CR>", { noremap = true })   -- terminate terminal session
+vim.keymap.set("t", "<C-t>", "<C-\\><C-n>", { noremap = true }) -- exit insert mode in terminal
+vim.keymap.set("t", "<C-x>", "<cmd>bd!<CR>", { noremap = true }) -- terminate terminal session
 vim.keymap.set("n", "<C-t>", "<cmd>term<CR>i", { noremap = true }) -- create new terminal session
 
 -- lazygit on floaterm
 vim.keymap.set("n", "<leader>g", "<cmd>FloatermNew lazygit<CR>", { noremap = true })
+
+-- quick way to handle errors in Go
+vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<ESC>Oreturn err<ESC>")
