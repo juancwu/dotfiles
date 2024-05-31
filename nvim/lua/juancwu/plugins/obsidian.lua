@@ -24,7 +24,16 @@ return {
 				path = "~/Documents/Obsidian Vault",
 			},
 		},
-
-		-- see below for full list of options 👇
+		follow_url_func = function(url)
+			vim.fn.jobstart({ "open", url })
+		end,
+	},
+	mappings = {
+		["<CR>"] = {
+			action = function()
+				return require("obsidian").util.smart_action()
+			end,
+			opts = { noremap = false, expr = true, buffer = true },
+		},
 	},
 }
