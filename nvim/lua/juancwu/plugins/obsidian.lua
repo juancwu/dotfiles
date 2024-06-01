@@ -27,6 +27,17 @@ return {
 		follow_url_func = function(url)
 			vim.fn.jobstart({ "open", url })
 		end,
+		note_id_func = function(title)
+			if title ~= nil then
+				print("create new obsidian note with given title: " .. title)
+				return title
+			end
+			local suffix = ""
+			for _ = 1, 4 do
+				suffix = suffix .. string.char(math.random(65, 90))
+			end
+			return tostring(os.time()) .. "-" .. suffix
+		end,
 	},
 	mappings = {
 		["<CR>"] = {
