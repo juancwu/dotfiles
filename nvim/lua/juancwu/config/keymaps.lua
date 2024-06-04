@@ -21,9 +21,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
--- gotta learn how to use macros...
-vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "q", "<nop>", { noremap = true })
 -- keymap below needs a better combo, need this to enable macros
 -- vim.keymap.set("n", "<leader>q", "q", { noremap = true })
 
