@@ -198,6 +198,9 @@ else
 fi
 unset color_prompt
 
+# setup kitty
+~/.config/kitty/setup.sh
+
 type -p curl >/dev/null || echo -e "$WARNING curl is not installed"
 
 command -v nvm > /dev/null 2>&1
