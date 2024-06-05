@@ -12,5 +12,5 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("juancwu.config").setup({
-    colorscheme = "catppuccin"
+	colorscheme = "kanagawa-dragon",
 })
