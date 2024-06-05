@@ -63,7 +63,7 @@ if [ $NOW -ge $SUNRISE_MINUTES ] && [ $NOW -lt $SUNSET_MINUTES ]; then
     MODE=light
 fi
 if [ $MODE == "light" ]; then
-    echo "load light theme"
+    kitten @ set-colors --all "$HOME/.config/kitty/light.conf"
 else
-    echo "load dark theme"
+    kitten @ set-colors --all "$HOME/.config/kitty/dark.conf"
 fi
