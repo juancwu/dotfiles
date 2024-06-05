@@ -2,7 +2,7 @@
 
 OS=$(uname -s)
 if [ "$OS" = "Linux" ]; then
-    kitten @ set-font-size --all 9.0
+    kitten @ set-font-size --all 11.0
 fi
 
 # get the SUNRISE/SUNSET time for the day
