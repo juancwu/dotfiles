@@ -9,12 +9,14 @@ CURRENT_HOUR=$(date +"%H")
 SEVEN_AM=7
 SEVEN_PM=19
 
-MODE=dark
+TERM_COLOR_MODE=dark
 if [ $CURRENT_HOUR -ge $SEVEN_AM ] && [ $CURRENT_HOUR -lt $SEVEN_PM ]; then
-    MODE=light
+    TERM_COLOR_MODE=light
 fi
-if [ $MODE == "light" ]; then
+if [ $TERM_COLOR_MODE == "light" ]; then
     kitten @ set-colors --all "$HOME/.config/kitty/light.conf"
 else
     kitten @ set-colors --all "$HOME/.config/kitty/dark.conf"
 fi
+
+export TERM_COLOR_MODE
