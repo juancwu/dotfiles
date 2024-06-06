@@ -11,6 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local Utils = require("juancwu.utils")
 require("juancwu.config").setup({
-	colorscheme = "kanagawa-dragon",
+	colorscheme = Utils.colors.get_timebased_colorscheme(),
 })
