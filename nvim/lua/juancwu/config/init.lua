@@ -58,6 +58,13 @@ function M.setup(opts)
 	vim.api.nvim_create_user_command("FormatEnable", function(args)
 		vim.g.disable_autoformat = false
 	end, { desc = "Enable Autoformat" })
+
+	-- create command to toggle colorscheme
+	vim.api.nvim_create_user_command(
+		"ToggleColors",
+		require("juancwu.utils.colors").toggle_colors,
+		{ desc = "Toggle colorscheme" }
+	)
 end
 
 setmetatable(M, {
