@@ -9,8 +9,8 @@ end
 
 ---@return string
 function M.get_timebased_colorscheme()
-	local light = "kanagawa-lotus"
-	local dark = "kanagawa-dragon"
+	local light = "catppuccin-latte"
+	local dark = "catppuccin-mocha"
 	if M.is_daytime() then
 		return light
 	else
