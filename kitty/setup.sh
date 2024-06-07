@@ -1,9 +1,6 @@
 #!/bin/bash
 
-OS=$(uname -s)
-if [ "$OS" = "Linux" ]; then
-    kitten @ set-font-size --all 11.0
-fi
+kitten @ set-font-size --all 11.0
 
 CURRENT_HOUR=$(date +"%H")
 SEVEN_AM=7
