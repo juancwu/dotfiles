@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-kitten @ set-font-size --all 14.0
+kitten @ set-font-size --all 16.0
 
 CURRENT_HOUR=$(date +"%H")
 SEVEN_AM=7
