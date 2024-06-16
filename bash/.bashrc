@@ -193,6 +193,11 @@ gcr() {
     fi
 }
 
+# makes it easier to spin up ngrok with static domain, pass in the port ngrok needs to listen
+sngrok() {
+    ngrok http --domain=hyena-merry-literally.ngrok-free.app $1
+}
+
 # Set prompt
 if [ "$color_prompt" = yes ]; then
     PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]\$(parse-git-branch)\[\033[00m\] \$ "
