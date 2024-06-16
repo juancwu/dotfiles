@@ -5,7 +5,26 @@ local dark = "catppuccin-mocha"
 
 ---@return boolean
 function M.is_daytime()
-	local current_hour = tonumber(os.date("%H"))
+	-- check if command exists or not
+	local cmd_name = "asadesuka"
+	local cmd_flags = "-offset 30"
+	local has_asadesuka = require("juancwu.utils.os").cmd_exists(cmd_name)
+	if has_asadesuka then
+		local handle = io.popen(cmd_name .. " " .. cmd_flags)
+		if handle == nil then
+			return M.legacy_is_daytime()
+		end
+		local result = handle:read("*a")
+		handle:close()
+		return result:match("true")
+	else
+		return M.legacy_is_daytime()
+	end
+end
+
+---@return boolean
+function M.legacy_is_daytime()
+	local current_hour = tonumber(os.date("%h"))
 	return current_hour >= 7 and current_hour < 19
 end
 
