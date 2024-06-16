@@ -267,3 +267,6 @@ command -v rustc > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo -e "$WARNING rust is not installed"
 fi
+
+# set bat theme
+export BAT_THEME="ansi"
