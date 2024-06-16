@@ -6,7 +6,7 @@ TERM_COLOR_MODE=dark
 
 command -v asadesuka > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    IS_ASA=$(asadesuka)
+    IS_ASA=$(asadesuka -offset=30)
     if [ $IS_ASA == "true" ]; then
         TERM_COLOR_MODE=light
     fi
