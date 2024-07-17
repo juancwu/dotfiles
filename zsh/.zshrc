@@ -94,6 +94,10 @@ cl() {
     elif [[ $url =~ https://github\.com/([^/]+)/([^/]+)\.git ]]; then
         local project_name="${match[1]}"
         local repository_name="${match[2]}"
+    elif [[ $# -ne 0 ]]; then
+        local project_name="juancwu"
+        local repository_name="$url"
+        local url="git@github.com:juancwu/$repository_name.git"
     else
         echo "Invalid URL format"
         return 1
