@@ -62,6 +62,7 @@ sf() {
 fcd() {
 	local selected_dir=$({
 		echo "$HOME/.config"
+		echo "$HOME/Documents/Obsidian Vault"
 		find "$HOME/ghq" -mindepth 2 -maxdepth 2 -type d
 		ls -d -1 "$HOME/"/*/ | grep -v \.git
 		ls -d -1 */ | perl -pe "s#^#$PWD/#" | grep -v \.git
