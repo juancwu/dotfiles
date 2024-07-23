@@ -275,3 +275,6 @@ fi
 
 # set bat theme
 export BAT_THEME="ansi"
+
+# walk editor
+export EDITOR=vim
