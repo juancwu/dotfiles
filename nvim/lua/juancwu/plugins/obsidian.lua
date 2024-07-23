@@ -38,6 +38,10 @@ return {
 			end
 			return tostring(os.time()) .. "-" .. suffix
 		end,
+		daily_notes = {
+			folder = "dailies",
+			date_format = "%d-%m-%Y",
+		},
 	},
 	mappings = {
 		["<CR>"] = {
