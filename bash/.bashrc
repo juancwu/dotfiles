@@ -77,6 +77,9 @@ alias alert='notify-send --urgency=normal -i "$([ $? = 0 ] && echo terminal || e
 # add alias for clear, makes it easier
 alias cc="clear"
 
+# always select the clipboard
+alias xc="xclip -selection clipboard"
+
 # Nice line headers for logs
 ERROR=$'\033[39;41mERROR:\033[0m'
 SUCCESS=$'\033[39;42mSUCCESS:\033[0m'
