@@ -218,13 +218,18 @@ unset color_prompt
 source ~/.config/kitty/setup.sh
 # function to toggle kitty terminal theme
 toggle_theme() {
+    # theme_link="$HOME/.config/alacritty/theme.toml"
+    # rm -r "$theme_link"
     if [ "$TERM_COLOR_MODE" == "light" ]; then
         export TERM_COLOR_MODE=dark
-        kitten @ set-colors --all "$HOME/.config/kitty/dark.conf"
+        # kitten @ set-colors --all "$HOME/.config/kitty/dark.conf"
+        # theme="catppuccin_latte"
     else
         export TERM_COLOR_MODE=light
-        kitten @ set-colors --all "$HOME/.config/kitty/light.conf"
+        # theme="catppuccin_mocha"
     fi
+    kitten @ set-colors --all "$HOME/.config/kitty/$TERM_COLOR_MODE.conf"
+    # ln "$HOME/.config/alacritty/themes/themes/$theme.toml" "$theme_link"
 }
 
 type -p curl >/dev/null || echo -e "$WARNING curl is not installed"
