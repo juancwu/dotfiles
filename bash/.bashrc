@@ -116,8 +116,10 @@ sf() {
 # fuzzy cd into specific folders 
 fcd() {
 	local selected_dir=$({
-		echo "$HOME/.config"
+		echo "$HOME/.config/asa"
+        echo "$HOME/.config/alacritty"
 		echo "$HOME/.cache"
+		echo "$HOME/.cache/asadesuka"
 		echo "$HOME/Documents/Obsidian Vault"
 		find "$HOME/ghq" -mindepth 2 -maxdepth 2 -type d
 		ls -d -1 "$HOME/"/*/ | grep -v \.git
@@ -214,22 +216,62 @@ else
 fi
 unset color_prompt
 
+# setup terminal stuff
+# determine initial terminal color mode
+TERM_COLOR_MODE=dark
+command -v asadesuka > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    IS_ASA=$(asadesuka -offset=30)
+    if [ $IS_ASA == "true" ]; then
+        TERM_COLOR_MODE=light
+    fi
+else
+    CURRENT_HOUR=$(date +"%H")
+    SEVEN_AM=7
+    SEVEN_PM=19
+    if [ $CURRENT_HOUR -ge $SEVEN_AM ] && [ $CURRENT_HOUR -lt $SEVEN_PM ]; then
+        TERM_COLOR_MODE=light
+    fi
+fi
+export TERM_COLOR_MODE
+
+# set the terminal color theme
+USE_TERM=alacritty
+if [ $TERM_COLOR_MODE == "light" ]; then
+    if [ $USE_TERM == "kitty" ]; then
+        kitten @ set-colors --all "$HOME/.config/kitty/light.conf"
+    fi
+    if [ $USE_TERM == "alacritty" ]; then
+        theme_link="$HOME/.config/alacritty/theme.toml"
+        rm -r "$theme_link"
+        ln "$HOME/.config/alacritty/themes/themes/catppuccin_latte.toml" "$theme_link"
+    fi
+else
+    if [ $USE_TERM == "kitty" ]; then
+        kitten @ set-colors --all "$HOME/.config/kitty/dark.conf"
+    fi
+    if [ $USE_TERM == "alacritty" ]; then
+        theme_link="$HOME/.config/alacritty/theme.toml"
+        rm -r "$theme_link"
+        ln "$HOME/.config/alacritty/themes/themes/catppuccin_mocha.toml" "$theme_link"
+    fi
+fi
+
 # setup kitty, it will export TERM_COLOR_MODE (can be light or dark)
-source ~/.config/kitty/setup.sh
+# source ~/.config/kitty/setup.sh
 # function to toggle kitty terminal theme
 toggle_theme() {
-    # theme_link="$HOME/.config/alacritty/theme.toml"
-    # rm -r "$theme_link"
+    theme_link="$HOME/.config/alacritty/theme.toml"
+    rm -r "$theme_link"
     if [ "$TERM_COLOR_MODE" == "light" ]; then
         export TERM_COLOR_MODE=dark
-        # kitten @ set-colors --all "$HOME/.config/kitty/dark.conf"
-        # theme="catppuccin_latte"
+        theme="catppuccin_latte"
     else
         export TERM_COLOR_MODE=light
-        # theme="catppuccin_mocha"
+        theme="catppuccin_mocha"
     fi
-    kitten @ set-colors --all "$HOME/.config/kitty/$TERM_COLOR_MODE.conf"
-    # ln "$HOME/.config/alacritty/themes/themes/$theme.toml" "$theme_link"
+    # kitten @ set-colors --all "$HOME/.config/kitty/$TERM_COLOR_MODE.conf"
+    ln "$HOME/.config/alacritty/themes/themes/$theme.toml" "$theme_link"
 }
 
 type -p curl >/dev/null || echo -e "$WARNING curl is not installed"
