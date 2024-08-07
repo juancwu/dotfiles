@@ -236,7 +236,7 @@ fi
 export TERM_COLOR_MODE
 
 # set the terminal color theme
-USE_TERM=alacritty
+USE_TERM=kitty
 if [ $TERM_COLOR_MODE == "light" ]; then
     if [ $USE_TERM == "kitty" ]; then
         kitten @ set-colors --all "$HOME/.config/kitty/light.conf"
