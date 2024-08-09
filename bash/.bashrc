@@ -243,7 +243,7 @@ if [ $TERM_COLOR_MODE == "light" ]; then
     fi
     if [ $USE_TERM == "alacritty" ]; then
         theme_link="$HOME/.config/alacritty/theme.toml"
-        rm -r "$theme_link"
+        rm -rf "$theme_link"
         ln "$HOME/.config/alacritty/themes/themes/catppuccin_latte.toml" "$theme_link"
     fi
 else
@@ -261,8 +261,6 @@ fi
 # source ~/.config/kitty/setup.sh
 # function to toggle kitty terminal theme
 toggle_theme() {
-    theme_link="$HOME/.config/alacritty/theme.toml"
-    rm -r "$theme_link"
     if [ "$TERM_COLOR_MODE" == "light" ]; then
         export TERM_COLOR_MODE=dark
         theme="catppuccin_latte"
@@ -270,8 +268,14 @@ toggle_theme() {
         export TERM_COLOR_MODE=light
         theme="catppuccin_mocha"
     fi
-    # kitten @ set-colors --all "$HOME/.config/kitty/$TERM_COLOR_MODE.conf"
-    ln "$HOME/.config/alacritty/themes/themes/$theme.toml" "$theme_link"
+    if [ $USE_TERM == "kitty" ]; then
+        kitten @ set-colors --all "$HOME/.config/kitty/$TERM_COLOR_MODE.conf"
+    fi
+    if [ $USE_TERM == "alacritty" ]; then
+        theme_link="$HOME/.config/alacritty/theme.toml"
+        rm -r "$theme_link"
+        ln "$HOME/.config/alacritty/themes/themes/$theme.toml" "$theme_link"
+    fi
 }
 
 type -p curl >/dev/null || echo -e "$WARNING curl is not installed"
