@@ -244,7 +244,7 @@ if [ $TERM_COLOR_MODE == "light" ]; then
     if [ $USE_TERM == "alacritty" ]; then
         theme_link="$HOME/.config/alacritty/theme.toml"
         rm -rf "$theme_link"
-        ln "$HOME/ghq/alacritty/alacritty-theme/themes/catppuccin_latte.toml" "$theme_link"
+        ln -s "$HOME/ghq/alacritty/alacritty-theme/themes/catppuccin_latte.toml" "$theme_link"
     fi
 else
     if [ $USE_TERM == "kitty" ]; then
@@ -253,7 +253,7 @@ else
     if [ $USE_TERM == "alacritty" ]; then
         theme_link="$HOME/.config/alacritty/theme.toml"
         rm -r "$theme_link"
-        ln "$HOME/ghq/alacritty/alacritty-theme/themes/catppuccin_mocha.toml" "$theme_link"
+        ln -s "$HOME/ghq/alacritty/alacritty-theme/themes/catppuccin_mocha.toml" "$theme_link"
     fi
 fi
 
