@@ -162,17 +162,17 @@ PS1="%n@%m:%~ $ "
 unset color_prompt
 
 # setup kitty, it will export TERM_COLOR_MODE (can be light or dark)
-source ~/.config/kitty/setup.sh
+# source ~/.config/kitty/setup.sh
 # function to toggle kitty terminal theme
-toggle_theme() {
-    if [ "$TERM_COLOR_MODE" == "light" ]; then
-        export TERM_COLOR_MODE=dark
-        kitten @ set-colors --all "$HOME/.config/kitty/dark.conf"
-    else
-        export TERM_COLOR_MODE=light
-        kitten @ set-colors --all "$HOME/.config/kitty/light.conf"
-    fi
-}
+# toggle_theme() {
+#     if [ "$TERM_COLOR_MODE" == "light" ]; then
+#         export TERM_COLOR_MODE=dark
+#         kitten @ set-colors --all "$HOME/.config/kitty/dark.conf"
+#     else
+#         export TERM_COLOR_MODE=light
+#         kitten @ set-colors --all "$HOME/.config/kitty/light.conf"
+#     fi
+# }
 
 type -p curl >/dev/null || echo -e "$WARNING curl is not installed"
 
