@@ -117,7 +117,7 @@ fcd() {
 		echo "$HOME/.cache"
 		echo "$HOME/.cache/asadesuka"
 		echo "$HOME/Documents/Obsidian Vault"
-		find "/mnt/md0/ghqhdd" -mindepth 2 -maxdepth 2 -type d
+		find "/mnt/md0/ghqrdd" -mindepth 2 -maxdepth 2 -type d
 		ls -d -1 "$HOME/"/*/ | grep -v \.git
 	} | fzf)
 
