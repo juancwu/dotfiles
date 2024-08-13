@@ -52,6 +52,8 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='grep --color=auto'
 fi
 
+export PATH=$PATH:/home/jc/.local/bin
+
 # --------------  Aliases
 alias gs="git status"
 
@@ -332,5 +334,3 @@ export BAT_THEME="ansi"
 
 # walk editor
 export EDITOR=vim
-
-export PATH=$PATH:/home/jc/.local/bin
