@@ -118,10 +118,8 @@ sf() {
 # fuzzy cd into specific folders 
 fcd() {
 	local selected_dir=$({
-		echo "$HOME/.config/asa"
-        echo "$HOME/.config/alacritty"
-		echo "$HOME/.cache"
-		echo "$HOME/.cache/asadesuka"
+        find "$HOME/.config" -maxdepth 1 -type d
+        find "$HOME/.cache" -maxdepth 1 -type d
 		echo "$HOME/Documents/Obsidian Vault"
 		find "$HOME/ghq" -mindepth 2 -maxdepth 2 -type d
 		ls -d -1 "$HOME/"/*/ | grep -v \.git
