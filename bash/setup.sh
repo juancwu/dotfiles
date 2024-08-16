@@ -84,7 +84,7 @@ fi
 if command_exists "asadesuka"; then
 	echo "asadesuka detected, skip installation."
 else
-	ASA_URL="https://github.com/juancwu/asadesuka/releases/download/v1.2.0/asadesukaLinuxx86_64.tar.gz"
+	ASA_URL="https://github.com/juancwu/asadesuka/releases/download/v1.2.1/asadesukaLinuxx86_64.tar.gz"
 	mkdir asa_tmp
 	wget $ASA_URL -O asa_tmp/asa.tar.gz
 	tar -C asa_tmp -xzf asa_tmp/asa.tar.gz
