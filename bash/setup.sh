@@ -21,12 +21,18 @@ fi
 # install essentials
 echo "Installing essentials..."
 sudo pacman -Sy curl wget neovim fzf bat ripgrep git
-echo "Setup symlink for neovim configuration"
-ln -s /home/jc/ghq/juancwu/dotfiles/nvim /home/jc/.config/nvim
+echo "Setup symlink configurations"
+ln -s ~/ghq/juancwu/dotfiles/nvim ~/.config/nvim
+ln -s ~/ghq/juancwu/dotfiles/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
+ln -s ~/ghq/juancwu/dotfiles/i3 ~/.config/i3
+ln -s ~/ghq/juancwu/dotfiles/bash/.bashrc.arch ~/.bashrc.arch
 
 # setup git
 git config --global user.email "46619361+juancwu@users.noreply.github.com"
 git config --global user.name "jc"
+
+# clone the alacritty themes repository
+git clone git@github.com:alacritty/alacritty-theme.git ~/ghq/alacritty/alacritty-theme
 
 # install gh cli
 if command_exists "gh"; then
@@ -86,3 +92,5 @@ else
 	rm -r asa_tmp
 	echo "Remember to set the ASA_LAT and ASA_LNG variables in .bashrc"
 fi
+
+echo "source ~/.bashrc.arch" >> ~/.bashrc
