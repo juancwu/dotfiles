@@ -22,7 +22,7 @@ fi
 echo "Installing essentials..."
 sudo pacman -Sy curl wget neovim fzf bat ripgrep git
 echo "Setup symlink for neovim configuration"
-ln -s ~/ghq/juancwu/dotfiles/nvim ~/.config/nvim
+ln -s /home/jc/ghq/juancwu/dotfiles/nvim /home/jc/.config/nvim
 
 # setup git
 git config --global user.email "46619361+juancwu@users.noreply.github.com"
