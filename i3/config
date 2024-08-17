@@ -39,6 +39,9 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 # start notification daemon
 exec --no-startup-id /usr/lib/dunst &
 
+# start hydroxide to use proton mail
+exec --no-startup-id /usr/bin/hydroxide serve &
+
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
