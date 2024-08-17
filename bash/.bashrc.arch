@@ -333,3 +333,8 @@ export BAT_THEME="ansi"
 
 # walk editor
 export EDITOR=vim
+
+bc() {
+    mac=$(bluetoothctl devices | rg "$1" | awk '{print $2}')
+    bluetoothctl connect $mac
+}
