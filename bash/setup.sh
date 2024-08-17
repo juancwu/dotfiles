@@ -20,7 +20,7 @@ fi
 
 # install essentials
 echo "Installing essentials..."
-sudo pacman -Sy curl wget neovim fzf bat ripgrep git
+sudo pacman -Sy curl wget neovim fzf bat ripgrep git dunst bluez bluez-utils bluetui
 echo "Setup symlink configurations"
 ln -s ~/ghq/juancwu/dotfiles/nvim ~/.config/nvim
 ln -s ~/ghq/juancwu/dotfiles/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
