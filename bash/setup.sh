@@ -26,6 +26,7 @@ echo "Setup symlink configurations"
 ln -s ~/ghq/juancwu/dotfiles/nvim ~/.config/nvim
 ln -s ~/ghq/juancwu/dotfiles/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
 ln -s ~/ghq/juancwu/dotfiles/i3 ~/.config/i3
+ln -s ~/ghq/juancwu/dotfiles/i3status ~/.config/i3status
 ln -s ~/ghq/juancwu/dotfiles/bash/.bashrc.arch ~/.bashrc.arch
 
 # setup git
