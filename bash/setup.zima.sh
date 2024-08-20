@@ -7,6 +7,12 @@
 # this script installs all the binaries and creates the symbolic links needed for
 # a minimal setup in the zimaboard running Ubuntu 24.04
 
+# check github permissions
+if [ ! -e "$HOME/.ssh/gh_key" ]; then
+    echo "Missing GitHub SSH key. Configure before continuing."
+    exit 1
+fi
+
 command_exists() {
 	command -v "$1" >/dev/null 2>&1
 }
@@ -15,21 +21,6 @@ sudo apt update -y
 
 # install essentials
 sudo apt install wget curl git
-
-# add github ssh key
-echo "Enter GitHub SSH Key (press Ctrl+D to end)":
-IFS=read -r -d '' gh_key
-
-echo "Saving key in ~/.ssh/ghkey"
-mkdir -p ~/.ssh
-echo "$ghkey" > ~/.ssh/gh_key
-
-echo "Update GitHub SSH Key permissions"
-chmod 0600 ~/.ssh/gh_key
-
-echo "Add key to ssh-agent"
-eval $(ssh-agent)
-ssh-add ~/.ssh/gh_key
 
 # setup git
 git config --global user.email "46619361+juancwu@users.noreply.github.com"
