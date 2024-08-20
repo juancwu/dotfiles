@@ -151,9 +151,30 @@ sngrok() {
     ngrok http --domain=hyena-merry-literally.ngrok-free.app $1
 }
 
+export ASA_LAT="43.46680000"
+export ASA_LNG="-80.51639000"
+export ASA_TZID="UTC"
+
+export LANG=en_CA.UTF-8
+export LC_ALL=en_CA.UTF-8
+
 # set bat theme
 export BAT_THEME="ansi"
 
 # set sudoedit editor
 export EDITOR="nvim"
 export VISUAL="nvim"
+
+source "/opt/.cargo/env"
+
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+export NVM_DIR="/opt/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
