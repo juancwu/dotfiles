@@ -40,7 +40,7 @@ groupadd $DOTFILES_GROUP
 # update dotfiles repo permissions and ownership
 chown -R "root:$DOTFILES_GROUP" "$DOTFILES_DIR"
 chmod 0775 "$DOTFILES_DIR"
-find "$DOTFILES_DIR" -type f -exec chmod 0665 {} \;
+find "$DOTFILES_DIR" -type f -exec chmod 0664 {} \;
 find "$DOTFILES_DIR" -type d -exec chmod 0775 {} \;
 
 # create ghq directory
@@ -53,7 +53,7 @@ GHQ_GROUP=ghq
 groupadd "$GHQ_GROUP"
 chown -R "root:$GHQ_GROUP" "$GHQ_DIR"
 chmod 0775 "$GHQ_DIR"
-find "$GHQ_DIR" -type f -exec chmod 0665 {} \;
+find "$GHQ_DIR" -type f -exec chmod 0664 {} \;
 find "$GHQ_DIR" -type d -exec chmod 0775 {} \;
 
 # create user developer, gain access to rust, nvm, go directories
@@ -119,7 +119,7 @@ if [ -z "$NVM_DIR" ]; then
       git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
     ) && \. "$NVM_DIR/nvm.sh"
     chown -R "$DEV_USER:$DEV_GROUP" "$NVM_DIR"
-    find "$NVM_DIR" -type f -exec chmod 0665 {} \;
+    find "$NVM_DIR" -type f -exec chmod 0664 {} \;
     find "$NVM_DIR" -type d -exec chmod 0775 {} \;
     # post installation configuration
     NVM_LINES='
