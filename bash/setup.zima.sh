@@ -48,9 +48,9 @@ groupadd $DOTFILES_GROUP
 
 # update dotfiles repo permissions and ownership
 chown -R "root:$DOTFILES_GROUP" "$DOTFILES_DIR"
-chmod 0770 "$DOTFILES_DIR"
-find "$DOTFILES_DIR" -type f -exec chmod 0660 {} \;
-find "$DOTFILES_DIR" -type d -exec chmod 0770 {} \;
+chmod 0775 "$DOTFILES_DIR"
+find "$DOTFILES_DIR" -type f -exec chmod 0665 {} \;
+find "$DOTFILES_DIR" -type d -exec chmod 0775 {} \;
 
 # create ghq directory
 GHQ_DIR=/opt/ghq
@@ -61,14 +61,27 @@ mkdir "$GHQ_DIR"
 GHQ_GROUP=ghq
 groupadd "$GHQ_GROUP"
 chown -R "root:$GHQ_GROUP" "$GHQ_DIR"
-chmod 0770 "$GHQ_DIR"
-find "$GHQ_DIR" -type f -exec chmod 0660 {} \;
-find "$GHQ_DIR" -type d -exec chmod 0770 {} \;
+chmod 0775 "$GHQ_DIR"
+find "$GHQ_DIR" -type f -exec chmod 0665 {} \;
+find "$GHQ_DIR" -type d -exec chmod 0775 {} \;
+
+# create user developer, gain access to rust, nvm, go directories
+DEV_USER=developer
+DEV_GROUP=$DEV_USER
+useradd -m -s /bin/bash "$DEV_USER"
+echo "Enter $DEV_USER password:"
+passwd "$DEV_USER"
 
 # install pnpm
 if command_exists "pnpm"; then
     echo "pnpm detected, skip installation."
 else
+    export CARGO_HOME=/opt/.cargo
+    export RUSTUP_HOME=/opt/.rustup
+    mkdir -p "$CARGO_HOME"
+    mkdir -p "$RUSTUP_HOME"
+    chown "$DEV_USER:$DEV_GROUP" "$CARGO_HOME"
+    chown "$DEV_USER:$DEV_GROUP" "$RUSTUP_HOME"
     curl -fsSL https://get.pnpm.io/install.sh | sh -
 fi
 
@@ -114,9 +127,9 @@ if [ -z "$NVM_DIR" ]; then
       cd "$NVM_DIR"
       git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
     ) && \. "$NVM_DIR/nvm.sh"
-    chown -R root:nvm "$NVM_DIR"
-    find "$NVM_DIR" -type f -exec chmod 0660 {} \;
-    find "$NVM_DIR" -type d -exec chmod 0770 {} \;
+    chown -R "$DEV_USER:$DEV_GROUP" "$NVM_DIR"
+    find "$NVM_DIR" -type f -exec chmod 0665 {} \;
+    find "$NVM_DIR" -type d -exec chmod 0775 {} \;
     # post installation configuration
     NVM_LINES='
     export NVM_DIR="/opt/.nvm"
