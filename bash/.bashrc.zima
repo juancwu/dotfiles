@@ -19,32 +19,6 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
 # enable color support for ls and grep (even tho i don't use grep ???)
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -54,6 +28,8 @@ fi
 
 # --------------  Aliases
 alias gs="git status"
+
+alias lg="lazygit"
 
 # ll alias breakdown
 # -a includes hidden files
@@ -83,40 +59,13 @@ WARNING=$'\033[39;43mWARNING:\033[0m'
 INFO=$'\033[39;44mINFO:\033[0m'
 
 # --------------  Functions
-# list directory and cd into it
-sd() {
-	local path=${1:-.}
-	local result=$(ls -d ${path}/*/ 2> /dev/null | fzf)
-	if [[ -n "${result}" ]]; then
-		cd "${result}"
-	else
-		echo -e "$ERROR No directories found or no selection made."
-	fi
-}
-
-# list files and opens it in neovim
-sf() {
-	local path=${2:-.}
-  if [[ $1 == "-h" ]]; then
-    local result=$(find ${path} -type f -name '.*' 2> /dev/null | fzf)
-  else
-    local result=$(find ${path} -type f 2> /dev/null | fzf)
-  fi
-	if [[ -n "${result}" ]]; then
-		nvim "${result}"
-	else
-		echo -e "$ERROR No files found or no selecteion made."
-	fi
-}
-
 # fuzzy cd into specific folders 
 fcd() {
 	local selected_dir=$({
-        echo "$HOME/Documents/Obsidian Vault"
         find "$HOME/.config" -maxdepth 1 -type d
         find "$HOME/.cache" -maxdepth 1 -type d
-		find "$HOME/ghq" -mindepth 2 -maxdepth 2 -type d
-		ls -d -1 "$HOME/"/*/ | grep -v \.git
+		find "/opt/ghq" -mindepth 2 -maxdepth 2 -type d
+		ls -d -1 "/opt/"/*/ | grep -v \.git
 	} | fzf)
 
 	if [ -n "$selected_dir" ]; then
@@ -136,7 +85,7 @@ fcd() {
 # clone repository
 cl() {
     local url=$1
-    local ghq_dir="$HOME/ghq"
+    local ghq_dir="/opt/ghq"
 
     # extract project name
     if [[ $url =~ git@github\.com:([^/]+)/([^/]+)\.git ]]; then
@@ -202,109 +151,9 @@ sngrok() {
     ngrok http --domain=hyena-merry-literally.ngrok-free.app $1
 }
 
-# Set prompt
-if [ "$color_prompt" = yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]\$(parse-git-branch)\[\033[00m\] \$ "
-else
-    PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w\$(parse-git-branch)\$ "
-fi
-unset color_prompt
-
-# setup terminal stuff
-# determine initial terminal color mode
-TERM_COLOR_MODE=dark
-command -v asadesuka > /dev/null 2>&1
-if [ $? -eq 0 ]; then
-    IS_ASA=$(asadesuka -offset=30)
-    if [ $IS_ASA == "true" ]; then
-        TERM_COLOR_MODE=light
-    fi
-else
-    CURRENT_HOUR=$(date +"%H")
-    SEVEN_AM=7
-    SEVEN_PM=19
-    if [ $CURRENT_HOUR -ge $SEVEN_AM ] && [ $CURRENT_HOUR -lt $SEVEN_PM ]; then
-        TERM_COLOR_MODE=light
-    fi
-fi
-export TERM_COLOR_MODE
-
-# set the terminal color theme
-# USE_TERM=kitty
-# if [ $TERM_COLOR_MODE == "light" ]; then
-#     if [ $USE_TERM == "kitty" ]; then
-#         kitten @ set-colors --all "$HOME/.config/kitty/light.conf"
-#     fi
-#     if [ $USE_TERM == "alacritty" ]; then
-#         theme_link="$HOME/.config/alacritty/theme.toml"
-#         rm -rf "$theme_link"
-#         ln "$HOME/.config/alacritty/themes/themes/catppuccin_latte.toml" "$theme_link"
-#     fi
-# else
-#     if [ $USE_TERM == "kitty" ]; then
-#         kitten @ set-colors --all "$HOME/.config/kitty/dark.conf"
-#     fi
-#     if [ $USE_TERM == "alacritty" ]; then
-#         theme_link="$HOME/.config/alacritty/theme.toml"
-#         rm -r "$theme_link"
-#         ln "$HOME/.config/alacritty/themes/themes/catppuccin_mocha.toml" "$theme_link"
-#     fi
-# fi
-
-# setup kitty, it will export TERM_COLOR_MODE (can be light or dark)
-# source ~/.config/kitty/setup.sh
-# function to toggle kitty terminal theme
-# toggle_theme() {
-#     if [ "$TERM_COLOR_MODE" == "light" ]; then
-#         export TERM_COLOR_MODE=dark
-#         theme="catppuccin_latte"
-#     else
-#         export TERM_COLOR_MODE=light
-#         theme="catppuccin_mocha"
-#     fi
-#     if [ $USE_TERM == "kitty" ]; then
-#         kitten @ set-colors --all "$HOME/.config/kitty/$TERM_COLOR_MODE.conf"
-#     fi
-#     if [ $USE_TERM == "alacritty" ]; then
-#         theme_link="$HOME/.config/alacritty/theme.toml"
-#         rm -r "$theme_link"
-#         ln "$HOME/.config/alacritty/themes/themes/$theme.toml" "$theme_link"
-#     fi
-# }
-
-type -p curl >/dev/null || echo -e "$WARNING curl is not installed"
-
-command -v nvm > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "$WARNING nvm is not installed"
-fi
-
-command -v pnpm > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "$WARNING pnpm is not installed"
-fi
-
-command -v gh > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "$WARNING gh cli is not installed"
-fi
-
-command -v nvim > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "$ERROR neovim is not installed"
-fi
-
-command -v lazygit > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "$WARNING lazygit is not installed"
-else
-    alias lg="lazygit"
-fi
-
-command -v rustc > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "$WARNING rust is not installed"
-fi
-
 # set bat theme
 export BAT_THEME="ansi"
+
+# set sudoedit editor
+export EDITOR="nvim"
+export VISUAL="nvim"
