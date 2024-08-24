@@ -340,3 +340,6 @@ bc() {
     mac=$(bluetoothctl devices | rg "$1" | awk '{print $2}')
     bluetoothctl connect $mac
 }
+
+export GOPATH=/home/jc/go
+export PATH=$PATH:$GOPATH
