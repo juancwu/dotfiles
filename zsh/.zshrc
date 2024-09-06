@@ -61,7 +61,7 @@ sf() {
 # fuzzy cd into specific folders
 fcd() {
 	local selected_dir=$({
-		echo "$HOME/.config"
+        find "$HOME/.config" -type d -maxdepth 1
 		echo "$HOME/Documents/Obsidian Vault"
 		find "$HOME/ghq" -mindepth 2 -maxdepth 2 -type d
 		ls -d -1 "$HOME/"/*/ | grep -v \.git
@@ -161,18 +161,46 @@ PS1="%n@%m:%~ $ "
 
 unset color_prompt
 
-# setup kitty, it will export TERM_COLOR_MODE (can be light or dark)
-# source ~/.config/kitty/setup.sh
-# function to toggle kitty terminal theme
-# toggle_theme() {
-#     if [ "$TERM_COLOR_MODE" == "light" ]; then
-#         export TERM_COLOR_MODE=dark
-#         kitten @ set-colors --all "$HOME/.config/kitty/dark.conf"
-#     else
-#         export TERM_COLOR_MODE=light
-#         kitten @ set-colors --all "$HOME/.config/kitty/light.conf"
-#     fi
-# }
+# setup terminal stuff
+# determine initial terminal color mode
+TERM_COLOR_MODE=dark
+command -v asadesuka > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    IS_ASA=$(asadesuka -offset 30)
+    if [ $IS_ASA = "true" ]; then
+        TERM_COLOR_MODE=light
+    fi
+else
+    CURRENT_HOUR=$(date +"%H")
+    SEVEN_AM=7
+    SEVEN_PM=19
+    if [ $CURRENT_HOUR -ge $SEVEN_AM ] && [ $CURRENT_HOUR -lt $SEVEN_PM ]; then
+        TERM_COLOR_MODE=light
+    fi
+fi
+export TERM_COLOR_MODE
+
+# set the terminal color theme
+USE_TERM=alacritty
+if [ $TERM_COLOR_MODE = "light" ]; then
+    if [ $USE_TERM = "kitty" ]; then
+        kitten @ set-colors --all "$HOME/.config/kitty/light.conf"
+    fi
+    if [ $USE_TERM = "alacritty" ]; then
+        theme_link="$HOME/.config/alacritty/theme.toml"
+        rm -rf "$theme_link"
+        ln -s "$HOME/ghq/alacritty/alacritty-theme/themes/catppuccin_latte.toml" "$theme_link"
+    fi
+else
+    if [ $USE_TERM = "kitty" ]; then
+        kitten @ set-colors --all "$HOME/.config/kitty/dark.conf"
+    fi
+    if [ $USE_TERM = "alacritty" ]; then
+        theme_link="$HOME/.config/alacritty/theme.toml"
+        rm -r "$theme_link"
+        ln -s "$HOME/ghq/alacritty/alacritty-theme/themes/catppuccin_mocha.toml" "$theme_link"
+    fi
+fi
 
 type -p curl >/dev/null || echo -e "$WARNING curl is not installed"
 
