@@ -52,16 +52,14 @@ return {
             nmap("q", "<cmd>lua require'dap'.close()<CR>", "[Q]uit")
         else
             local keymap = {
-                d = {
-                    name = "DAP",
-                    c = { "<cmd>lua require'dap'.continue()<CR>", "[C]ontinue" },
-                    b = { "<cmd>lua require'dap'.toggle_breakpoint()<CR>", "Toggle [B]reakpoint" },
-                    i = { "<cmd>lua require'dap'.step_into()<CR>", "Step [I]nto" },
-                    o = { "<cmd>lua require'dap'.step_over()<CR>", "Step [O]ver" },
-                    u = { "<cmd>lua require'dap'.step_out()<CR>", "[U] Step Out" },
-                    x = { "<cmd>lua require'dap'.terminate()<CR>", "[T]erminate" },
-                    q = { "<cmd>lua require'dap'.close()<CR>", "[Q]uit" },
-                },
+                { "<leader>d",  group = "DAP",                                   nowait = false,               remap = false },
+                { "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", desc = "Toggle [B]reakpoint", nowait = false, remap = false },
+                { "<leader>dc", "<cmd>lua require'dap'.continue()<CR>",          desc = "[C]ontinue",          nowait = false, remap = false },
+                { "<leader>di", "<cmd>lua require'dap'.step_into()<CR>",         desc = "Step [I]nto",         nowait = false, remap = false },
+                { "<leader>do", "<cmd>lua require'dap'.step_over()<CR>",         desc = "Step [O]ver",         nowait = false, remap = false },
+                { "<leader>dq", "<cmd>lua require'dap'.close()<CR>",             desc = "[Q]uit",              nowait = false, remap = false },
+                { "<leader>du", "<cmd>lua require'dap'.step_out()<CR>",          desc = "[U] Step Out",        nowait = false, remap = false },
+                { "<leader>dx", "<cmd>lua require'dap'.terminate()<CR>",         desc = "[T]erminate",         nowait = false, remap = false },
             }
 
             local opts = {
@@ -72,7 +70,7 @@ return {
                 noremap = true,
                 nowait = false,
             }
-            wk.register(keymap, opts)
+            wk.add(keymap, opts)
         end
     end
 }
