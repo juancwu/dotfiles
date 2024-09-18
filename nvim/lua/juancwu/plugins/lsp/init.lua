@@ -110,7 +110,7 @@ return {
             local status, lspconfig = pcall(require, "lspconfig")
 
             if status then
-                lspconfig.ts_ls.setup({})
+                lspconfig.tsserver.setup({})
                 lspconfig.tailwindcss.setup({
                     filetypes = {
                         "templ",
