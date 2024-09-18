@@ -1,5 +1,6 @@
 return {
     'mfussenegger/nvim-dap',
+    enabled = false,
     config = function()
         local status, wk = pcall(require, "which-key")
 
