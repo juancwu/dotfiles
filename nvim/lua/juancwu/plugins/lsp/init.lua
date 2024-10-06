@@ -37,6 +37,7 @@ return {
                             typescript = { "prettier" },
                             javascriptreact = { "prettier" },
                             typescriptreact = { "prettier" },
+                            css = { "prettier" },
                             markdown = { "prettier" },
                             go = { "gofumpt" },
                             python = { "autopep8" },
