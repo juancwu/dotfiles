@@ -69,6 +69,9 @@ bindsym $mod+T exec alacritty
 bindsym $mod+C exec discord
 assign [class="discord"] 3
 
+# start 1password
+bindsym $mod+P exec 1password
+
 # kill focused window
 bindsym $mod+q kill
 
