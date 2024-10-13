@@ -23,6 +23,8 @@ font pango:FiraCode Nerd Font Mono 12
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
+exec --no-startup-id xrandr --output DP-0 --mode 3840x2160 --rate 239.99
+
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
@@ -35,9 +37,6 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-
-# start notification daemon
-exec --no-startup-id /usr/lib/dunst &
 
 # start hydroxide to use proton mail
 # exec --no-startup-id /usr/bin/hydroxide serve &
