@@ -145,10 +145,8 @@ fcd() {
 cl() {
     local url=$1
     local ghq_dir="$HOME/ghq"
-    local argc=$#
     local project_name=""
     local repository_name=""
-    local url=""
 
     # extract project name
     if [[ $url =~ git@git(lab|hub)\.com:([^/]+)/([^/]+)\.git ]]; then
@@ -175,7 +173,6 @@ cl() {
 
     # check if directory for project exists or not
     local project_dir="${ghq_dir}/${namespace}/${repository_name}"
-    echo $project_dir
     if [[ ! -d $project_dir ]]; then
         mkdir -p $project_dir
     fi
