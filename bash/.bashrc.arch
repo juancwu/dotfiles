@@ -354,6 +354,6 @@ bc() {
     bluetoothctl connect $mac
 }
 
-export GOPATH=/home/jc/go
+export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH:$GOPATH/bin
 export EDITOR=nvim
