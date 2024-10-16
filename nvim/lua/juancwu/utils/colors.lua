@@ -7,7 +7,7 @@ local dark = "catppuccin-mocha"
 function M.is_daytime()
 	-- check if command exists or not
 	local cmd_name = "asadesuka"
-	local cmd_flags = "-offset 30"
+	local cmd_flags = "-offset 0"
 	local has_asadesuka = require("juancwu.utils.os").cmd_exists(cmd_name)
 	if has_asadesuka then
 		local handle = io.popen(cmd_name .. " " .. cmd_flags)
