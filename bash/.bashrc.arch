@@ -145,15 +145,15 @@ fcd() {
 cl() {
     local url=$1
     local ghq_dir="$HOME/ghq"
-    local project_name=""
+    local namespace=""
     local repository_name=""
 
     # extract project name
     if [[ $url =~ git@git(lab|hub)\.com:([^/]+)/([^/]+)\.git ]]; then
-        local project_name="${BASH_REMATCH[2]}"
+        local namespace="${BASH_REMATCH[2]}"
         local repository_name="${BASH_REMATCH[3]}"
     elif [[ $url =~ https://git(lab|hub)\.com/([^/]+)/([^/]+)\.git ]]; then
-        local project_name="${BASH_REMATCH[2]}"
+        local namespace="${BASH_REMATCH[2]}"
         local repository_name="${BASH_REMATCH[3]}"
     elif [[ $# -ne 0 ]]; then
         repository_name=$1
@@ -172,12 +172,12 @@ cl() {
     fi
 
     # check if directory for project exists or not
-    local project_dir="${ghq_dir}/${namespace}/${repository_name}"
-    if [[ ! -d $project_dir ]]; then
-        mkdir -p $project_dir
+    local repository_dir="${ghq_dir}/${namespace}/${repository_name}"
+    if [[ ! -d $repository_dir ]]; then
+        mkdir -p $repository_dir
     fi
 
-    git clone $url $project_dir
+    git clone $url $repository_dir
 }
 
 # get branch if available
