@@ -165,6 +165,12 @@ cl() {
             domain=$1
             repository_name=$2
         fi
+        if [[ $# -eq 3 ]]; then
+            # it has been given a domain, namespace and repository name
+            domain=$1
+            namespace=$2
+            repository_name=$3
+        fi
         url="git@git$domain.com:$namespace/$repository_name.git"
     else
         echo -e "$ERROR Invalid URL format"
