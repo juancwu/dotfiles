@@ -247,15 +247,15 @@ gcr() {
     git fetch
 
     if [ $# -eq 1 ]; then
-        local selected_branch=$(git branch | grep "$1" | sed 's/^([ \*]*origin\/[\ *]*)*//')
-        git switch "$selected_branch"
+        local selected_branch=$(git branch -r | grep "$1" | sed -E 's/^([ \*]*origin\/[\ *]*)*//')
+        git checkout "$selected_branch"
         return
     fi
     
     local selected_branch=$(git branch -r | fzf | sed -E 's/^([ \*]*origin\/[\ *]*)*//')
 
     if [ -n "$selected_branch" ]; then
-        git switch "$selected_branch"
+        git checkout "$selected_branch"
     else
         echo "No branch selected"
     fi
