@@ -155,6 +155,20 @@ fcd() {
 	fi
 }
 
+# fuzzy find all directories from cwd
+# or quickly select best match from query
+cdf() {
+    local selected_dir=""
+
+    if [ $# -eq 1 ]; then
+        selected_dir=$(find . -type d | fzf --filter="$1" --select-1 --exit-0 | head -1)
+    else
+        selected_dir=$(find . -type d | fzf)
+    fi
+
+    cd "$selected_dir"
+}
+
 # clone repository
 cl() {
     local url=$1
