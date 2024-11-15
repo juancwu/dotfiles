@@ -117,15 +117,29 @@ sf() {
 
 # fuzzy cd into specific folders 
 fcd() {
-	local selected_dir=$({
-        find "$HOME/.config" -maxdepth 1 -type d
-        find "$HOME/.config" -maxdepth 1 -type l
-        find "$HOME/.cache" -maxdepth 1 -type d
-        find "/mnt/smb" -maxdepth 1 -type d
-		echo "$HOME/Documents/Obsidian Vault"
-		find "$HOME/ghq" -mindepth 2 -maxdepth 2 -type d
-		ls -d -1 "$HOME/"/*/ | grep -v \.git
-	} | fzf)
+    local selected_dir=""
+
+    if [ $# -eq 1 ]; then
+        selected_dir=$({
+            find "$HOME/.config" -maxdepth 1 -type d
+            find "$HOME/.config" -maxdepth 1 -type l
+            find "$HOME/.cache" -maxdepth 1 -type d
+            find "/mnt/smb" -maxdepth 1 -type d
+            echo "$HOME/Documents/Obsidian Vault"
+            find "$HOME/ghq" -mindepth 2 -maxdepth 2 -type d
+            ls -d -1 "$HOME/"/*/ | grep -v \.git
+        } | fzf --filter="$1" --select-1 --exit-0 | head -1)
+    else
+        selected_dir=$({
+            find "$HOME/.config" -maxdepth 1 -type d
+            find "$HOME/.config" -maxdepth 1 -type l
+            find "$HOME/.cache" -maxdepth 1 -type d
+            find "/mnt/smb" -maxdepth 1 -type d
+            echo "$HOME/Documents/Obsidian Vault"
+            find "$HOME/ghq" -mindepth 2 -maxdepth 2 -type d
+            ls -d -1 "$HOME/"/*/ | grep -v \.git
+        } | fzf)
+    fi
 
 	if [ -n "$selected_dir" ]; then
 		cd "$selected_dir"
@@ -199,6 +213,12 @@ git-prune() {
 
 # fuzzy find branches and switch to selected branch
 gc() {
+    if [ $# -eq 1 ]; then
+        local selected_branch=$(git branch | grep "$1" | sed 's/^[ \*]*//')
+        git checkout "$selected_branch"
+        return
+    fi
+
     local selected_branch=$(git branch | fzf | sed 's/^[ \*]*//')
 
     if [ -n "$selected_branch" ]; then
@@ -211,10 +231,17 @@ gc() {
 # fuzzy find remote branches and switch to selected branch
 gcr() {
     git fetch
+
+    if [ $# -eq 1 ]; then
+        local selected_branch=$(git branch | grep "$1" | sed 's/^([ \*]*origin\/[\ *]*)*//')
+        git switch "$selected_branch"
+        return
+    fi
+    
     local selected_branch=$(git branch -r | fzf | sed -E 's/^([ \*]*origin\/[\ *]*)*//')
 
     if [ -n "$selected_branch" ]; then
-        git checkout "$selected_branch"
+        git switch "$selected_branch"
     else
         echo "No branch selected"
     fi
