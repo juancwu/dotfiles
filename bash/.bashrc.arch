@@ -228,7 +228,7 @@ git-prune() {
 # fuzzy find branches and switch to selected branch
 gc() {
     if [ $# -eq 1 ]; then
-        local selected_branch=$(git branch | grep "$1" | sed 's/^[ \*]*//')
+        local selected_branch=$(git branch | fzf --filter="$1" --select-1 --exit-0 | head -1 | sed 's/^[ \*]*//')
         git checkout "$selected_branch"
         return
     fi
@@ -247,7 +247,7 @@ gcr() {
     git fetch
 
     if [ $# -eq 1 ]; then
-        local selected_branch=$(git branch -r | grep "$1" | sed -E 's/^([ \*]*origin\/[\ *]*)*//')
+        local selected_branch=$(git branch -r | fzf --filter="$1" --select-1 --exit-0 | head -1 | sed -E 's/^([ \*]*origin\/[\ *]*)*//')
         git checkout "$selected_branch"
         return
     fi
