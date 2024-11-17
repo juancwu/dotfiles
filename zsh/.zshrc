@@ -102,23 +102,30 @@ cl() {
 
     # extract project name
     if [[ $url =~ git@git(lab|hub)\.com:([^/]+)/([^/]+)\.git ]]; then
-        local project_name="${match[2]}"
+        local namespace="${match[2]}"
         local repository_name="${match[3]}"
     elif [[ $url =~ https://git(lab|hub)\.com/([^/]+)/([^/]+)\.git ]]; then
-        local project_name="${match[2]}"
+        local namespace="${match[2]}"
         local repository_name="${match[3]}"
     elif [[ $# -ne 0 ]]; then
         local domain=$1
-        local project_name="juancwu"
+        local namespace="juancwu"
         local repository_name=$2
-        local url="git@git$domain.com:$project_name/$repository_name.git"
+
+        if [[ $# -eq 3 ]]; then
+            domain=$1
+            namespace=$2
+            repository_name=$3
+        fi
+
+        local url="git@git$domain.com:$namespace/$repository_name.git"
     else
         echo "Invalid URL format"
         return 1
     fi
 
     # check if directory for project exists or not
-    local project_dir="${ghq_dir}/${project_name}/${repository_name}"
+    local project_dir="${ghq_dir}/${namespace}/${repository_name}"
     echo $project_dir
     if [[ ! -d $project_dir ]]; then
         mkdir -p $project_dir
