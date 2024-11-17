@@ -129,6 +129,12 @@ cl() {
 
 # fuzzy find branches and switch to selected branch
 gc() {
+    if [ $# -eq 1 ]; then
+        local selected_branch=$(git branch | fzf --filter="$1" --select-1 --exit-0 | head -1 | sed 's/^[ \*]*//')
+        git checkout "$selected_branch"
+        return
+    fi
+
     local selected_branch=$(git branch | fzf | sed 's/^[ \*]*//')
 
     if [ -n "$selected_branch" ]; then
@@ -141,6 +147,13 @@ gc() {
 # fuzzy find remote branches and switch to selected branch
 gcr() {
     git fetch
+
+    if [ $# -eq 1 ]; then
+        local selected_branch=$(git branch -r | fzf --filter="$1" --select-1 --exit-0 | head -1 | sed -E 's/^([ \*]*origin\/[\ *]*)*//')
+        git checkout "$selected_branch"
+        return
+    fi
+
     local selected_branch=$(git branch -r | fzf | sed -E 's/^([ \*]*origin\/[\ *]*)*//')
 
     if [ -n "$selected_branch" ]; then
