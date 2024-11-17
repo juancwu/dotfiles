@@ -60,20 +60,32 @@ sf() {
 
 # fuzzy cd into specific folders
 fcd() {
-	local selected_dir=$({
-        find "$HOME/.config" -type d -maxdepth 1
-		echo "$HOME/Documents/Obsidian Vault"
-		find "$HOME/ghq" -mindepth 2 -maxdepth 2 -type d
-		ls -d -1 "$HOME/"/*/ | grep -v \.git
-		ls -d -1 */ | perl -pe "s#^#$PWD/#" | grep -v \.git
-	} | fzf)
+    local selected_dir=""
+
+    if [ $# -eq 1 ]; then
+        selected_dir=$({
+            find "$HOME/.config" -type d -maxdepth 1
+            echo "$HOME/Documents/Obsidian Vault"
+            find "$HOME/ghq" -mindepth 2 -maxdepth 2 -type d
+            ls -d -1 "$HOME/"/*/ | grep -v \.git
+            ls -d -1 */ | perl -pe "s#^#$PWD/#" | grep -v \.git
+        } | fzf --filter="$1" --select-1 --exit-0 | head -1)
+    else
+        selected_dir=$({
+            find "$HOME/.config" -type d -maxdepth 1
+            echo "$HOME/Documents/Obsidian Vault"
+            find "$HOME/ghq" -mindepth 2 -maxdepth 2 -type d
+            ls -d -1 "$HOME/"/*/ | grep -v \.git
+            ls -d -1 */ | perl -pe "s#^#$PWD/#" | grep -v \.git
+        } | fzf)
+    fi
 
 	if [ -n "$selected_dir" ]; then
 		cd "$selected_dir"
 		if [[ -f .nvmrc ]]; then
 			NVMRC_VERSION=$(cat .nvmrc)
 			CURRENT_VERSION=$(nvm current)
-			if [ "$NVMRC_VERSIOn" != "$CURRENT_VERSION" ]; then
+			if [ "$NVMRC_VERSION" != "$CURRENT_VERSION" ]; then
 				nvm use
 			fi
 		fi
