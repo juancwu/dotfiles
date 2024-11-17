@@ -166,6 +166,21 @@ sngrok() {
     ngrok http --domain=hyena-merry-literally.ngrok-free.app $1
 }
 
+# helper function to fuzzy search files in the current working directory
+ed() {
+    local f=""
+
+    if [ $# -eq 1 ]; then
+        f=$(find . | grep -Ev "node_modules|\.git" | fzf --filter="$1" --select-1 --exit-0 | head -1)
+    else
+        f=$(find . | grep -Ev "node_modules|\.git" | fzf)
+    fi
+
+    if [ -n "$f" ]; then
+        nvim "$f"
+    fi
+}
+
 # Load colors if possible
 autoload -U colors && colors
 
