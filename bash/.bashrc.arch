@@ -166,7 +166,9 @@ cdf() {
         selected_dir=$(find . -type d | fzf)
     fi
 
-    cd "$selected_dir"
+    if [ -n "$selected_dir" ]; then
+        cd "$selected_dir"
+    fi
 }
 
 # clone repository
