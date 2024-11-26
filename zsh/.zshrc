@@ -191,9 +191,9 @@ ed() {
     local f=""
 
     if [ $# -eq 1 ]; then
-        f=$(find . | grep -Ev "node_modules|\.git" | fzf --filter="$1" --select-1 --exit-0 | head -1)
+        f=$(find . | grep -Ev "node_modules|\.git/" | fzf --filter="$1" --select-1 --exit-0 | head -1)
     else
-        f=$(find . | grep -Ev "node_modules|\.git" | fzf)
+        f=$(find . | grep -Ev "node_modules|\.git/" | fzf)
     fi
 
     if [ -n "$f" ]; then
