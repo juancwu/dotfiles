@@ -394,7 +394,7 @@ fi
 export BAT_THEME="ansi"
 
 # walk editor
-export EDITOR=vim
+export EDITOR=nvim
 
 bc() {
     mac=$(bluetoothctl devices | rg "$1" | awk '{print $2}')
