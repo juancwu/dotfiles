@@ -353,11 +353,6 @@ if [ $? -ne 0 ]; then
     echo -e "$WARNING pnpm is not installed"
 fi
 
-command -v gh > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "$WARNING gh cli is not installed"
-fi
-
 command -v nvim > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo -e "$ERROR neovim is not installed"
