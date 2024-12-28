@@ -16,6 +16,10 @@ set $mod Mod4
 # is used in the bar {} block below.
 font pango:FiraCode Nerd Font Mono 12
 
+# app aliases
+set $default_browser "firefox"
+set $terminal "alacritty"
+
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
@@ -39,8 +43,14 @@ exec --no-startup-id nm-applet
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
-# start hydroxide to use proton mail
-# exec --no-startup-id /usr/bin/hydroxide serve &
+exec --no-startup-id $terminal
+
+assign [class="firefox"] 2
+exec --no-startup-id $default_browser
+
+assign [class="1Password"] 3
+exec --no-startup-id 1password
+
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -57,17 +67,15 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 
-set $default_browser "firefox"
 # start default browser
 bindsym $mod+B exec $default_browser
-assign [class="firefox"] 2
 
 # start a terminal
 bindsym $mod+T exec alacritty
 
 # start discord on workspace 3
-bindsym $mod+C exec discord
-assign [class="discord"] 3
+#bindsym $mod+C exec discord
+#assign [class="discord"] 3
 
 # start 1password
 bindsym $mod+P exec 1password
