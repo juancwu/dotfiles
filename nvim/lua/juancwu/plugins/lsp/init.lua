@@ -111,7 +111,7 @@ return {
             local status, lspconfig = pcall(require, "lspconfig")
 
             if status then
-                lspconfig.tsserver.setup({})
+                lspconfig.ts_ls.setup({})
                 lspconfig.tailwindcss.setup({
                     filetypes = {
                         "templ",
@@ -130,7 +130,7 @@ return {
                 lspconfig.zls.setup({})
                 lspconfig.rust_analyzer.setup({})
                 lspconfig.gopls.setup({})
-                lspconfig.html.setup({})
+                -- lspconfig.html.setup({})
                 vim.filetype.add({
                     extension = {
                         templ = "templ",
