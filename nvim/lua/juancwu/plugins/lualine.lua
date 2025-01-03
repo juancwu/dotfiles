@@ -20,12 +20,12 @@ return {
                 disabled_filetypes = {}
             },
             sections = {
-                lualine_a = { 'mode' },
-                lualine_b = { 'branch' },
+                lualine_a = { },
+                lualine_b = { },
                 lualine_c = { {
                     'filename',
                     file_status = true, -- display file status
-                    path = 0            -- no file path
+                    path = 1            -- no file path
                 } },
                 lualine_x = {
                     {
