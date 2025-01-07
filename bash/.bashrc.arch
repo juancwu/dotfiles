@@ -173,6 +173,14 @@ cdf() {
 
 # clone repository
 cl() {
+    if [[ $# -eq 0 ]]; then
+        # help text
+        echo "Usage: cl REPOSITORY_NAME"
+        echo "Usage: cl REPOSITORY_URL"
+        echo "Usage: cl (hub|lab) REPOSITORY_NAME"
+        echo "Usage: cl (hub|lab) NAMESPACE REPOSITORY_NAME"
+    fi
+
     local url=$1
     local ghq_dir="$HOME/ghq"
     local namespace=""
