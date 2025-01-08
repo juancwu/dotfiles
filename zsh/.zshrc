@@ -97,20 +97,36 @@ fcd() {
 # clone repository
 # setopt EXTENDED_GLOB
 cl() {
+    if [[ $# -eq 0 ]]; then
+        # help text
+        echo "Usage: cl REPOSITORY_NAME"
+        echo "Usage: cl REPOSITORY_URL"
+        echo "Usage: cl (hub|lab) REPOSITORY_NAME"
+        echo "Usage: cl (hub|lab) NAMESPACE REPOSITORY_NAME"
+        return 0
+    fi
+
     local url=$1
     local ghq_dir="$HOME/ghq"
+    local namespace=""
+    local repository_name=""
 
     # extract project name
     if [[ $url =~ git@git(lab|hub)\.com:([^/]+)/([^/]+)\.git ]]; then
-        local namespace="${match[2]}"
-        local repository_name="${match[3]}"
+        namespace="${match[2]}"
+        repository_name="${match[3]}"
     elif [[ $url =~ https://git(lab|hub)\.com/([^/]+)/([^/]+)\.git ]]; then
-        local namespace="${match[2]}"
-        local repository_name="${match[3]}"
+        namespace="${match[2]}"
+        repository_name="${match[3]}"
     elif [[ $# -ne 0 ]]; then
-        local domain=$1
-        local namespace="juancwu"
-        local repository_name=$2
+        repository_name=$1
+        namespace="juancwu"
+        local domain="hub"
+
+        if [[ $# -eq 2 ]]; then
+            domain=$1
+            repository_name=$2
+        fi
 
         if [[ $# -eq 3 ]]; then
             domain=$1
@@ -118,7 +134,7 @@ cl() {
             repository_name=$3
         fi
 
-        local url="git@git$domain.com:$namespace/$repository_name.git"
+        url="git@git$domain.com:$namespace/$repository_name.git"
     else
         echo "Invalid URL format"
         return 1
