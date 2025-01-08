@@ -179,6 +179,7 @@ cl() {
         echo "Usage: cl REPOSITORY_URL"
         echo "Usage: cl (hub|lab) REPOSITORY_NAME"
         echo "Usage: cl (hub|lab) NAMESPACE REPOSITORY_NAME"
+        return 0
     fi
 
     local url=$1
