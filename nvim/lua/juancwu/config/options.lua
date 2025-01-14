@@ -57,3 +57,5 @@ vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.breakindent = true
 
 vim.opt.cursorline = true
+
+vim.g.have_nerd_font = true
