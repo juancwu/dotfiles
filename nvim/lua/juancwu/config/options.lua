@@ -57,6 +57,3 @@ vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.breakindent = true
 
 vim.opt.cursorline = true
-
--- for obsidian
-vim.opt.conceallevel = 2
