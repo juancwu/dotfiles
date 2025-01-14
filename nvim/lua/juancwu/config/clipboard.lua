@@ -31,7 +31,18 @@ if Utils.os.is_linux() then
         }
     end
 elseif Utils.os.is_mac() then
-    vim.opt.clipboard:append { "unnamedplus" }
+    vim.g.clipboard = {
+        name = "mac-clipboard",
+        copy = {
+            ['+'] = "pbcopy",
+            ['*'] = "pbcopy",
+        },
+        paste = {
+            ['+'] = "pbpaste",
+            ['*'] = "pbpaste",
+        },
+        cache_enabled = 1,
+    }
 elseif Utils.os.is_wsl() then
     vim.g.clipboard = {
         name = "win32yank",
