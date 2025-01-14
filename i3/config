@@ -45,11 +45,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 exec --no-startup-id $terminal
 
-assign [class="firefox"] 2
-exec --no-startup-id $default_browser
-
-assign [class="1Password"] 3
-exec --no-startup-id 1password
+exec --no-startup-id i3-msg 'workspace 2; exec $default_browser; workspace 3; exec 1password; workspace 1'
 
 
 # Use pactl to adjust volume in PulseAudio.
@@ -79,6 +75,7 @@ bindsym $mod+T exec alacritty
 
 # start 1password
 bindsym $mod+P exec 1password
+bindsym $mod+O exec 1password --quick-access
 
 # kill focused window
 bindsym $mod+q kill
