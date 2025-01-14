@@ -141,6 +141,7 @@ return {
                         "templ",
                     },
                 })
+                lspconfig.intelephense.setup({})
             end
 
             lspzero.setup()
