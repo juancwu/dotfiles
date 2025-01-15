@@ -1,7 +1,27 @@
 return {
 	"nvim-telescope/telescope.nvim",
 	version = "0.1.2",
-	dependencies = { "nvim-lua/plenary.nvim" },
+	dependencies = {
+        "nvim-lua/plenary.nvim",
+        {
+            'nvim-telescope/telescope-fzf-native.nvim',
+            build = 'make',
+            enabled = true,
+            cond = function()
+                return vim.fn.executable 'make' == 1
+            end,
+        },
+        {
+          "nvim-telescope/telescope-file-browser.nvim",
+          dependencies = {
+            "nvim-telescope/telescope.nvim",
+            "nvim-lua/plenary.nvim",
+          },
+          enabled = true,
+        },
+        { 'nvim-telescope/telescope-ui-select.nvim'},
+        { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+    },
 	config = function()
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
