@@ -142,6 +142,7 @@ return {
                     },
                 })
                 lspconfig.intelephense.setup({})
+                lspconfig.lua_ls.setup({})
             end
 
             lspzero.setup()
