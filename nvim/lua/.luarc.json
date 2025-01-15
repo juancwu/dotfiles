@@ -73,5 +73,8 @@
         "/home/jc/ghq/juancwu/dotfiles/nvim/lua",
         "/home/jc/ghq/juancwu/dotfiles/nvim/lua",
         "${3rd}/luv/library"
+    ],
+    "diagnostics.globals": [
+        "vim"
     ]
 }
