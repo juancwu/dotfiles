@@ -67,7 +67,7 @@ tiling_drag modifier titlebar
 bindsym $mod+B exec $default_browser
 
 # start a terminal
-bindsym $mod+T exec alacritty
+bindsym $mod+T exec --no-startup-id ~/.config/i3/alacritty.sh
 
 # start discord on workspace 3
 #bindsym $mod+C exec discord
