@@ -245,26 +245,26 @@ fi
 export TERM_COLOR_MODE
 
 # set the terminal color theme
-USE_TERM=alacritty
-if [ $TERM_COLOR_MODE = "light" ]; then
-    if [ $USE_TERM = "kitty" ]; then
-        kitten @ set-colors --all "$HOME/.config/kitty/light.conf"
-    fi
-    if [ $USE_TERM = "alacritty" ]; then
-        theme_link="$HOME/.config/alacritty/theme.toml"
-        rm -rf "$theme_link"
-        ln -s "$HOME/ghq/alacritty/alacritty-theme/themes/catppuccin_latte.toml" "$theme_link"
-    fi
-else
-    if [ $USE_TERM = "kitty" ]; then
-        kitten @ set-colors --all "$HOME/.config/kitty/dark.conf"
-    fi
-    if [ $USE_TERM = "alacritty" ]; then
-        theme_link="$HOME/.config/alacritty/theme.toml"
-        rm -r "$theme_link"
-        ln -s "$HOME/ghq/alacritty/alacritty-theme/themes/catppuccin_mocha.toml" "$theme_link"
-    fi
-fi
+# USE_TERM=alacritty
+# if [ $TERM_COLOR_MODE = "light" ]; then
+#     if [ $USE_TERM = "kitty" ]; then
+#         kitten @ set-colors --all "$HOME/.config/kitty/light.conf"
+#     fi
+#     if [ $USE_TERM = "alacritty" ]; then
+#         theme_link="$HOME/.config/alacritty/theme.toml"
+#         rm -rf "$theme_link"
+#         ln -s "$HOME/ghq/alacritty/alacritty-theme/themes/catppuccin_latte.toml" "$theme_link"
+#     fi
+# else
+#     if [ $USE_TERM = "kitty" ]; then
+#         kitten @ set-colors --all "$HOME/.config/kitty/dark.conf"
+#     fi
+#     if [ $USE_TERM = "alacritty" ]; then
+#         theme_link="$HOME/.config/alacritty/theme.toml"
+#         rm -r "$theme_link"
+#         ln -s "$HOME/ghq/alacritty/alacritty-theme/themes/catppuccin_mocha.toml" "$theme_link"
+#     fi
+# fi
 
 type -p curl >/dev/null || echo -e "$WARNING curl is not installed"
 
