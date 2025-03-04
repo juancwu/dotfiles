@@ -309,3 +309,5 @@ command -v ngrok > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo -e "$WARNING ngrok is not installed"
 fi
+
+export EDITOR=nvim
