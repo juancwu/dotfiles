@@ -10,7 +10,6 @@ local formatters_by_ft = {
 	json = { "prettier", "biome" },
 	go = { "gofmt" },
 	python = { "autopep8" },
-	yaml = { "yamlfmt" },
 }
 
 -- Function to find the first config file by walking up the directory tree
