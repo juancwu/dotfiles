@@ -61,7 +61,7 @@ alias gs="git status"
 # -a includes hidden files
 # -l displays the listing in long format, showing file attributes such as permissions
 # -F appends a character to each entry in the listing to indicate the file type (e.g '/' for directories and '*' for executables)
-alias ll="ls -alF"
+alias ll="lsd -alF"
 
 # la alias breakdown
 # -A list all entries without ./ and ../
