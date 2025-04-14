@@ -65,12 +65,12 @@ alias ll="lsd -alF"
 
 # la alias breakdown
 # -A list all entries without ./ and ../
-alias la="ls -A"
+alias la="lsd -A"
 
 # l alias breakdown
 # -C list entries by columns
 # -F appends a character to each entry in the listing to indicate the file type (e.g '/' for directories and '*' for executables)
-alias l="ls -CF"
+alias l="lsd -CF"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
