@@ -81,6 +81,7 @@ alias cc="clear"
 
 # always select the clipboard
 alias xc="xclip -selection clipboard"
+alias xco="xclip -o -selection clipboard"
 
 # Nice line headers for logs
 ERROR=$'\033[39;41mERROR:\033[0m'
