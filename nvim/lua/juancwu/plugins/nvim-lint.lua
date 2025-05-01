@@ -71,12 +71,6 @@ return {
 		},
 	},
 	config = function()
-		vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-			callback = function()
-				lint()
-			end,
-		})
-
 		vim.api.nvim_create_user_command("Lint", function()
 			lint()
 		end, { desc = "Lint file" })
