@@ -9,12 +9,13 @@ alias grep='grep --color=auto'
 
 # --------------  Aliases
 alias gs="git status"
+alias gb="git branch"
 
 # ll alias breakdown
 # -a includes hidden files
 # -l displays the listing in long format, showing file attributes such as permissions
 # -F appends a character to each entry in the listing to indicate the file type (e.g '/' for directories and '*' for executables)
-alias ll="ls -alF"
+alias ll="lsd -alF"
 
 # la alias breakdown
 # -A list all entries without ./ and ../
@@ -221,7 +222,8 @@ ed() {
 autoload -U colors && colors
 
 # Set prompt
-PS1="%n@%m:%~ $ "
+setopt PROMPT_SUBST
+PS1="%n@%m:%~\$(parse-git-branch) $ "
 
 unset color_prompt
 
