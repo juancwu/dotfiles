@@ -48,7 +48,6 @@ esac
 # enable color support for ls and grep (even tho i don't use grep ???)
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
     alias grep='grep --color=auto'
 fi
 
@@ -57,20 +56,17 @@ export PATH=$PATH:/home/jc/.local/bin
 # --------------  Aliases
 alias gs="git status"
 
+alias ls='lsd'
+
 # ll alias breakdown
-# -a includes hidden files
+# -A includes hidden files but excludes . and ..
 # -l displays the listing in long format, showing file attributes such as permissions
 # -F appends a character to each entry in the listing to indicate the file type (e.g '/' for directories and '*' for executables)
-alias ll="lsd -alF"
+alias ll="lsd -AlF"
 
 # la alias breakdown
 # -A list all entries without ./ and ../
 alias la="lsd -A"
-
-# l alias breakdown
-# -C list entries by columns
-# -F appends a character to each entry in the listing to indicate the file type (e.g '/' for directories and '*' for executables)
-alias l="lsd -CF"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
