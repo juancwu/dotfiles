@@ -18,7 +18,7 @@ font pango:FiraCode Nerd Font Mono 12
 
 # app aliases
 set $default_browser "firefox"
-set $terminal "alacritty"
+set $terminal "ghostty"
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -70,7 +70,7 @@ tiling_drag modifier titlebar
 bindsym $mod+B exec $default_browser
 
 # start a terminal
-bindsym $mod+T exec --no-startup-id ~/.config/i3/alacritty.sh
+bindsym $mod+T exec --no-startup-id $terminal
 
 # start discord on workspace 3
 #bindsym $mod+C exec discord
