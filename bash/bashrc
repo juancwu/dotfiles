@@ -17,9 +17,6 @@ alias la="lsd -A"
 #   sleep 10; alert
 alias alert='notify-send --urgency=normal -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# add alias for clear, makes it easier
-alias cc="clear"
-
 # always select the clipboard
 alias xc="xclip -selection clipboard"
 alias xco="xclip -o -selection clipboard"
@@ -29,33 +26,6 @@ ERROR=$'\033[39;41mERROR:\033[0m'
 SUCCESS=$'\033[39;42mSUCCESS:\033[0m'
 WARNING=$'\033[39;43mWARNING:\033[0m'
 INFO=$'\033[39;44mINFO:\033[0m'
-
-# --------------  Functions
-# list directory and cd into it
-sd() {
-	local path=${1:-.}
-	local result=$(ls -d ${path}/*/ 2> /dev/null | fzf)
-	if [[ -n "${result}" ]]; then
-		cd "${result}"
-	else
-		echo -e "$ERROR No directories found or no selection made."
-	fi
-}
-
-# list files and opens it in neovim
-sf() {
-	local path=${2:-.}
-  if [[ $1 == "-h" ]]; then
-    local result=$(find ${path} -type f -name '.*' 2> /dev/null | fzf)
-  else
-    local result=$(find ${path} -type f 2> /dev/null | fzf)
-  fi
-	if [[ -n "${result}" ]]; then
-		nvim "${result}"
-	else
-		echo -e "$ERROR No files found or no selecteion made."
-	fi
-}
 
 # fuzzy find all directories from cwd using fd
 # or quickly select best match from query
@@ -119,22 +89,6 @@ fcd() {
     fi
 }
 
-# fuzzy find all directories from cwd
-# or quickly select best match from query
-cdf() {
-    local selected_dir=""
-
-    if [ $# -eq 1 ]; then
-        selected_dir=$(find . -type d | fzf --filter="$1" --select-1 --exit-0 | head -1)
-    else
-        selected_dir=$(find . -type d | fzf)
-    fi
-
-    if [ -n "$selected_dir" ]; then
-        cd "$selected_dir"
-    fi
-}
-
 # clone repository
 cl() {
     if [[ $# -eq 0 ]]; then
@@ -189,11 +143,6 @@ cl() {
     git clone $url $repository_dir
 }
 
-# get branch if available
-parse-git-branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
 # delete local branches that don't exists in remote repository
 git-prune() {
     git fetch --prune
@@ -233,29 +182,6 @@ gcr() {
         git checkout "$selected_branch"
     else
         echo "No branch selected"
-    fi
-}
-
-# set bat theme
-export BAT_THEME="ansi"
-
-bc() {
-    mac=$(bluetoothctl devices | rg "$1" | awk '{print $2}')
-    bluetoothctl connect $mac
-}
-
-# helper function to fuzzy search files in the current working directory
-ed() {
-    local f=""
-
-    if [ $# -eq 1 ]; then
-        f=$(find . | grep -Ev "node_modules|\.git/" | fzf --filter="$1" --select-1 --exit-0 | head -1)
-    else
-        f=$(find . | grep -Ev "node_modules|\.git/" | fzf)
-    fi
-
-    if [ -n "$f" ]; then
-        nvim "$f"
     fi
 }
 
