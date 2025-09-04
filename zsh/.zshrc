@@ -1,30 +1,10 @@
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
-# enable color support for ls and grep (even tho i don't use grep ???)
-alias ls='ls --color=auto'
+alias ls='lsd'
 alias grep='grep --color=auto'
-
-# --------------  Aliases
 alias gs="git status"
 alias gb="git branch"
-
-# ll alias breakdown
-# -a includes hidden files
-# -l displays the listing in long format, showing file attributes such as permissions
-# -F appends a character to each entry in the listing to indicate the file type (e.g '/' for directories and '*' for executables)
 alias ll="lsd -alF"
-
-# la alias breakdown
-# -A list all entries without ./ and ../
-alias la="ls -A"
-
-# l alias breakdown
-# -C list entries by columns
-# -F appends a character to each entry in the listing to indicate the file type (e.g '/' for directories and '*' for executables)
-alias l="ls -CF"
+alias la="lsd -A"
+alias l="lsd -CF"
 
 # Nice line headers for logs
 ERROR=$'\033[39;41mERROR:\033[0m'
@@ -67,7 +47,8 @@ fcd() {
         selected_dir=$({
             find "$HOME/.config" -type d -maxdepth 1
             echo "$HOME/Documents/Obsidian Vault"
-            find "$HOME/ghq" -mindepth 2 -maxdepth 2 -type d
+            find "$HOME/notes" -type d
+            fd "$HOME/ghq" --min-depth 2 --max-depth 6 --type d --color never -aFH -E 'node_modules' -E 'vendor' -E '.git' --full-path
             ls -d -1 "$HOME/"/*/ | grep -v \.git
             ls -d -1 */ | perl -pe "s#^#$PWD/#" | grep -v \.git
         } | fzf --filter="$1" --select-1 --exit-0 | head -1)
@@ -75,7 +56,8 @@ fcd() {
         selected_dir=$({
             find "$HOME/.config" -type d -maxdepth 1
             echo "$HOME/Documents/Obsidian Vault"
-            find "$HOME/ghq" -mindepth 2 -maxdepth 2 -type d
+            find "$HOME/notes" -type d
+            fd "$HOME/ghq" --min-depth 2 --max-depth 6 --type d --color never -aFH -E 'node_modules' -E 'vendor' -E '.git' --full-path
             ls -d -1 "$HOME/"/*/ | grep -v \.git
             ls -d -1 */ | perl -pe "s#^#$PWD/#" | grep -v \.git
         } | fzf)
@@ -198,11 +180,6 @@ git-prune() {
     git branch -vv | grep '\[origin/.*: gone\]' | awk '{print $1}' | xargs git branch -d
 }
 
-# makes it easier to spin up ngrok with static domain, pass in the port ngrok needs to listen
-sngrok() {
-    ngrok http --domain=hyena-merry-literally.ngrok-free.app $1
-}
-
 # helper function to fuzzy search files in the current working directory
 ed() {
     local f=""
@@ -226,90 +203,5 @@ setopt PROMPT_SUBST
 PS1="%n@%m:%~\$(parse-git-branch) $ "
 
 unset color_prompt
-
-# setup terminal stuff
-# determine initial terminal color mode
-TERM_COLOR_MODE=dark
-command -v asadesuka > /dev/null 2>&1
-if [ $? -eq 0 ]; then
-    IS_ASA=$(asadesuka -offset 30)
-    if [ $IS_ASA = "true" ]; then
-        TERM_COLOR_MODE=light
-    fi
-else
-    CURRENT_HOUR=$(date +"%H")
-    SEVEN_AM=7
-    SEVEN_PM=19
-    if [ $CURRENT_HOUR -ge $SEVEN_AM ] && [ $CURRENT_HOUR -lt $SEVEN_PM ]; then
-        TERM_COLOR_MODE=light
-    fi
-fi
-export TERM_COLOR_MODE
-
-# set the terminal color theme
-# USE_TERM=alacritty
-# if [ $TERM_COLOR_MODE = "light" ]; then
-#     if [ $USE_TERM = "kitty" ]; then
-#         kitten @ set-colors --all "$HOME/.config/kitty/light.conf"
-#     fi
-#     if [ $USE_TERM = "alacritty" ]; then
-#         theme_link="$HOME/.config/alacritty/theme.toml"
-#         rm -rf "$theme_link"
-#         ln -s "$HOME/ghq/alacritty/alacritty-theme/themes/catppuccin_latte.toml" "$theme_link"
-#     fi
-# else
-#     if [ $USE_TERM = "kitty" ]; then
-#         kitten @ set-colors --all "$HOME/.config/kitty/dark.conf"
-#     fi
-#     if [ $USE_TERM = "alacritty" ]; then
-#         theme_link="$HOME/.config/alacritty/theme.toml"
-#         rm -r "$theme_link"
-#         ln -s "$HOME/ghq/alacritty/alacritty-theme/themes/catppuccin_mocha.toml" "$theme_link"
-#     fi
-# fi
-
-type -p curl >/dev/null || echo -e "$WARNING curl is not installed"
-
-command -v nvm > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "$WARNING nvm is not installed"
-fi
-
-command -v pnpm > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "$WARNING pnpm is not installed"
-fi
-
-command -v gh > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "$WARNING gh cli is not installed"
-fi
-
-command -v nvim > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "$ERROR neovim is not installed"
-fi
-
-command -v yarn > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "$WARNING yarn is not installed"
-fi
-
-command -v bun > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "$WARNING bun is not installed"
-fi
-
-command -v lazygit > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "$WARNING lazygit is not installed"
-else
-    alias lg="lazygit"
-fi
-
-command -v ngrok > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "$WARNING ngrok is not installed"
-fi
 
 export EDITOR=nvim
