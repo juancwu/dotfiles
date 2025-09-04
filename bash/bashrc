@@ -27,65 +27,126 @@ SUCCESS=$'\033[39;42mSUCCESS:\033[0m'
 WARNING=$'\033[39;43mWARNING:\033[0m'
 INFO=$'\033[39;44mINFO:\033[0m'
 
-# fuzzy find all directories from cwd using fd
-# or quickly select best match from query
+# fuzzy cd into specific folders from anywhere
+# Deeply searches through commonly used directory trees
 fcd() {
     local selected_dir=""
-
+    
     # Common directories to exclude
-    local exclude_dirs=(
-        ".git"
-        "node_modules"
-        "vendor"
-        ".cache"
-        "dist"
-        "build"
-        "target"
-        ".next"
-        ".nuxt"
-        "__pycache__"
-        ".pytest_cache"
-        ".venv"
-        "venv"
-        "env"
-        ".env"
-        "coverage"
-        ".nyc_output"
-        ".sass-cache"
-        "bower_components"
-        ".idea"
-        ".vscode"
-        ".vs"
-        "*.egg-info"
-        ".tox"
-        ".mypy_cache"
-        ".ruff_cache"
-        ".turbo"
-        "out"
-        "tmp"
-        ".svn"
-        ".hg"
-        ".bzr"
+    local exclude_args=(
+        "-E" ".git"
+        "-E" "node_modules"
+        "-E" "vendor"
+        "-E" ".cache"
+        "-E" "dist"
+        "-E" "build"
+        "-E" "target"
+        "-E" ".next"
+        "-E" ".nuxt"
+        "-E" "__pycache__"
+        "-E" ".pytest_cache"
+        "-E" ".venv"
+        "-E" "venv"
+        "-E" "env"
+        "-E" ".env"
+        "-E" "coverage"
+        "-E" ".nyc_output"
+        "-E" ".sass-cache"
+        "-E" "bower_components"
+        "-E" ".idea"
+        "-E" ".vscode"
+        "-E" ".vs"
+        "-E" "*.egg-info"
+        "-E" ".tox"
+        "-E" ".mypy_cache"
+        "-E" ".ruff_cache"
+        "-E" ".turbo"
+        "-E" "out"
+        "-E" "tmp"
+        "-E" ".svn"
+        "-E" ".hg"
+        "-E" ".bzr"
     )
 
-    # Build fd exclude arguments
-    local fd_excludes=""
-    for dir in "${exclude_dirs[@]}"; do
-        fd_excludes="$fd_excludes -E $dir"
-    done
-
     if [ $# -eq 1 ]; then
-        # Use fd with type directory, exclude common dirs, and apply fzf filter
-        selected_dir=$(fd -t d $fd_excludes . | fzf --filter="$1" --select-1 --exit-0 | head -1)
+        selected_dir=$({
+            # Deep search in .config (but not too deep to avoid noise)
+            fd -t d -t l --max-depth 3 "${exclude_args[@]}" . "$HOME/.config" 2>/dev/null
+            
+            # Shallow search in .cache (usually don't need deep access here)
+            fd -t d --max-depth 1 "${exclude_args[@]}" . "$HOME/.cache" 2>/dev/null
+            
+            # Search in ghq projects (your git repositories)
+            fd -t d "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
+            
+            # Search home directories (excluding common unnecessary ones)
+            fd -t d --max-depth 3 "${exclude_args[@]}" \
+                -E "Library" \
+                -E "Applications" \
+                -E ".Trash" \
+                -E ".local" \
+                -E ".npm" \
+                -E ".cargo" \
+                -E ".rustup" \
+                -E ".gem" \
+                -E ".rbenv" \
+                -E ".pyenv" \
+                -E ".nvm" \
+                -E ".docker" \
+                -E ".vagrant" \
+                -E ".m2" \
+                -E ".gradle" \
+                -E ".android" \
+                -E ".wine" \
+                -E "snap" \
+                . "$HOME" 2>/dev/null
+        } | sort -u | fzf --filter="$1" --select-1 --exit-0 | head -1)
     else
-        # Interactive selection with fzf
-        selected_dir=$(fd -t d $fd_excludes . | fzf)
+        selected_dir=$({
+            # Deep search in .config (but not too deep to avoid noise)
+            fd -t d -t l --max-depth 3 "${exclude_args[@]}" . "$HOME/.config" 2>/dev/null
+            
+            # Shallow search in .cache (usually don't need deep access here)
+            fd -t d --max-depth 1 "${exclude_args[@]}" . "$HOME/.cache" 2>/dev/null
+            
+            # Search in ghq projects (your git repositories)
+            fd -t d "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
+            
+            # Search home directories (excluding common unnecessary ones)
+            fd -t d --max-depth 3 "${exclude_args[@]}" \
+                -E "Library" \
+                -E "Applications" \
+                -E ".Trash" \
+                -E ".local" \
+                -E ".npm" \
+                -E ".cargo" \
+                -E ".rustup" \
+                -E ".gem" \
+                -E ".rbenv" \
+                -E ".pyenv" \
+                -E ".nvm" \
+                -E ".docker" \
+                -E ".vagrant" \
+                -E ".m2" \
+                -E ".gradle" \
+                -E ".android" \
+                -E ".wine" \
+                -E "snap" \
+                . "$HOME" 2>/dev/null
+        } | sort -u | fzf)
     fi
 
     if [ -n "$selected_dir" ]; then
         cd "$selected_dir"
+        if [[ -f .nvmrc ]]; then
+            NVMRC_VERSION=$(cat .nvmrc)
+            CURRENT_VERSION=$(nvm current)
+            if [ "$NVMRC_VERSION" != "$CURRENT_VERSION" ]; then
+                nvm use
+            fi
+        fi
     else
-        echo -e "$ERROR No selection made or no directories found."
+        echo -e "$ERROR No selection made."
     fi
 }
 
