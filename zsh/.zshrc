@@ -41,25 +41,54 @@ sf() {
 
 # fuzzy cd into specific folders
 fcd() {
+    # Common directories to exclude
+    local exclude_args=(
+        --exclude ".git"
+        --exclude "node_modules"
+        --exclude "vendor"
+        --exclude ".cache"
+        --exclude "dist"
+        --exclude "build"
+        --exclude "target"
+        --exclude ".next"
+        --exclude ".nuxt"
+        --exclude "__pycache__"
+        --exclude ".pytest_cache"
+        --exclude ".venv"
+        --exclude "venv"
+        --exclude "env"
+        --exclude ".env"
+        --exclude "coverage"
+        --exclude ".nyc_output"
+        --exclude ".sass-cache"
+        --exclude "bower_components"
+        --exclude ".idea"
+        --exclude ".vscode"
+        --exclude ".vs"
+        --exclude "*.egg-info"
+        --exclude ".tox"
+        --exclude ".mypy_cache"
+        --exclude ".ruff_cache"
+        --exclude ".turbo"
+        --exclude "out"
+        --exclude "tmp"
+        --exclude ".svn"
+        --exclude ".hg"
+        --exclude ".bzr"
+        --exclude "_remote"
+    )
+
     local selected_dir=""
 
     if [ $# -eq 1 ]; then
         selected_dir=$({
-            find "$HOME/.config" -type d -maxdepth 1
-            echo "$HOME/Documents/Obsidian Vault"
-            find "$HOME/notes" -type d
-            fd "$HOME/ghq" --min-depth 2 --max-depth 6 --type d --color never -aFH -E 'node_modules' -E 'vendor' -E '.git' --full-path
-            ls -d -1 "$HOME/"/*/ | grep -v \.git
-            ls -d -1 */ | perl -pe "s#^#$PWD/#" | grep -v \.git
+            # Search in ghq projects (your git repositories)
+            fd -t d --full-path --color never "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
         } | fzf --filter="$1" --select-1 --exit-0 | head -1)
     else
         selected_dir=$({
-            find "$HOME/.config" -type d -maxdepth 1
-            echo "$HOME/Documents/Obsidian Vault"
-            find "$HOME/notes" -type d
-            fd "$HOME/ghq" --min-depth 2 --max-depth 6 --type d --color never -aFH -E 'node_modules' -E 'vendor' -E '.git' --full-path
-            ls -d -1 "$HOME/"/*/ | grep -v \.git
-            ls -d -1 */ | perl -pe "s#^#$PWD/#" | grep -v \.git
+            # Search in ghq projects (your git repositories)
+            fd -t d "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
         } | fzf)
     fi
 
