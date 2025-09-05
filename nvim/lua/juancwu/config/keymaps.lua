@@ -21,19 +21,16 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
--- keymap below needs a better combo, need this to enable macros
--- vim.keymap.set("n", "<leader>q", "q", { noremap = true })
-
 -- select and replace
 vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- do not copy with x, for god sake, WHY copy something that is being deleted??
-vim.keymap.set("n", "x", '"_x')
+vim.keymap.set("n", "x", '"xx')
 
 -- no copy, delete line, for god sake...
-vim.keymap.set("n", "dd", '"_dd')
+vim.keymap.set("n", "dd", '"ddd')
 vim.keymap.set("n", "dx", "dd") -- cut line, under my control
-vim.keymap.set("v", "d", '"_d')
+vim.keymap.set("v", "d", '"dd')
 
 -- copy/paste to/from system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
@@ -48,6 +45,7 @@ vim.keymap.set("n", "dw", '"_dw')
 vim.keymap.set("n", "db", 'vb"_d') -- delete in backwards
 
 vim.keymap.set("n", "<C-a>", "gg<S-v>G") -- select all
+
 -- split pane
 vim.keymap.set("n", "ss", ":split<Return><C-w>w", { silent = true }) -- horizontal
 vim.keymap.set("n", "sv", ":vsplit<Return><C-w>w", { silent = true }) -- vertical
@@ -60,19 +58,10 @@ vim.keymap.set("n", "sl", "<C-w>l")
 vim.keymap.set("n", "sj", "<C-w>j")
 
 -- resize pane
-vim.keymap.set("n", "<C-w><left>", "<C-w><")
-vim.keymap.set("n", "<C-w><right>", "<C-w>>")
-vim.keymap.set("n", "<C-w><up>", "<C-w>+")
-vim.keymap.set("n", "<C-w><down>", "<C-w>-")
-
--- my arrow keys babyyyy
-vim.keymap.set("i", "<C-h>", "<Left>", { noremap = true })
-vim.keymap.set("i", "<C-j>", "<Down>", { noremap = true })
-vim.keymap.set("i", "<C-k>", "<Up>", { noremap = true })
-vim.keymap.set("i", "<C-l>", "<Right>", { noremap = true })
+vim.keymap.set("n", "<C-w><left>", "<C-w>5>")
+vim.keymap.set("n", "<C-w><right>", "<C-w>5<")
+vim.keymap.set("n", "<C-w><up>", "<C-w>5+")
+vim.keymap.set("n", "<C-w><down>", "<C-w>5-")
 
 -- lazygit on floaterm
 vim.keymap.set("n", "<leader>g", "<cmd>FloatermNew lazygit<CR>", { noremap = true })
-
--- quick way to handle errors in Go
-vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<ESC>Oreturn err<ESC>")

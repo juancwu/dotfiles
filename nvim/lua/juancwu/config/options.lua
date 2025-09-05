@@ -27,7 +27,7 @@ vim.opt.ignorecase = true -- case-insensitive search
 vim.opt.backspace = { "start", "eol", "indent" }
 
 -- don't want to look into these...
-vim.opt.wildignore:append({ "*/node_modules/*", "*/__pycache__/*" })
+vim.opt.wildignore:append({ "*/node_modules/*", "*/__pycache__/*", "*/vendor/*" })
 
 -- add '*' in block comments
 vim.opt.formatoptions:append({ "r" })
@@ -45,11 +45,11 @@ vim.opt.undofile = true
 -- highlight on yank
 local highligh_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highligh_group,
-  pattern = "*",
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    group = highligh_group,
+    pattern = "*",
 })
 
 vim.opt.completeopt = "menu,menuone,noselect"
