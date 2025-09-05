@@ -1,16 +1,11 @@
 # --------------  Aliases
 alias gs="git status"
+alias gp="git pull"
+alias gP="git push"
+alias lg='lazygit'
 
 alias ls='lsd'
-
-# ll alias breakdown
-# -A includes hidden files but excludes . and ..
-# -l displays the listing in long format, showing file attributes such as permissions
-# -F appends a character to each entry in the listing to indicate the file type (e.g '/' for directories and '*' for executables)
 alias ll="lsd -AlF"
-
-# la alias breakdown
-# -A list all entries without ./ and ../
 alias la="lsd -A"
 
 # Add an "alert" alias for long running commands.  Use like so:
@@ -30,220 +25,220 @@ INFO=$'\033[39;44mINFO:\033[0m'
 # fuzzy cd into specific folders from anywhere
 # Deeply searches through commonly used directory trees
 fcd() {
-    local selected_dir=""
-    
-    # Common directories to exclude
-    local exclude_args=(
-        "-E" ".git"
-        "-E" "node_modules"
-        "-E" "vendor"
-        "-E" ".cache"
-        "-E" "dist"
-        "-E" "build"
-        "-E" "target"
-        "-E" ".next"
-        "-E" ".nuxt"
-        "-E" "__pycache__"
-        "-E" ".pytest_cache"
-        "-E" ".venv"
-        "-E" "venv"
-        "-E" "env"
-        "-E" ".env"
-        "-E" "coverage"
-        "-E" ".nyc_output"
-        "-E" ".sass-cache"
-        "-E" "bower_components"
-        "-E" ".idea"
-        "-E" ".vscode"
-        "-E" ".vs"
-        "-E" "*.egg-info"
-        "-E" ".tox"
-        "-E" ".mypy_cache"
-        "-E" ".ruff_cache"
-        "-E" ".turbo"
-        "-E" "out"
-        "-E" "tmp"
-        "-E" ".svn"
-        "-E" ".hg"
-        "-E" ".bzr"
-    )
+  local selected_dir=""
 
-    if [ $# -eq 1 ]; then
-        selected_dir=$({
-            # Deep search in .config (but not too deep to avoid noise)
-            fd -t d -t l --max-depth 3 "${exclude_args[@]}" . "$HOME/.config" 2>/dev/null
-            
-            # Shallow search in .cache (usually don't need deep access here)
-            fd -t d --max-depth 1 "${exclude_args[@]}" . "$HOME/.cache" 2>/dev/null
-            
-            # Search in ghq projects (your git repositories)
-            fd -t d "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
-            
-            # Search home directories (excluding common unnecessary ones)
-            fd -t d --max-depth 3 "${exclude_args[@]}" \
-                -E "Library" \
-                -E "Applications" \
-                -E ".Trash" \
-                -E ".local" \
-                -E ".npm" \
-                -E ".cargo" \
-                -E ".rustup" \
-                -E ".gem" \
-                -E ".rbenv" \
-                -E ".pyenv" \
-                -E ".nvm" \
-                -E ".docker" \
-                -E ".vagrant" \
-                -E ".m2" \
-                -E ".gradle" \
-                -E ".android" \
-                -E ".wine" \
-                -E "snap" \
-                . "$HOME" 2>/dev/null
-        } | sort -u | fzf --filter="$1" --select-1 --exit-0 | head -1)
-    else
-        selected_dir=$({
-            # Deep search in .config (but not too deep to avoid noise)
-            fd -t d -t l --max-depth 3 "${exclude_args[@]}" . "$HOME/.config" 2>/dev/null
-            
-            # Shallow search in .cache (usually don't need deep access here)
-            fd -t d --max-depth 1 "${exclude_args[@]}" . "$HOME/.cache" 2>/dev/null
-            
-            # Search in ghq projects (your git repositories)
-            fd -t d "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
-            
-            # Search home directories (excluding common unnecessary ones)
-            fd -t d --max-depth 3 "${exclude_args[@]}" \
-                -E "Library" \
-                -E "Applications" \
-                -E ".Trash" \
-                -E ".local" \
-                -E ".npm" \
-                -E ".cargo" \
-                -E ".rustup" \
-                -E ".gem" \
-                -E ".rbenv" \
-                -E ".pyenv" \
-                -E ".nvm" \
-                -E ".docker" \
-                -E ".vagrant" \
-                -E ".m2" \
-                -E ".gradle" \
-                -E ".android" \
-                -E ".wine" \
-                -E "snap" \
-                . "$HOME" 2>/dev/null
-        } | sort -u | fzf)
-    fi
+  # Common directories to exclude
+  local exclude_args=(
+    "-E" ".git"
+    "-E" "node_modules"
+    "-E" "vendor"
+    "-E" ".cache"
+    "-E" "dist"
+    "-E" "build"
+    "-E" "target"
+    "-E" ".next"
+    "-E" ".nuxt"
+    "-E" "__pycache__"
+    "-E" ".pytest_cache"
+    "-E" ".venv"
+    "-E" "venv"
+    "-E" "env"
+    "-E" ".env"
+    "-E" "coverage"
+    "-E" ".nyc_output"
+    "-E" ".sass-cache"
+    "-E" "bower_components"
+    "-E" ".idea"
+    "-E" ".vscode"
+    "-E" ".vs"
+    "-E" "*.egg-info"
+    "-E" ".tox"
+    "-E" ".mypy_cache"
+    "-E" ".ruff_cache"
+    "-E" ".turbo"
+    "-E" "out"
+    "-E" "tmp"
+    "-E" ".svn"
+    "-E" ".hg"
+    "-E" ".bzr"
+  )
 
-    if [ -n "$selected_dir" ]; then
-        cd "$selected_dir"
-        if [[ -f .nvmrc ]]; then
-            NVMRC_VERSION=$(cat .nvmrc)
-            CURRENT_VERSION=$(nvm current)
-            if [ "$NVMRC_VERSION" != "$CURRENT_VERSION" ]; then
-                nvm use
-            fi
-        fi
-    else
-        echo -e "$ERROR No selection made."
+  if [ $# -eq 1 ]; then
+    selected_dir=$({
+      # Deep search in .config (but not too deep to avoid noise)
+      fd -t d -t l --max-depth 3 "${exclude_args[@]}" . "$HOME/.config" 2>/dev/null
+
+      # Shallow search in .cache (usually don't need deep access here)
+      fd -t d --max-depth 1 "${exclude_args[@]}" . "$HOME/.cache" 2>/dev/null
+
+      # Search in ghq projects (your git repositories)
+      fd -t d "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
+
+      # Search home directories (excluding common unnecessary ones)
+      fd -t d --max-depth 3 "${exclude_args[@]}" \
+        -E "Library" \
+        -E "Applications" \
+        -E ".Trash" \
+        -E ".local" \
+        -E ".npm" \
+        -E ".cargo" \
+        -E ".rustup" \
+        -E ".gem" \
+        -E ".rbenv" \
+        -E ".pyenv" \
+        -E ".nvm" \
+        -E ".docker" \
+        -E ".vagrant" \
+        -E ".m2" \
+        -E ".gradle" \
+        -E ".android" \
+        -E ".wine" \
+        -E "snap" \
+        . "$HOME" 2>/dev/null
+    } | sort -u | fzf --filter="$1" --select-1 --exit-0 | head -1)
+  else
+    selected_dir=$({
+      # Deep search in .config (but not too deep to avoid noise)
+      fd -t d -t l --max-depth 3 "${exclude_args[@]}" . "$HOME/.config" 2>/dev/null
+
+      # Shallow search in .cache (usually don't need deep access here)
+      fd -t d --max-depth 1 "${exclude_args[@]}" . "$HOME/.cache" 2>/dev/null
+
+      # Search in ghq projects (your git repositories)
+      fd -t d "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
+
+      # Search home directories (excluding common unnecessary ones)
+      fd -t d --max-depth 3 "${exclude_args[@]}" \
+        -E "Library" \
+        -E "Applications" \
+        -E ".Trash" \
+        -E ".local" \
+        -E ".npm" \
+        -E ".cargo" \
+        -E ".rustup" \
+        -E ".gem" \
+        -E ".rbenv" \
+        -E ".pyenv" \
+        -E ".nvm" \
+        -E ".docker" \
+        -E ".vagrant" \
+        -E ".m2" \
+        -E ".gradle" \
+        -E ".android" \
+        -E ".wine" \
+        -E "snap" \
+        . "$HOME" 2>/dev/null
+    } | sort -u | fzf)
+  fi
+
+  if [ -n "$selected_dir" ]; then
+    cd "$selected_dir"
+    if [[ -f .nvmrc ]]; then
+      NVMRC_VERSION=$(cat .nvmrc)
+      CURRENT_VERSION=$(nvm current)
+      if [ "$NVMRC_VERSION" != "$CURRENT_VERSION" ]; then
+        nvm use
+      fi
     fi
+  else
+    echo -e "$ERROR No selection made."
+  fi
 }
 
 # clone repository
 cl() {
-    if [[ $# -eq 0 ]]; then
-        # help text
-        echo "Usage: cl REPOSITORY_NAME"
-        echo "Usage: cl REPOSITORY_URL"
-        echo "Usage: cl (hub|lab) REPOSITORY_NAME"
-        echo "Usage: cl (hub|lab) NAMESPACE REPOSITORY_NAME"
-        return 0
+  if [[ $# -eq 0 ]]; then
+    # help text
+    echo "Usage: cl REPOSITORY_NAME"
+    echo "Usage: cl REPOSITORY_URL"
+    echo "Usage: cl (hub|lab) REPOSITORY_NAME"
+    echo "Usage: cl (hub|lab) NAMESPACE REPOSITORY_NAME"
+    return 0
+  fi
+
+  local url=$1
+  local ghq_dir="$HOME/ghq"
+  local namespace=""
+  local repository_name=""
+
+  # extract project name
+  if [[ $url =~ git@git(lab|hub)\.com:([^/]+)/([^/]+)\.git ]]; then
+    local namespace="${BASH_REMATCH[2]}"
+    local repository_name="${BASH_REMATCH[3]}"
+  elif [[ $url =~ https://git(lab|hub)\.com/([^/]+)/([^/]+)\.git ]]; then
+    local namespace="${BASH_REMATCH[2]}"
+    local repository_name="${BASH_REMATCH[3]}"
+  elif [[ $# -ne 0 ]]; then
+    repository_name=$1
+    namespace="juancwu"
+    # default domain to github
+    local domain="hub"
+    # possible domain given
+    if [[ $# -eq 2 ]]; then
+      domain=$1
+      repository_name=$2
     fi
-
-    local url=$1
-    local ghq_dir="$HOME/ghq"
-    local namespace=""
-    local repository_name=""
-
-    # extract project name
-    if [[ $url =~ git@git(lab|hub)\.com:([^/]+)/([^/]+)\.git ]]; then
-        local namespace="${BASH_REMATCH[2]}"
-        local repository_name="${BASH_REMATCH[3]}"
-    elif [[ $url =~ https://git(lab|hub)\.com/([^/]+)/([^/]+)\.git ]]; then
-        local namespace="${BASH_REMATCH[2]}"
-        local repository_name="${BASH_REMATCH[3]}"
-    elif [[ $# -ne 0 ]]; then
-        repository_name=$1
-        namespace="juancwu"
-        # default domain to github
-        local domain="hub"
-        # possible domain given
-        if [[ $# -eq 2 ]]; then
-            domain=$1
-            repository_name=$2
-        fi
-        if [[ $# -eq 3 ]]; then
-            # it has been given a domain, namespace and repository name
-            domain=$1
-            namespace=$2
-            repository_name=$3
-        fi
-        url="git@git$domain.com:$namespace/$repository_name.git"
-    else
-        echo -e "$ERROR Invalid URL format"
-        return 1
+    if [[ $# -eq 3 ]]; then
+      # it has been given a domain, namespace and repository name
+      domain=$1
+      namespace=$2
+      repository_name=$3
     fi
+    url="git@git$domain.com:$namespace/$repository_name.git"
+  else
+    echo -e "$ERROR Invalid URL format"
+    return 1
+  fi
 
-    # check if directory for project exists or not
-    local repository_dir="${ghq_dir}/${namespace}/${repository_name}"
-    if [[ ! -d $repository_dir ]]; then
-        mkdir -p $repository_dir
-    fi
+  # check if directory for project exists or not
+  local repository_dir="${ghq_dir}/${namespace}/${repository_name}"
+  if [[ ! -d $repository_dir ]]; then
+    mkdir -p $repository_dir
+  fi
 
-    git clone $url $repository_dir
+  git clone $url $repository_dir
 }
 
 # delete local branches that don't exists in remote repository
 git-prune() {
-    git fetch --prune
-    git branch -vv | grep '\[origin/.*: gone\]' | awk '{print $1}' | xargs git branch -d
+  git fetch --prune
+  git branch -vv | grep '\[origin/.*: gone\]' | awk '{print $1}' | xargs git branch -d
 }
 
 # fuzzy find branches and switch to selected branch
 gc() {
-    if [ $# -eq 1 ]; then
-        local selected_branch=$(git branch | fzf --filter="$1" --select-1 --exit-0 | head -1 | sed 's/^[ \*]*//')
-        git checkout "$selected_branch"
-        return
-    fi
+  if [ $# -eq 1 ]; then
+    local selected_branch=$(git branch | fzf --filter="$1" --select-1 --exit-0 | head -1 | sed 's/^[ \*]*//')
+    git checkout "$selected_branch"
+    return
+  fi
 
-    local selected_branch=$(git branch | fzf | sed 's/^[ \*]*//')
+  local selected_branch=$(git branch | fzf | sed 's/^[ \*]*//')
 
-    if [ -n "$selected_branch" ]; then
-        git checkout "$selected_branch"
-    else
-        echo "No branch selected"
-    fi
+  if [ -n "$selected_branch" ]; then
+    git checkout "$selected_branch"
+  else
+    echo "No branch selected"
+  fi
 }
 
 # fuzzy find remote branches and switch to selected branch
 gcr() {
-    git fetch
+  git fetch
 
-    if [ $# -eq 1 ]; then
-        local selected_branch=$(git branch -r | fzf --filter="$1" --select-1 --exit-0 | head -1 | sed -E 's/^([ \*]*origin\/[\ *]*)*//')
-        git checkout "$selected_branch"
-        return
-    fi
-    
-    local selected_branch=$(git branch -r | fzf | sed -E 's/^([ \*]*origin\/[\ *]*)*//')
+  if [ $# -eq 1 ]; then
+    local selected_branch=$(git branch -r | fzf --filter="$1" --select-1 --exit-0 | head -1 | sed -E 's/^([ \*]*origin\/[\ *]*)*//')
+    git checkout "$selected_branch"
+    return
+  fi
 
-    if [ -n "$selected_branch" ]; then
-        git checkout "$selected_branch"
-    else
-        echo "No branch selected"
-    fi
+  local selected_branch=$(git branch -r | fzf | sed -E 's/^([ \*]*origin\/[\ *]*)*//')
+
+  if [ -n "$selected_branch" ]; then
+    git checkout "$selected_branch"
+  else
+    echo "No branch selected"
+  fi
 }
 
 export GOPATH=$HOME/go
