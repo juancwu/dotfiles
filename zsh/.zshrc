@@ -5,6 +5,7 @@ alias gb="git branch"
 alias ll="lsd -alF"
 alias la="lsd -A"
 alias l="lsd -CF"
+alias lg="lazygit"
 
 # Nice line headers for logs
 ERROR=$'\033[39;41mERROR:\033[0m'
@@ -88,7 +89,7 @@ fcd() {
     else
         selected_dir=$({
             # Search in ghq projects (your git repositories)
-            fd -t d "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
+            fd -t d --full-path "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
         } | fzf)
     fi
 
