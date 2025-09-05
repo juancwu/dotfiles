@@ -65,12 +65,6 @@ fcd() {
 
   if [ $# -eq 1 ]; then
     selected_dir=$({
-      # Deep search in .config (but not too deep to avoid noise)
-      fd -t d -t l --max-depth 3 "${exclude_args[@]}" . "$HOME/.config" 2>/dev/null
-
-      # Shallow search in .cache (usually don't need deep access here)
-      fd -t d --max-depth 1 "${exclude_args[@]}" . "$HOME/.cache" 2>/dev/null
-
       # Search in ghq projects (your git repositories)
       fd -t d "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
 
@@ -98,12 +92,6 @@ fcd() {
     } | sort -u | fzf --filter="$1" --select-1 --exit-0 | head -1)
   else
     selected_dir=$({
-      # Deep search in .config (but not too deep to avoid noise)
-      fd -t d -t l --max-depth 3 "${exclude_args[@]}" . "$HOME/.config" 2>/dev/null
-
-      # Shallow search in .cache (usually don't need deep access here)
-      fd -t d --max-depth 1 "${exclude_args[@]}" . "$HOME/.cache" 2>/dev/null
-
       # Search in ghq projects (your git repositories)
       fd -t d "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
 
