@@ -25,12 +25,12 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- do not copy with x, for god sake, WHY copy something that is being deleted??
-vim.keymap.set("n", "x", '"xx')
+vim.keymap.set("n", "x", '"_x')
 
 -- no copy, delete line, for god sake...
-vim.keymap.set("n", "dd", '"ddd')
+vim.keymap.set("n", "dd", '"_dd')
 vim.keymap.set("n", "dx", "dd") -- cut line, under my control
-vim.keymap.set("v", "d", '"dd')
+vim.keymap.set("v", "d", '"_d')
 
 -- copy/paste to/from system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
