@@ -14,6 +14,8 @@ local formatters_by_ft = {
     yml = { "yamlfmt" },
     zig = { "zigfmt" },
     rust = { "rustfmt" },
+    templ = { "templ" },
+    php = { "biome" },
 }
 
 return {
