@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.opt.number = true         -- show line number
+vim.opt.number = true -- show line number
 vim.opt.relativenumber = true -- juicy relativity
 
 vim.opt.autoindent = true
@@ -18,7 +18,7 @@ vim.opt.wrap = false -- bad, stay away from me!
 vim.opt.hlsearch = false
 vim.opt.incsearch = true -- highlight search pattern as you type
 
-vim.opt.scrolloff = 12   -- give me some personal space
+vim.opt.scrolloff = 12 -- give me some personal space
 
 vim.opt.updatetime = 50
 
@@ -27,7 +27,7 @@ vim.opt.ignorecase = true -- case-insensitive search
 vim.opt.backspace = { "start", "eol", "indent" }
 
 -- don't want to look into these...
-vim.opt.wildignore:append({ "*/node_modules/*", "*/__pycache__/*" })
+vim.opt.wildignore:append({ "*/node_modules/*", "*/__pycache__/*", "*/vendor/*" })
 
 -- add '*' in block comments
 vim.opt.formatoptions:append({ "r" })

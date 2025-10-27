@@ -18,5 +18,5 @@ return {
             vim.opt.undodir = target_path
             vim.opt.undofile = true
         end
-    end
+    end,
 }

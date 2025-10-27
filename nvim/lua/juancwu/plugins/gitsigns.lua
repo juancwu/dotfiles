@@ -4,16 +4,16 @@ return {
         current_line_blame = true,
         current_line_blame_opts = {
             virt_text = true,
-            virt_text_pos = 'eol',
+            virt_text_pos = "eol",
             delay = 1000,
-            ignore_whitespace = false
+            ignore_whitespace = false,
         },
         signs = {
-            add = { text = '+' },
-            change = { text = '~' },
-            delete = { text = '_' },
-            topdelete = { text = '-' },
-            changedelete = { text = '~' },
+            add = { text = "+" },
+            change = { text = "~" },
+            delete = { text = "_" },
+            topdelete = { text = "-" },
+            changedelete = { text = "~" },
         },
     },
 }

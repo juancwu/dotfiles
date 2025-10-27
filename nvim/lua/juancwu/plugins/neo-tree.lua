@@ -5,7 +5,7 @@ return {
     cmd = { "Neotree" },
     keys = {
         { "<leader>fs", "<cmd>NeoTreeFloatToggle<CR>", desc = "Toggle [F]ile [S]ystem Floating Menu" },
-        { "<C-b>",      "<cmd>NeoTreeFocusToggle<CR>", desc = "Open Side File System" }
+        { "<C-b>", "<cmd>NeoTreeFocusToggle<CR>", desc = "Open Side File System" },
     },
     dependencies = {
         "nvim-lua/plenary.nvim",
@@ -44,8 +44,8 @@ return {
                 -- this command supports BASH style brace expansion ("x{a,b,c}" -> xa,xb,xc). see `:h neo-tree-file-actions` for details
                 -- some commands may take optional config options, see `:h neo-tree-mappings` for details
                 config = {
-                    show_path = "none" -- "none", "relative", "absolute"
-                }
+                    show_path = "none", -- "none", "relative", "absolute"
+                },
             },
             ["A"] = "add_directory", -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion.
             ["d"] = "delete",
@@ -66,6 +66,6 @@ return {
             ["?"] = "show_help",
             ["<"] = "prev_source",
             [">"] = "next_source",
-        }
-    }
+        },
+    },
 }

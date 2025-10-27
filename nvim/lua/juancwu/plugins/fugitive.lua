@@ -13,7 +13,7 @@ return {
         "GRemove",
         "GRename",
         "Glgrep",
-        "Gedit"
+        "Gedit",
     },
     keys = {
         { "<leader>gs", "<cmd>Git<CR>", desc = "Git status" },

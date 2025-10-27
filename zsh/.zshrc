@@ -6,6 +6,7 @@ alias ll="lsd -alF"
 alias la="lsd -A"
 alias l="lsd -CF"
 alias lg="lazygit"
+alias vim="nvim"
 
 # Nice line headers for logs
 ERROR=$'\033[39;41mERROR:\033[0m'

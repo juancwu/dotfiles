@@ -2,23 +2,27 @@ return {
     "akinsho/toggleterm.nvim",
     version = "*",
     keys = {
-        { "<leader>lg", function() 
-            local Terminal = require('toggleterm.terminal').Terminal
-            local lazygit = Terminal:new({
-                cmd = "lazygit",
-                direction = "float",
-                float_opts = {
-                    border = "double",
-                },
-                on_open = function(term)
-                    vim.cmd("startinsert!")
-                end,
-                on_close = function(term)
-                    vim.cmd("startinsert!")
-                end,
-            })
-            lazygit:toggle()
-        end, desc = "Open lazygit in a floating window" },
+        {
+            "<leader>lg",
+            function()
+                local Terminal = require("toggleterm.terminal").Terminal
+                local lazygit = Terminal:new({
+                    cmd = "lazygit",
+                    direction = "float",
+                    float_opts = {
+                        border = "double",
+                    },
+                    on_open = function(term)
+                        vim.cmd("startinsert!")
+                    end,
+                    on_close = function(term)
+                        vim.cmd("startinsert!")
+                    end,
+                })
+                lazygit:toggle()
+            end,
+            desc = "Open lazygit in a floating window",
+        },
     },
     opts = {
         size = 20,
