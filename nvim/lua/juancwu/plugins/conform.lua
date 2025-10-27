@@ -16,6 +16,7 @@ local formatters_by_ft = {
     rust = { "rustfmt" },
     templ = { "templ" },
     php = { "biome" },
+    blade = { "blade-formatter" },
 }
 
 return {
@@ -36,12 +37,21 @@ return {
         require("conform").setup({
             notify_on_error = false,
             formatters_by_ft = formatters_by_ft,
+            formatters = {
+                ["blade-formatter"] = {
+                    command = "blade-formatter",
+                    args = {
+                        "--write",
+                        "--stdin",
+                    },
+                },
+            },
             format_on_save = function(bufnr)
                 if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
                     return
                 end
                 return {
-                    timeout_ms = 500,
+                    timeout_ms = 2500,
                     lsp_format = "fallback",
                 }
             end,
