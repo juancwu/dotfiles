@@ -132,10 +132,10 @@ return {
         vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
         vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
         vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
-        vim.keymap.set("n", "gr", builtin.lsp_references, { desc = "[G]o to [R]eferences", noremap = true })
-        vim.keymap.set("n", "gd", builtin.lsp_definitions, { desc = "[G]o to [D]efinitions" })
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "[G]o to [D]eclaration" })
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[N]ame" })
+        -- vim.keymap.set("n", "gr", builtin.lsp_references, { desc = "[G]o to [R]eferences", noremap = true })
+        -- vim.keymap.set("n", "gd", builtin.lsp_definitions, { desc = "[G]o to [D]efinitions" })
+        -- vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "[G]o to [D]eclaration" })
+        -- vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[N]ame" })
 
         -- Git pickers
         vim.keymap.set("n", "<leader>gf", builtin.git_files, { desc = "Search [G]it [F]iles" })
