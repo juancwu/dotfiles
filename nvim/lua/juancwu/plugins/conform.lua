@@ -45,6 +45,18 @@ return {
                         "--stdin",
                     },
                 },
+                ["biome"] = {
+                    command = "biome",
+                    args = {
+                        "format",
+                        "--stdin-file-path",
+                        "$FILENAME",
+                        "--indent-style",
+                        "space",
+                        "--indent-width",
+                        "4",
+                    },
+                },
             },
             format_on_save = function(bufnr)
                 if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then

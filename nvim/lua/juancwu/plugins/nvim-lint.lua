@@ -36,12 +36,16 @@ end
 local function get_linter()
     local filetype = vim.bo.filetype
     local available_linters = linters_by_ft[filetype] or {}
-    local linter = find_first_config()
 
-    if linter then
-        if vim.tbl_contains(available_linters, linter) then
-            vim.g.current_linter = linter
-            return linter
+    if vim.tbl_isempty(available_linters) then
+        return nil
+    end
+
+    local linter_from_config = find_first_config()
+    if linter_from_config and vim.tbl_contains(available_linters, linter_from_config) then
+        if vim.tbl_contains(available_linters, linter_from_config) then
+            vim.g.current_linter = linter_from_config
+            return linter_from_config
         end
     end
 
