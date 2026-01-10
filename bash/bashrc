@@ -26,6 +26,16 @@ INFO=$'\033[39;44mINFO:\033[0m'
 # Deeply searches through commonly used directory trees
 fcd() {
   local selected_dir=""
+  local fd_cmd=""
+
+  if command -v fd > /dev/null 2>&1; then
+	  fd_cmd="fd"
+  elif command -v fdfind > /dev/null 2>&1; then
+	  fd_cmd="fdfind"
+  else
+	  echo -e "$ERROR Error: 'fd' is not installed." >&2
+	  return 1
+  fi
 
   # Common directories to exclude
   local exclude_args=(
@@ -66,10 +76,10 @@ fcd() {
   if [ $# -eq 1 ]; then
     selected_dir=$({
       # Search in ghq projects (your git repositories)
-      fd -t d "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
+      "$fd_cmd" -t d "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
 
       # Search home directories (excluding common unnecessary ones)
-      fd -t d --max-depth 3 "${exclude_args[@]}" \
+      "$fd_cmd" -t d --max-depth 3 "${exclude_args[@]}" \
         -E "Library" \
         -E "Applications" \
         -E ".Trash" \
@@ -93,10 +103,10 @@ fcd() {
   else
     selected_dir=$({
       # Search in ghq projects (your git repositories)
-      fd -t d "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
+      "$fd_cmd" -t d "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
 
       # Search home directories (excluding common unnecessary ones)
-      fd -t d --max-depth 3 "${exclude_args[@]}" \
+      "$fd_cmd" -t d --max-depth 3 "${exclude_args[@]}" \
         -E "Library" \
         -E "Applications" \
         -E ".Trash" \
@@ -121,13 +131,6 @@ fcd() {
 
   if [ -n "$selected_dir" ]; then
     cd "$selected_dir"
-    if [[ -f .nvmrc ]]; then
-      NVMRC_VERSION=$(cat .nvmrc)
-      CURRENT_VERSION=$(nvm current)
-      if [ "$NVMRC_VERSION" != "$CURRENT_VERSION" ]; then
-        nvm use
-      fi
-    fi
   else
     echo -e "$ERROR No selection made."
   fi
@@ -229,6 +232,4 @@ gcr() {
   fi
 }
 
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH:$GOPATH/bin:/usr/local/go/bin
 export EDITOR=nvim
