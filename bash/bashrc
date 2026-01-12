@@ -232,4 +232,6 @@ gcr() {
   fi
 }
 
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH:$GOPATH/bin:/usr/local/go/bin
 export EDITOR=nvim
