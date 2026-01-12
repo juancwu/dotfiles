@@ -43,6 +43,13 @@ sf() {
 
 # fuzzy cd into specific folders
 fcd() {
+    if command -v fd > /dev/null 2>&1; then
+        # do nothing, command exists
+    else
+        echo -e "$ERROR Error: 'fd' is not installed." >&2
+        return 1
+    fi
+
     # Common directories to exclude
     local exclude_args=(
         --exclude ".git"
@@ -84,84 +91,17 @@ fcd() {
 
     if [ $# -eq 1 ]; then
         selected_dir=$({
-            # Search in ghq projects (your git repositories)
-            fd -t d --full-path --color never "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
+            fd -t d --color never "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
         } | fzf --filter="$1" --select-1 --exit-0 | head -1)
     else
         selected_dir=$({
-            # Search in ghq projects (your git repositories)
-            fd -t d --full-path "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
+            fd -t d --color never "${exclude_args[@]}" . "$HOME/ghq" 2>/dev/null
         } | fzf)
     fi
 
 	if [ -n "$selected_dir" ]; then
 		cd "$selected_dir"
-		if [[ -f .nvmrc ]]; then
-			NVMRC_VERSION=$(cat .nvmrc)
-			CURRENT_VERSION=$(nvm current)
-			if [ "$NVMRC_VERSION" != "$CURRENT_VERSION" ]; then
-				nvm use
-			fi
-		fi
-	else
-		echo "No selection made."
 	fi
-}
-
-# clone repository
-# setopt EXTENDED_GLOB
-cl() {
-    if [[ $# -eq 0 ]]; then
-        # help text
-        echo "Usage: cl REPOSITORY_NAME"
-        echo "Usage: cl REPOSITORY_URL"
-        echo "Usage: cl (hub|lab) REPOSITORY_NAME"
-        echo "Usage: cl (hub|lab) NAMESPACE REPOSITORY_NAME"
-        return 0
-    fi
-
-    local url=$1
-    local ghq_dir="$HOME/ghq"
-    local namespace=""
-    local repository_name=""
-
-    # extract project name
-    if [[ $url =~ git@git(lab|hub)\.com:([^/]+)/([^/]+)\.git ]]; then
-        namespace="${match[2]}"
-        repository_name="${match[3]}"
-    elif [[ $url =~ https://git(lab|hub)\.com/([^/]+)/([^/]+)\.git ]]; then
-        namespace="${match[2]}"
-        repository_name="${match[3]}"
-    elif [[ $# -ne 0 ]]; then
-        repository_name=$1
-        namespace="juancwu"
-        local domain="hub"
-
-        if [[ $# -eq 2 ]]; then
-            domain=$1
-            repository_name=$2
-        fi
-
-        if [[ $# -eq 3 ]]; then
-            domain=$1
-            namespace=$2
-            repository_name=$3
-        fi
-
-        url="git@git$domain.com:$namespace/$repository_name.git"
-    else
-        echo "Invalid URL format"
-        return 1
-    fi
-
-    # check if directory for project exists or not
-    local project_dir="${ghq_dir}/${namespace}/${repository_name}"
-    echo $project_dir
-    if [[ ! -d $project_dir ]]; then
-        mkdir -p $project_dir
-    fi
-
-    git clone $url $project_dir
 }
 
 # fuzzy find branches and switch to selected branch
@@ -209,21 +149,6 @@ parse-git-branch() {
 git-prune() {
     git fetch --prune
     git branch -vv | grep '\[origin/.*: gone\]' | awk '{print $1}' | xargs git branch -d
-}
-
-# helper function to fuzzy search files in the current working directory
-ed() {
-    local f=""
-
-    if [ $# -eq 1 ]; then
-        f=$(find . | grep -Ev "node_modules|\.git/" | fzf --filter="$1" --select-1 --exit-0 | head -1)
-    else
-        f=$(find . | grep -Ev "node_modules|\.git/" | fzf)
-    fi
-
-    if [ -n "$f" ]; then
-        nvim "$f"
-    fi
 }
 
 # Load colors if possible
