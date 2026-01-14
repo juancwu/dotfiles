@@ -110,6 +110,10 @@ return {
                 file_ignore_patterns = {
                     "node%_modules/.*",
                     "%.git/.*",
+                    "%.rustup/.*",
+                    "target/.*",
+                    ".devbox/.*",
+                    ".nix/.*",
                 },
             }
 
