@@ -153,6 +153,7 @@ return {
             end
 
             require("mason-tool-installer").setup({ ensure_installed = tools })
+            vim.cmd("MasonToolsInstall")
         end, {
             desc = "Install tools for a specific profile (e.g., web, lua, go)",
             nargs = 1,
