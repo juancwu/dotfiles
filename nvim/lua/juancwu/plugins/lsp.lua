@@ -10,7 +10,7 @@ return {
         -- status updates for LSP
         { "j-hui/fidget.nvim", opts = {} },
 
-        { "hrsh7th/cmp-nvim-lsp" }, -- Required
+        { "saghen/blink.cmp" },
     },
     config = function()
         -- stole this from kickstart, great config
@@ -86,7 +86,7 @@ return {
         })
 
         local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+        capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
         vim.filetype.add({
             extension = {
@@ -131,7 +131,35 @@ return {
 
         local ensure_installed = vim.tbl_keys(servers or {})
         vim.list_extend(ensure_installed, { "stylua", "yamlfmt", "biome", "goimports" })
-        require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+        -- require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+        local profiles = {
+            base = { "yamlfmt" },
+            lua = { "lua_ls", "stylua" },
+            web = { "ts_ls", "tailwindcss", "biome", "intelephense", "templ" },
+            go = { "gopls", "goimports" },
+            rust = { "rust_analyzer" },
+            zig = { "zls" },
+            all = ensure_installed,
+        }
+
+        vim.api.nvim_create_user_command("InstallProfile", function(opts)
+            local profile_name = opts.args
+            local tools = profiles[profile_name]
+
+            if not tools then
+                print("Profile '" .. profile_name .. "' not found. Available: " .. table.concat(vim.tbl_keys(profiles), ", "))
+                return
+            end
+
+            require("mason-tool-installer").setup({ ensure_installed = tools })
+        end, {
+            desc = "Install tools for a specific profile (e.g., web, lua, go)",
+            nargs = 1,
+            complete = function()
+                return vim.tbl_keys(profiles)
+            end,
+        })
 
         require("mason-lspconfig").setup({
             handlers = {
