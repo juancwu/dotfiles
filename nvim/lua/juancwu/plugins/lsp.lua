@@ -26,8 +26,8 @@ return {
                 -- Use built-in LSP for definitions (replaces deprecated Telescope function)
                 map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
 
-                -- Use built-in LSP for references (replaces deprecated Telescope function)
-                map("gr", vim.lsp.buf.references, "[G]oto [R]eferences")
+                -- Use Telescope for references (auto-closes on selection)
+                map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
 
                 -- Use built-in LSP for implementation (replaces deprecated Telescope function)
                 map("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
