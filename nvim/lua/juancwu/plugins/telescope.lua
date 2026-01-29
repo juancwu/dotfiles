@@ -114,6 +114,8 @@ return {
                     "target/.*",
                     ".devbox/.*",
                     ".nix/.*",
+                    "vendor/.*",
+                    "storage/.*",
                 },
             }
 
