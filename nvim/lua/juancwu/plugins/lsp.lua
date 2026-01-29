@@ -112,6 +112,8 @@ return {
                     },
                 },
             },
+            cssls = {},
+            css_variables = {},
             tailwindcss = {
                 filetypes = {
                     "templ",
@@ -136,7 +138,7 @@ return {
         local profiles = {
             base = { "yamlfmt" },
             lua = { "lua_ls", "stylua" },
-            web = { "ts_ls", "tailwindcss", "biome", "intelephense", "templ" },
+            web = { "ts_ls", "tailwindcss", "biome", "intelephense", "templ", "cssls", "css_variables" },
             go = { "gopls", "goimports" },
             rust = { "rust_analyzer" },
             zig = { "zls" },
@@ -148,7 +150,12 @@ return {
             local tools = profiles[profile_name]
 
             if not tools then
-                print("Profile '" .. profile_name .. "' not found. Available: " .. table.concat(vim.tbl_keys(profiles), ", "))
+                print(
+                    "Profile '"
+                        .. profile_name
+                        .. "' not found. Available: "
+                        .. table.concat(vim.tbl_keys(profiles), ", ")
+                )
                 return
             end
 
