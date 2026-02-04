@@ -236,18 +236,6 @@ parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
-# Starts a new secure session with auto-wipe enabled
-stmux() {
-    if [ -z "$GIT_KEY" ]; then
-        echo "Missing GIT_KEY environment variable."
-        return
-    fi
-
-    ssh-agent sh -c "tmux new-session -s secure \
-        \; set-hook client-detached \"run-shell 'SSH_AUTH_SOCK=\$SSH_AUTH_SOCK ssh-add -D'\" \
-        \; send-keys \"ssh-add $GIT_KEY\" C-m"
-}
-
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH:$GOPATH/bin:/usr/local/go/bin
 export EDITOR=nvim
