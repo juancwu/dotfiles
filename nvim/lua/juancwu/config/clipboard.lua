@@ -2,6 +2,7 @@ local Utils = require("juancwu.utils")
 
 if Utils.os.is_linux() then
     local wayland_display = os.getenv("WAYLAND_DISPLAY")
+    local ssh_tty = os.getenv("SSH_TTY")
     if Utils.os.is_wsl() then
         vim.g.clipboard = {
             name = "win32yank",
@@ -14,6 +15,20 @@ if Utils.os.is_linux() then
                 ["*"] = "win32yank.exe -o --lf",
             },
             cache_enabled = 0,
+        }
+    elseif ssh_tty then
+        local clip_path = vim.fn.expand("~/.clipboard")
+        vim.g.clipboard = {
+            name = "file-clipboard",
+            copy = {
+                ["+"] = { "tee", clip_path },
+                ["*"] = { "tee", clip_path },
+            },
+            paste = {
+                ["+"] = { "cat", clip_path },
+                ["*"] = { "cat", clip_path },
+            },
+            cache_enabled = 1,
         }
     elseif wayland_display then
         vim.g.clipboard = {
