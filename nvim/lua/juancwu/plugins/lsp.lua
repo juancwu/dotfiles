@@ -92,6 +92,9 @@ return {
             extension = {
                 templ = "templ",
             },
+            pattern = {
+                [".*%.blade%.php"] = "blade",
+            },
         })
 
         local servers = {
@@ -103,6 +106,21 @@ return {
                 filetypes = { "templ" },
             },
             intelephense = {},
+            html = {
+                filetypes = { "html", "twig", "hbs", "blade" },
+            },
+            emmet_ls = {
+                filetypes = {
+                    "html",
+                    "typescriptreact",
+                    "javascriptreact",
+                    "css",
+                    "sass",
+                    "scss",
+                    "less",
+                    "blade",
+                },
+            },
             lua_ls = {
                 settings = {
                     Lua = {
@@ -122,23 +140,37 @@ return {
                     "typescript",
                     "javascriptreact",
                     "typescriptreact",
+                    "blade",
                 },
                 init_options = {
                     userLanguages = {
                         templ = "html",
+                        blade = "html",
                     },
                 },
             },
         }
 
         local ensure_installed = vim.tbl_keys(servers or {})
-        vim.list_extend(ensure_installed, { "stylua", "yamlfmt", "biome", "goimports" })
+        vim.list_extend(ensure_installed, { "stylua", "yamlfmt", "biome", "goimports", "pint", "blade-formatter" })
         -- require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
         local profiles = {
             base = { "yamlfmt" },
             lua = { "lua_ls", "stylua" },
-            web = { "ts_ls", "tailwindcss", "biome", "intelephense", "templ", "cssls", "css_variables" },
+            web = {
+                "ts_ls",
+                "tailwindcss",
+                "biome",
+                "intelephense",
+                "templ",
+                "cssls",
+                "css_variables",
+                "html",
+                "emmet_ls",
+                "pint",
+                "blade-formatter",
+            },
             go = { "gopls", "goimports" },
             rust = { "rust_analyzer" },
             zig = { "zls" },

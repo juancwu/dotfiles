@@ -19,6 +19,7 @@ return {
         "handlebars",
         "hbs",
         "templ",
+        "blade",
     },
     config = function()
         local autotag = require("nvim-ts-autotag")

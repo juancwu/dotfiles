@@ -15,7 +15,7 @@ local formatters_by_ft = {
     zig = { "zigfmt" },
     rust = { "rustfmt" },
     templ = { "templ" },
-    php = { "biome" },
+    php = { "pint" },
     blade = { "blade-formatter" },
 }
 
