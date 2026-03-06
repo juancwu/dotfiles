@@ -38,6 +38,11 @@ return {
             notify_on_error = false,
             formatters_by_ft = formatters_by_ft,
             formatters = {
+                pint = {
+                    command = "vendor/bin/pint",
+                    args = { "$FILENAME" },
+                    stdin = false,
+                },
                 ["blade-formatter"] = {
                     command = "blade-formatter",
                     args = {
