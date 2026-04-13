@@ -1,9 +1,9 @@
-local Utils = require("juancwu.utils")
+local os_utils = require("os_utils")
 
-if Utils.os.is_linux() then
+if os_utils.is_linux() then
     local wayland_display = os.getenv("WAYLAND_DISPLAY")
     local ssh_tty = os.getenv("SSH_TTY")
-    if Utils.os.is_wsl() then
+    if os_utils.is_wsl() then
         vim.g.clipboard = {
             name = "win32yank",
             copy = {
@@ -57,7 +57,7 @@ if Utils.os.is_linux() then
             cache_enabled = 1,
         }
     end
-elseif Utils.os.is_mac() then
+elseif os_utils.is_mac() then
     vim.g.clipboard = {
         name = "mac-clipboard",
         copy = {

@@ -1,4 +1,3 @@
----@class juancwu.utils.os
 local M = {}
 
 ---@return boolean
