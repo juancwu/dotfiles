@@ -204,6 +204,16 @@ require("mini.indentscope").setup({
     options = { try_as_border = true },
 })
 
+-- auto pair
+vim.pack.add({
+    {
+        src = "https://github.com/nvim-mini/mini.pairs.git",
+        version = "v0.17.0",
+    },
+})
+
+require("mini.pairs").setup()
+
 -- telescope
 vim.pack.add({
     {
