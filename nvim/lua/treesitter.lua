@@ -21,6 +21,14 @@ local ensured_installed = {
     "typescript",
     "lua",
     "templ",
+    -- parsers for nvim-ts-autotag filetypes; without these
+    -- vim.treesitter.get_parser() returns nil on nvim 0.12 and
+    -- autotag crashes on InsertLeave
+    "html",
+    "tsx",
+    "svelte",
+    "vue",
+    "xml",
 }
 local already_installed = treesitter.get_installed()
 local parsers_to_install = vim.iter(ensured_installed)

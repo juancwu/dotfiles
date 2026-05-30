@@ -214,6 +214,29 @@ vim.pack.add({
 
 require("mini.pairs").setup()
 
+-- auto closing tags
+vim.pack.add({
+    {
+        src = "https://github.com/windwp/nvim-ts-autotag",
+        version = "8e1c0a389f20bf7f5b0dd0e00306c1247bda2595",
+    },
+})
+
+require("nvim-ts-autotag").setup({
+    filetypes = {
+        "html",
+        "javascript",
+        "typescript",
+        "javascriptreact",
+        "typescriptreact",
+        "svelte",
+        "vue",
+        "xml",
+        "php",
+        "templ",
+    },
+})
+
 -- telescope
 vim.pack.add({
     {

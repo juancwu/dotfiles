@@ -101,7 +101,8 @@
     },
     "nvim-ts-autotag": {
       "rev": "8e1c0a389f20bf7f5b0dd0e00306c1247bda2595",
-      "src": "https://github.com/windwp/nvim-ts-autotag"
+      "src": "https://github.com/windwp/nvim-ts-autotag",
+      "version": "'8e1c0a389f20bf7f5b0dd0e00306c1247bda2595'"
     },
     "nvim-ts-context-commentstring": {
       "rev": "6141a40173c6efa98242dc951ed4b6f892c97027",
