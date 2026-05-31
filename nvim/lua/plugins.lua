@@ -105,6 +105,7 @@ local formatters_by_ft = {
     markdown = { "biome" },
     jsonc = { "biome" },
     json = { "biome" },
+    html = { "biome_html" },
     go = { "gofmt", "goimports" },
     python = { "autopep8" },
     yaml = { "yamlfmt" },
@@ -120,6 +121,13 @@ require("conform").setup({
     notify_on_error = false,
     formatters_by_ft = formatters_by_ft,
     formatters = {
+        -- biome's html formatter doesn't apply over stdin; use --write so it
+        -- edits the (temp) file in place, then conform reads it back
+        biome_html = {
+            command = "biome",
+            args = { "format", "--write", "$FILENAME" },
+            stdin = false,
+        },
         pint = {
             command = "vendor/bin/pint",
             args = { "$FILENAME" },
